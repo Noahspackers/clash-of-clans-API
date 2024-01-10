@@ -10,8 +10,7 @@ const app = express();
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
-app.use(cors());
-
+app.use(cors({ origin: '*' }));
 
 app.get(`https://api-endzone-clan.netlify.app/clans/endzone`, async (req: Request, res: Response) => {
   try {
@@ -65,5 +64,5 @@ app.get(`https://api-endzone-clan.netlify.app/clans/firstzone`, async (req: Requ
   }
 });
 
-app.use(cors());
-export const clansHandler = serverless(app);
+
+module.exports = app;
