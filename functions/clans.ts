@@ -3,9 +3,8 @@ import axios from 'axios';
 import { Request, Response } from 'express';
 import { accessToken } from "../src/service/proxy";
 import cors from "cors";  
-import serverless from 'serverless-http';
-
-import apps from '../src/service/server';
+import { Handler, HandlerEvent } from '@netlify/functions';
+import exp from 'constants';
 
 const app = express();
 
@@ -14,8 +13,7 @@ const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 app.use(cors());
 
-export const handler = serverless(apps);
-
+export default function clans() {
   app.get(`/clans/endzone`, async (req: Request, res: Response) => {
     try {
       const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
@@ -69,3 +67,37 @@ export const handler = serverless(apps);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+};
+
+clans();
+
+export const handler: Handler = async (event: HandlerEvent, context) => {
+  // Create a fake Express request object
+  const fakeRequest: Request = {
+    method: 'GET', // or any other HTTP method you are handling
+    url: event.path, // assuming event.path is the URL in the Netlify function event
+    headers: event.headers,
+    // Add other relevant properties based on your needs
+  } as Request;
+
+  // Create a fake Express response object
+  const fakeResponse: Response = {
+    send: (body) => {
+      // Send the response body
+      (fakeResponse as any).body = body; // Use 'as any' to avoid TypeScript error
+    },
+    // Implement other necessary methods and properties here
+  } as Response;
+
+  // Use your Express app with the fake request and response
+  await app(fakeRequest, fakeResponse);
+
+  // Extract the response from the fakeResponse object
+  const result = {
+    statusCode: fakeResponse.statusCode || 200,
+    body: (fakeResponse as any).body, // Use 'as any' to avoid TypeScript error
+    // Add other necessary properties based on your needs
+  };
+
+  return result;
+};

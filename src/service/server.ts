@@ -3,14 +3,14 @@ import axios from 'axios';
 import { Request, Response } from 'express';
 import { accessToken } from './proxy';
 import cors from 'cors';
-
+import { Handler, HandlerEvent } from '@netlify/functions';
 const apps = express();
 
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 apps.use(cors());
-
+export default function clans() {
 apps.get('/clans/endzone', async (req: Request, res: Response) => {
   try {
     const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
@@ -62,4 +62,35 @@ apps.get('/clans/firstzone', async (req: Request, res: Response) => {
   }
 });
 
-export default apps;
+}
+
+export const handler: Handler = async (event: HandlerEvent, context) => {
+  // Create a fake Express request object
+  const fakeRequest: Request = {
+    method: 'GET', // or any other HTTP method you are handling
+    url: event.path, // assuming event.path is the URL in the Netlify function event
+    headers: event.headers,
+    // Add other relevant properties based on your needs
+  } as Request;
+
+  // Create a fake Express response object
+  const fakeResponse: Response = {
+    send: (body) => {
+      // Send the response body
+      (fakeResponse as any).body = body; // Use 'as any' to avoid TypeScript error
+    },
+    // Implement other necessary methods and properties here
+  } as Response;
+
+  // Use your Express app with the fake request and response
+  await apps(fakeRequest, fakeResponse);
+
+  // Extract the response from the fakeResponse object
+  const result = {
+    statusCode: fakeResponse.statusCode || 200,
+    body: (fakeResponse as any).body, // Use 'as any' to avoid TypeScript error
+    // Add other necessary properties based on your needs
+  };
+
+  return result;
+};
