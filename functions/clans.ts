@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { accessToken } from "../src/service/proxy";
 import cors from "cors";  
 import { Handler, HandlerEvent } from '@netlify/functions';
-import exp from 'constants';
+
 
 const app = express();
 
@@ -25,6 +25,9 @@ export default function clans() {
       });
       const data = response.data;
       res.header("Content-Type", "application/json");
+      res.header("Access-Control-Allow-Origin", "*"); // Replace '*' with your actual allowed origin(s)
+      res.header("Access-Control-Allow-Methods", "GET");
+
       res.json(data);
     } catch (error) {
       console.error('Error fetching data from Clash of Clans API:', error);
