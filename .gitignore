@@ -1,4 +1,8 @@
+# ignore all files in this directory
 node_modules
+.ds_store
+build
+.gitignore
 
 # Local Netlify folder
 .netlify
