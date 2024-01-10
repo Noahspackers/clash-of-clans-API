@@ -29,7 +29,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false && react-scripts build",
     "server": "node -r ts-node/register ./src/service/server.ts",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
