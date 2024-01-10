@@ -24,8 +24,6 @@ export default function clans() {
       });
   
       console.log('Clash of Clans API Response:', axiosResponse.data);
-  
-      res.setHeader("Content-Type", "application/json");
       res.send(axiosResponse.data);
     } catch (error) {
       console.error('Error fetching data from Clash of Clans API:', error);
@@ -44,7 +42,6 @@ export default function clans() {
   
       console.log('Clash of Clans API Response:', axiosResponse.data);
   
-      res.setHeader("Content-Type", "application/json");
       res.send(axiosResponse.data);
     } catch (error) {
       console.error('Error fetching data from Clash of Clans API:', error);
@@ -62,7 +59,7 @@ export default function clans() {
         responseType: 'json',
       });
       const data = response.data;
-      
+  
       res.json(data);
     } catch (error) {
       console.error('Error fetching data from Clash of Clans API:', error);
