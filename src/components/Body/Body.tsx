@@ -38,6 +38,7 @@ const Body: React.FC<Body> = () => {
             headers: {
               "Content-Type": "application/json", // Set your desired Content-Type here
               // Add any other headers if needed
+              "Access-Control-Allow-Origin": "*",
             },
           }
         );
@@ -61,6 +62,7 @@ const Body: React.FC<Body> = () => {
             headers: {
               "Content-Type": "application/json", // Set your desired Content-Type here
               // Add any other headers if needed
+              "Access-Control-Allow-Origin": "*",
             },
           }
         );
