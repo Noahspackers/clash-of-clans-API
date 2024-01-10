@@ -62,5 +62,5 @@ app.get(`https://api.endzone-clan.de/clans/firstzone`, async (req: Request, res:
   }
 });
 
-
+app.use(cors());
 export const clansHandler = serverless(app);
