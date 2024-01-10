@@ -10,12 +10,12 @@ const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 apps.use(cors());
-export default function clans() {
+
 apps.get('/clans/endzone', async (req: Request, res: Response) => {
   try {
     const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`, // You need to set up environment variables for security
         "Content-Type": "application/json",
       },
     });
@@ -62,7 +62,6 @@ apps.get('/clans/firstzone', async (req: Request, res: Response) => {
   }
 });
 
-}
 
 export const handler: Handler = async (event: HandlerEvent, context) => {
   // Create a fake Express request object

@@ -33,16 +33,13 @@ const Body: React.FC<Body> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://api-endzone-clan.netlify.app/.netlify/functions/clans/endzone",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-              responseType: "json",
-            },
-          }
-        );
+        const response = await fetch("/.netlify/functions/clans/endzone", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+            responseType: "json",
+          },
+        });
         const data = await response.json();
 
         setClansData(data);
