@@ -62,7 +62,8 @@ const Body: React.FC<Body> = () => {
             headers: {
               "Content-Type": "application/json", // Set your desired Content-Type here
               // Add any other headers if needed
-              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Origin":
+                "https://endzone-clan.de, https://main--api-endzone-clan.netlify.app/",
             },
           }
         );
