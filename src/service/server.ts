@@ -62,3 +62,4 @@ app.get(`https://api.endzone-clan.de/clans/firstzone`, async (req: Request, res:
 app.listen(port, () => {
   console.log(`Server is running on https://api.endzone-clan.de/:${port}`);
 });
+app.use('/.netlify/functions/server', app);
