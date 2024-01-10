@@ -38,6 +38,7 @@ const Body: React.FC<Body> = () => {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
             // Add any other headers if needed
+            responseType: "json",
           },
         });
         const data = await response.json();
@@ -62,8 +63,10 @@ const Body: React.FC<Body> = () => {
             mode: "no-cors",
             "Access-Control-Allow-Origin":
               "https://endzone-clan.de, https://api-endzone-clan.netlify.app/",
+            responseType: "json",
           },
         });
+
         const data2 = await response.json();
 
         setClansData2(data2);
