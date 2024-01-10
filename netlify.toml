@@ -1,6 +1,6 @@
 [build]
 functions ="src/functions"
-publish = "dist"
+publish = "build"
 
 [functions]
 directory = "src/functions"
