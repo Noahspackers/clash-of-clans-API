@@ -21,6 +21,7 @@ app.get(`/clans/endzone`, async (req: Request, res: Response) => {
         "Content-Type": "application/json",
         mode: "no-cors",
       },
+      responseType: 'json',
     });
     const data = response.data;
     res.header("Content-Type", "application/json");
@@ -39,6 +40,7 @@ app.get(`/clans/secondzone`, async (req: Request, res: Response) => {
         "Content-Type": "application/json",
         mode: "no-cors",
       },
+      responseType: 'json',
     });
     const data = response.data;
     res.header("Content-Type", "application/json");
@@ -57,6 +59,7 @@ app.get(`/clans/firstzone`, async (req: Request, res: Response) => {
         "Content-Type": "application/json",
         mode: "no-cors",
       },
+      responseType: 'json',
     });
     res.header("Content-Type", "application/json");
     const data = response.data;
