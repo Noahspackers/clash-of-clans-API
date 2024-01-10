@@ -10,10 +10,7 @@ external_node_modules = [
     "axios",
     "serverless"
 ]
-[[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200
+
 
 [[headers]]
   for = "/*.json"
