@@ -3,7 +3,7 @@ import badge from "../../assets/clan_badge.png";
 import divider from "../../assets/IMG_3954.png";
 import Header from "../Header/Header";
 import React, { useState, useEffect, useRef } from "react";
-
+import { accessToken } from "../../service/proxy";
 import join from "../../assets/Join_us.png";
 import twitch from "../../assets/twitch_logo.png";
 
@@ -36,6 +36,7 @@ const Body: React.FC<Body> = () => {
           "https://api-endzone-clan.netlify.app/clans/endzone",
           {
             headers: {
+              Authorization: `Bearer ${accessToken}`,
               "Content-Type": "application/json", // Set your desired Content-Type here
               // Add any other headers if needed
               "Access-Control-Allow-Origin": "*",
@@ -60,6 +61,7 @@ const Body: React.FC<Body> = () => {
           "https://api-endzone-clan.netlify.app/clans/secondzone",
           {
             headers: {
+              Authorization: `Bearer ${accessToken}`,
               "Content-Type": "application/json", // Set your desired Content-Type here
               // Add any other headers if needed
               "Access-Control-Allow-Origin":
