@@ -1,9 +1,9 @@
 [build]
-functions ="src/functions"
+functions ="functions"
 
 
 [functions]
-directory = "src/functions"
+directory = "functions"
 node_bundler = "esbuild"
 external_node_modules = [
     "express",

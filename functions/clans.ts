@@ -6,7 +6,7 @@ import cors from "cors";
 import serverless from 'serverless-http';
 import { Handler } from '@netlify/functions';
 const app = express();
-const port = 3001;
+
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
@@ -19,6 +19,7 @@ app.get(`https://api-endzone-clan.netlify.app/clans/endzone`, async (req: Reques
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
+          mode: "no-cors",
         },
       });
       const data = response.data;
@@ -35,6 +36,7 @@ app.get(`https://api-endzone-clan.netlify.app/clans/secondzone`, async (req: Req
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
+          mode: "no-cors",
         },
       });
       const data = response.data;
@@ -51,6 +53,7 @@ app.get(`https://api-endzone-clan.netlify.app/clans/firstzone`, async (req: Requ
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
+          mode: "no-cors",
         },
       });
       const data = response.data;
