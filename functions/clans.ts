@@ -39,15 +39,15 @@ export default function clans() {
           "Content-Type": "application/json",
         },
       });
-  
+
       console.log('Clash of Clans API Response:', axiosResponse.data);
-  
-      res.send(axiosResponse.data);
+      res.status(200).send(JSON.stringify(axiosResponse.data));
     } catch (error) {
       console.error('Error fetching data from Clash of Clans API:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
-  });
+  }
+  );
 
   app.get(`/clans/firstzone`, async (req: Request, res: Response) => {
     try {
