@@ -29,22 +29,17 @@ const Body: React.FC<Body> = () => {
   const scrollElementRef = useRef<HTMLDivElement>(null);
   const [data, setClansData] = useState<any>(null);
   const [data2, setClansData2] = useState<any>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://api-endzone-clan.netlify.app/clans/endzone",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json", // Set your desired Content-Type here
-              // Add any other headers if needed
-              "Access-Control-Allow-Origin":
-                "https://endzone-clan.de, https://api-endzone-clan.netlify.app/",
-              mode: "no-cors",
-            },
-          }
-        );
+        const response = await fetch("/.netlify/functions/clans/endzone", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+            // Add any other headers if needed
+          },
+        });
         const data = await response.json();
 
         setClansData(data);
