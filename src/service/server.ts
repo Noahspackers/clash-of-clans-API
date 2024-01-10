@@ -17,7 +17,7 @@ app.get(`api-endzone-clan.netlify.app/clans/endzone`, async (req: Request, res: 
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
-          mode: 'no-cors'
+          
         },
       });
       const data = response.data;
@@ -34,7 +34,7 @@ app.get(`api-endzone-clan.netlify.app/clans/secondzone`, async (req: Request, re
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
-          mode: 'no-cors'
+         
         },
       });
       const data = response.data;
