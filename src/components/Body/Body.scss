@@ -1,0 +1,217 @@
+.logo {
+    max-width: 100%;
+    display: flex;
+    & img {
+      
+      width: 100%;
+    }
+  }
+
+.body {
+      width: 100%;
+}
+.containerWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  color: #fff;
+  min-height: 100vh; /* Ensure the container takes up the full viewport height */
+  background-size: cover;
+  background-image: url(http://localhost:3000/static/media/IMG_3465.ea8aec0….gif);
+  background-repeat: no-repeat;
+  background-position: 0 60%;
+}
+.container-clan {
+  width: 100%;
+  height: auto;
+  padding: 1rem 0;
+}
+
+.container-clan:nth-child(2n + 1) {
+  background-color: gray;
+}
+.container-clan > div  {
+  text-align: center;
+  position: relative;
+  margin: 0rem auto 3rem;
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  width: 50%;
+}
+
+.clan_order {
+   align-items: center;
+    display: grid;
+    font-size: 21px;
+    grid-template-columns:0% 10% auto 50%;
+    margin: 1rem 0;
+  & p{
+    grid-column: 3;
+    text-align: left;
+    margin: 4px 1rem;
+  }
+  & > img {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0 auto;
+    width: 100%;
+    @media (max-width: 736px ) {
+      width: 120%;
+    }
+  }
+}
+
+.clan_name {
+  grid-column: 3;
+  grid-row: 1;
+  color: #000;
+}
+.clan_id {
+  grid-column: 4;
+  grid-row: 1;
+  margin: 0 auto;
+  padding: 0 10px;
+  border-radius: 10px;
+  align-self: center;
+  background-color: #710627;
+  color: #fff;
+  justify-content: flex-end;
+  @media (max-width: 736px ) {
+    grid-row: 2;
+    grid-column: 3;
+  }
+}
+.clan_id__wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    & a {
+      align-self: center;
+      text-decoration: none;
+    }
+}
+ 
+
+.clan_desc {
+  max-width: 75%;
+  width: 100%;
+  margin: 0 auto;
+    & h2 {
+      margin: 0;
+    }
+    & p {
+    font-size: 14px;
+    }
+} 
+
+.wrapperDiscord {
+    background-color: #000000;
+    text-align: center;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+  @media (max-width: 736px) {
+    flex-direction: row;
+  }
+  > a { 
+    display: inline-flex;
+    padding: 0 1rem;
+    color: #fff;
+    margin: 0 auto;
+    background-color: #000;
+    border-radius: 0.5rem;
+    text-decoration: none;
+        > img {
+          width: 50%;
+          padding: 15px;
+          margin: 0 auto;
+          @media (max-width: 736px) {
+            width: 80%;
+          }
+      }
+    }
+  > a:nth-child(2) > img {
+    margin: 0;
+    @media (max-width: 736px) {
+      margin: 0 auto;
+    
+    }
+  }
+}
+
+.madeFor {
+  grid-row: 3;
+  > ul {
+    margin-left: 20px;
+    padding-left: 0;
+    list-style-type: disc;
+    font-size: 14px;
+    > li {
+      text-align: left;
+      padding: 4px 5px;
+      &:nth-child(2n) {
+        color: rgb(0, 0, 0);
+    }
+    }  
+  }
+  > ul li::marker {
+  color: #710627;
+  }
+}
+.clan_rules {
+  max-width: 75%;
+  width: 100%;
+  margin: 0 auto;
+  @media (min-width: 768px) {
+   margin-bottom: 2rem;}
+    > span ul  {
+      list-style-type: auto;
+      padding: 0rem 1rem;
+    }
+    > span ul li {
+      font-size: 14px;
+      padding: 3px 0;
+    } > span ul li::marker {
+      font-size: 16px;
+    }
+    > span ul li #red {
+      color: red;
+    }
+    > span ul li #green {
+      color: green;
+    }
+    > span ul li:nth-child(2) {
+
+      color: red;
+    }
+    > span ul li:nth-child(2) span {
+    color: black;
+    text-decoration: none;
+    }
+}
+.containerBody {
+  position: absolute;
+  width: 100%;
+  margin-top: 200px;
+  background-color: #fff;
+  @media (min-width: 736px) and (max-width: 1024px) {
+  margin-top: 60px;
+  }
+  @media (max-width: 736px) {
+    margin-top: 120px;
+}
+}
+.clan_desc_wrapper {
+  background-color: gray;
+  padding: 20px 0;
+}
+
