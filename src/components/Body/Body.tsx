@@ -32,7 +32,9 @@ const Body: React.FC<Body> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/clans/endzone");
+        const response = await fetch(
+          "api-endzone-clan.netlify.app/clans/endzone"
+        );
         const data = await response.json();
 
         setClansData(data);
@@ -47,7 +49,9 @@ const Body: React.FC<Body> = () => {
   useEffect(() => {
     const fetchData3 = async () => {
       try {
-        const response = await fetch("http://localhost:3001/clans/secondzone");
+        const response = await fetch(
+          "api-endzone-clan.netlify.app/clans/secondzone"
+        );
         const data2 = await response.json();
 
         setClansData2(data2);
