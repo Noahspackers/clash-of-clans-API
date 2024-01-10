@@ -55,6 +55,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
     "@netlify/functions": "^2.4.1",
+    "@netlify/plugin-nextjs": "^4.41.3",
     "@types/cors": "^2.8.17",
     "ts-node": "^10.9.2"
   },
