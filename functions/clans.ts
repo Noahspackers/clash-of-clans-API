@@ -12,7 +12,7 @@ const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 app.use(cors());
 
-function clans() {
+export default function clans() {
 app.get(`/clans/endzone`, async (req: Request, res: Response) => {
   try {
     const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
