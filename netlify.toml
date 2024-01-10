@@ -1,6 +1,7 @@
 [build]
 functions ="src/functions"
-
+publish = "dist"
+command = "npm run build"
 
 [functions]
 directory = "src/functions"
@@ -11,3 +12,7 @@ external_node_modules = [
     "axios",
     "serverless"
 ]
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
