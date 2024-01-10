@@ -33,7 +33,7 @@ const Body: React.FC<Body> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/.netlify/functions/clans/endzone", {
+        const response = await fetch("/functions/clans/endzone", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
