@@ -33,7 +33,13 @@ const Body: React.FC<Body> = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "api-endzone-clan.netlify.app/clans/endzone"
+          "https://api-endzone-clan.netlify.app/clans/endzone",
+          {
+            headers: {
+              "Content-Type": "application/json", // Set your desired Content-Type here
+              // Add any other headers if needed
+            },
+          }
         );
         const data = await response.json();
 
@@ -50,7 +56,13 @@ const Body: React.FC<Body> = () => {
     const fetchData3 = async () => {
       try {
         const response = await fetch(
-          "api-endzone-clan.netlify.app/clans/secondzone"
+          "https://api-endzone-clan.netlify.app/clans/secondzone",
+          {
+            headers: {
+              "Content-Type": "application/json", // Set your desired Content-Type here
+              // Add any other headers if needed
+            },
+          }
         );
         const data2 = await response.json();
 
