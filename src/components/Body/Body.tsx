@@ -39,7 +39,8 @@ const Body: React.FC<Body> = () => {
               Authorization: `Bearer ${accessToken}`,
               "Content-Type": "application/json", // Set your desired Content-Type here
               // Add any other headers if needed
-              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Origin":
+                "https://endzone-clan.de, https://api-endzone-clan.netlify.app/",
               mode: "no-cors",
             },
           }
@@ -67,7 +68,7 @@ const Body: React.FC<Body> = () => {
               // Add any other headers if needed
               mode: "no-cors",
               "Access-Control-Allow-Origin":
-                "https://endzone-clan.de, https://main--api-endzone-clan.netlify.app/",
+                "https://endzone-clan.de, https://api-endzone-clan.netlify.app/",
             },
           }
         );
