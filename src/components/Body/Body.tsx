@@ -54,7 +54,7 @@ const Body: React.FC<Body> = () => {
   useEffect(() => {
     const fetchData3 = async () => {
       try {
-        const response = await fetch("functions/clans/secondzone", {
+        const response = await fetch("/functions/clans/secondzone", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json", // Set your desired Content-Type here
