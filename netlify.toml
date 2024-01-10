@@ -2,6 +2,7 @@
 functions ="clash-of-clans-api"
 
 
+
 [functions]
 directory = "clash-of-clans-api"
 node_bundler = "esbuild"
