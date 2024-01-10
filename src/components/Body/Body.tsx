@@ -33,14 +33,15 @@ const Body: React.FC<Body> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/functions/clans/endzone", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-            // Add any other headers if needed
-            responseType: "json",
-          },
-        });
+        const response = await fetch(
+          "https://api-endzone-clan.netlify.app/clans/endzone",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await response.json();
 
         setClansData(data);
@@ -58,15 +59,12 @@ const Body: React.FC<Body> = () => {
         const response = await fetch("/functions/clans/secondzone", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json", // Set your desired Content-Type here
-            // Add any other headers if needed
-            mode: "no-cors",
-            "Access-Control-Allow-Origin":
-              "https://endzone-clan.de, https://api-endzone-clan.netlify.app/",
-            responseType: "json",
+            "Content-Type": "application/json",
           },
         });
-
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data: ${response.status}`);
+        }
         const data2 = await response.json();
 
         setClansData2(data2);

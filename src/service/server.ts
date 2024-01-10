@@ -4,14 +4,14 @@ import { Request, Response } from 'express';
 import { accessToken } from './proxy';
 import cors from 'cors';
 
-const app = express();
+const apps = express();
 
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
-app.use(cors());
+apps.use(cors());
 
-app.get('/clans/endzone', async (req: Request, res: Response) => {
+apps.get('/clans/endzone', async (req: Request, res: Response) => {
   try {
     const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
       headers: {
@@ -28,7 +28,7 @@ app.get('/clans/endzone', async (req: Request, res: Response) => {
   }
 });
 
-app.get('/clans/secondzone', async (req: Request, res: Response) => {
+apps.get('/clans/secondzone', async (req: Request, res: Response) => {
   try {
     const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(secondzone)}`, {
       headers: {
@@ -45,7 +45,7 @@ app.get('/clans/secondzone', async (req: Request, res: Response) => {
   }
 });
 
-app.get('/clans/firstzone', async (req: Request, res: Response) => {
+apps.get('/clans/firstzone', async (req: Request, res: Response) => {
   try {
     const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(firstzone)}`, {
       headers: {
@@ -62,6 +62,4 @@ app.get('/clans/firstzone', async (req: Request, res: Response) => {
   }
 });
 
-app.use('/functions/clans', app);
-
-export default app;
+export default apps;
