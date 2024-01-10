@@ -19,7 +19,6 @@ apps.get('/clans/endzone', async (req: Request, res: Response) => {
         "Content-Type": "application/json",
       },
     });
-  
     const data = response.data;
     res.json(data);
   } catch (error) {
@@ -30,16 +29,15 @@ apps.get('/clans/endzone', async (req: Request, res: Response) => {
 
 apps.get('/clans/secondzone', async (req: Request, res: Response) => {
   try {
-    const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(secondzone)}`, {
+    const axiosResponse = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(secondzone)}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
     });
-   
-    
-    const data = response.data;
-    res.json(data);
+    console.log('Clash of Clans API Response:', axiosResponse.data);
+
+    res.json(axiosResponse.data);
   } catch (error) {
     console.error('Error fetching data from Clash of Clans API:', error);
     res.status(500).json({ error: 'Internal Server Error' });

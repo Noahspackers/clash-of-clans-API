@@ -2,6 +2,7 @@
 functions = "functions"
 
 [functions]
+directory = "functions"
 node_bundler = "esbuild"
 external_node_modules = [
     "express",
@@ -10,10 +11,4 @@ external_node_modules = [
     "serverless"
 ]
 
-
-[[headers]]
-  for = "/*.json"
-  [headers.values]
-    Access-Control-Allow-Headers = "*"
-    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE"
 

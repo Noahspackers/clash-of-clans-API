@@ -18,7 +18,7 @@ export default function clans() {
     try {
       const axiosResponse = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(secondzone)}`, {
         headers: {
-          Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
       });
@@ -31,39 +31,38 @@ export default function clans() {
     }
   });
 
-  app.get('/clans/secondzone', async (req: Request, res: Response) => {
+  app.get('/clans/secondzone', async (req2: Request, res2: Response) => {
     try {
-      const axiosResponse = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(secondzone)}`, {
+      const axiosResponse2 = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(secondzone)}`, {
         headers: {
-          Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
       });
-
-      console.log('Clash of Clans API Response:', axiosResponse.data);
-      res.status(200).send(JSON.stringify(axiosResponse.data));
+      console.log('Clash of Clans API Response:', axiosResponse2.data);
+      res2.json(axiosResponse2.data);
     } catch (error) {
       console.error('Error fetching data from Clash of Clans API:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res2.status(500).json({ error: 'Internal Server Error' });
     }
   }
   );
 
-  app.get(`/clans/firstzone`, async (req: Request, res: Response) => {
+  app.get(`/clans/firstzone`, async (req3: Request, res3: Response) => {
     try {
-      const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(firstzone)}`, {
+      const response3 = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(firstzone)}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
         responseType: 'json',
       });
-      const data = response.data;
+      const data = response3.data;
   
-      res.json(data);
+      res3.json(data);
     } catch (error) {
       console.error('Error fetching data from Clash of Clans API:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res3.status(500).json({ error: 'Internal Server Error' });
     }
   });
 };
