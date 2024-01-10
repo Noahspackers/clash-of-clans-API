@@ -57,20 +57,8 @@ const Body: React.FC<Body> = () => {
   useEffect(() => {
     const fetchData3 = async () => {
       try {
-        const response = await fetch(
-          "https://api-endzone-clan.netlify.app/.netlify/functions/clans/secondzone",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data: ${response.status}`);
-        }
+        const response = await fetch("/.netlify/functions/clans/secondzone");
         const data2 = await response.json();
-
         setClansData2(data2);
       } catch (error) {
         console.error("Error fetching data from server:", error);
