@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Request, Response } from 'express';
 import { accessToken } from "../src/service/proxy";
 import cors from "cors";  
-import { Handler, HandlerResponse } from '@netlify/functions';
 import serverless from 'serverless-http';
 
 const app = express();
@@ -64,7 +63,4 @@ app.get(`/clans/firstzone`, async (req: Request, res: Response) => {
   }
 });
 
-export const clansHandler: Handler = async (event, context): Promise<HandlerResponse> => {
-  const response: any = await serverless(app)(event, context);
-  return response;
-};
+export const handler = serverless(app);
