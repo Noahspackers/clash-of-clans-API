@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Request, Response } from 'express';
 import { accessToken } from "../src/service/proxy";
 import cors from "cors";  
-import { Handler, HandlerResponse, HandlerResponse as ServerlessHandlerResponse} from '@netlify/functions';
+import { Handler, HandlerResponse } from '@netlify/functions';
 import serverless from 'serverless-http';
 
 const app = express();
