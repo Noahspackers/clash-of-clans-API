@@ -11,7 +11,7 @@ const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 app.use(cors());
 
-app.get(`api-endzone-clan.netlify.app/clans/endzone`, async (req: Request, res: Response) => {
+app.get(`https://api-endzone-clan.netlify.app/clans/endzone`, async (req: Request, res: Response) => {
   try {
       const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
         headers: {
@@ -28,7 +28,7 @@ app.get(`api-endzone-clan.netlify.app/clans/endzone`, async (req: Request, res: 
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-app.get(`api-endzone-clan.netlify.app/clans/secondzone`, async (req: Request, res: Response) => {
+app.get(`https://api-endzone-clan.netlify.app/clans/secondzone`, async (req: Request, res: Response) => {
   try {
       const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(secondzone)}`, {
         headers: {
@@ -45,7 +45,7 @@ app.get(`api-endzone-clan.netlify.app/clans/secondzone`, async (req: Request, re
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-app.get(`api-endzone-clan.netlify.appclans/firstzone`, async (req: Request, res: Response) => {
+app.get(`https://api-endzone-clan.netlify.app/firstzone`, async (req: Request, res: Response) => {
   try {
       const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(firstzone)}`, {
         headers: {
