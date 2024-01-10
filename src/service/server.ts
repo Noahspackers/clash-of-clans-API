@@ -62,4 +62,4 @@ app.get(`api-endzone-clan.netlify.appclans/firstzone`, async (req: Request, res:
   }
 });
 
-app.use('/.netlify/functions/server', app);
+app.use('/.netlify/functions/clans', app);
