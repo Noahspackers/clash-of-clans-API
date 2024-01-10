@@ -23,6 +23,7 @@ app.get(`/clans/endzone`, async (req: Request, res: Response) => {
       },
     });
     const data = response.data;
+    res.header("Content-Type", "application/json");
     res.json(data);
   } catch (error) {
     console.error('Error fetching data from Clash of Clans API:', error);
@@ -40,6 +41,7 @@ app.get(`/clans/secondzone`, async (req: Request, res: Response) => {
       },
     });
     const data = response.data;
+    res.header("Content-Type", "application/json");
     res.json(data);
   } catch (error) {
     console.error('Error fetching data from Clash of Clans API:', error);
@@ -56,6 +58,7 @@ app.get(`/clans/firstzone`, async (req: Request, res: Response) => {
         mode: "no-cors",
       },
     });
+    res.header("Content-Type", "application/json");
     const data = response.data;
     res.json(data);
   } catch (error) {
