@@ -1,7 +1,7 @@
 // functions/clans.ts
 import axios from 'axios';
 import { Handler, HandlerEvent } from '@netlify/functions';
-import { accessToken } from './proxy';
+import { accessToken } from '../src/service/accestoken';
 
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
