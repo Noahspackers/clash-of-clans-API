@@ -3,7 +3,7 @@ import badge from "../../assets/clan_badge.png";
 import divider from "../../assets/IMG_3954.png";
 import Header from "../Header/Header";
 import React, { useState, useEffect, useRef } from "react";
-import { accessToken } from "../../service/proxy";
+import { accessToken } from "../../service/accestoken";
 import join from "../../assets/Join_us.png";
 import twitch from "../../assets/twitch_logo.png";
 

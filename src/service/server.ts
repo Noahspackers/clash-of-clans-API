@@ -1,7 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import { Request, Response } from 'express';
-import { accessToken } from './proxy';
+import { accessToken } from '../service/accestoken';
 import cors from 'cors';
 import { Handler, HandlerEvent } from '@netlify/functions';
 const apps = express();

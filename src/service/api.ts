@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { accessToken } from "./proxy";
+import { accessToken } from "../../functions/proxy";
 const tag = "#2YPY9PLUU";
 const apiUrl = `https://api.clashofclans.com/v1/clans/${encodeURIComponent(
   tag

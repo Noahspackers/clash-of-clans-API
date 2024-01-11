@@ -20,7 +20,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
+, "functions/proxy.ts"  ],
   "exclude": [
     "node_modules" 
 ]}
