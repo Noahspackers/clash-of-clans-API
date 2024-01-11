@@ -9,7 +9,7 @@ const secondzone = "#2QQPYRRCU";
 
 export const handler: Handler = async (event: HandlerEvent, context) => {
   try {
-    let clanTag;
+    let clanTag: string | number | boolean;
     switch (event.path) {
       case '/clans/endzone':
         clanTag = endzone;
