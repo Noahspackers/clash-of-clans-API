@@ -47,6 +47,7 @@ const Body: React.FC<Body> = () => {
         console.error("Error fetching data from server:", error);
       }
     };
+    console.log(typeof data); // Check the type of data
 
     fetchData();
   }, []);

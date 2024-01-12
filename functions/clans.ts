@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { Handler, HandlerEvent } from '@netlify/functions';
 import { accessToken } from '../src/service/accestoken';
+import { error } from 'console';
 
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
@@ -23,8 +24,9 @@ export const handler: Handler = async (event: HandlerEvent, context) => {
       default:
         return {
           statusCode: 404,
-          body: JSON.stringify({ error: 'Not Found' }),
+          body: JSON.stringify({ error: 'Something is wrong' }),
         };
+
     }
 
     const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(clanTag)}`, {
