@@ -3,42 +3,38 @@ import axios, { AxiosResponse } from 'axios';
 import { Handler, HandlerEvent } from '@netlify/functions';
 import { accessToken } from '../src/service/accestoken';
 import { error } from 'console';
+import React, { useEffect, useState } from 'react';
+
 
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
-
-async function fetchDataFromAPI(): Promise<any> {
+const serverURL = `https://api-endzone-clan.netlify.app/clans/${encodeURIComponent(endzone)}`;
+const [clanData, setClanData] = useState<any | null>(null);
+const fetchData = async () => {
   try {
-    const response: AxiosResponse = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
+    const response = await fetch('https://api.clashofclans.com/v1/clans/%232YPY9PLUU');
+    const data = await response.json();
+    setClanData(data);
   } catch (error) {
-    console.error('Fehler beim Abrufen von Daten von der API:', error);
-    throw error;
+    console.error('Error fetching data:', error);
   }
 };
 
-async function handleServerRequest(): Promise<any> {
+exports.handler = async function (event, context) {
   try {
-    // Rufe die Daten von der API ab
-    const apiData = await fetchDataFromAPI();
-    console.log('API-Daten:', apiData);    return apiData;
-  } catch (error) {
-    // Handle Fehler entsprechend
-    throw error;
-  }
-}
+    const response = await fetch('https://api.clashofclans.com/v1/clans/%232YPY9PLUU');
+    const data = await response.json();
 
-// Starte die Server-Anfrage und handle die Antwort
-handleServerRequest()
-  .then((result) => {
-    console.log('Verarbeitete Daten:', result);
-  })
-  .catch((error) => {
-    console.error('Fehler beim Verarbeiten der Daten:', error);
-  });
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Internal Server Error' }),
+    };
+  }
+};
+
