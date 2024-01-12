@@ -49,7 +49,7 @@ const Body: React.FC<Body> = () => {
     };
     console.log(typeof data); // Check the type of data
 
-    fetchData();
+    fetchDataFromAPI();
   }, []);
 
   useEffect(() => {
