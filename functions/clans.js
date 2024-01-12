@@ -20,6 +20,7 @@ const fetchData = async () => {
     console.error('Error fetching data:', error);
   }
 };
+const fetch = require('node-fetch');
 
 exports.handler = async function (event, context) {
   try {
@@ -37,4 +38,3 @@ exports.handler = async function (event, context) {
     };
   }
 };
-
