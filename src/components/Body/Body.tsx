@@ -33,7 +33,7 @@ const Body: React.FC<Body> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/.netlify/functions/getClanData");
+        const response = await fetch("/.netlify/functions/clans/endzone");
         const data = await response.json();
         setClansData(data);
       } catch (error) {
