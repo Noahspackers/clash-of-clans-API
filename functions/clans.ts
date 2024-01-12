@@ -1,5 +1,5 @@
 // functions/clans.ts
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Handler, HandlerEvent } from '@netlify/functions';
 import { accessToken } from '../src/service/accestoken';
 import { error } from 'console';
@@ -8,43 +8,37 @@ const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 
-export const handler: Handler = async (event: HandlerEvent, context) => {
+async function fetchDataFromAPI(): Promise<any> {
   try {
-    let clanTag: string | number | boolean;
-    switch (event.path) {
-      case '/clans/endzone':
-        clanTag = endzone;
-        break;
-      case '/clans/secondzone':
-        clanTag = secondzone;
-        break;
-      case '/clans/firstzone':
-        clanTag = firstzone;
-        break;
-      default:
-        return {
-          statusCode: 404,
-          body: JSON.stringify({ error: 'Something is wrong' }),
-        };
-
-    }
-
-    const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(clanTag)}`, {
+    const response: AxiosResponse = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
     });
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response.data),
-    };
+    return response.data;
   } catch (error) {
-    console.error('Error fetching data from Clash of Clans API:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
-    };
+    console.error('Fehler beim Abrufen von Daten von der API:', error);
+    throw error;
   }
 };
+
+async function handleServerRequest(): Promise<any> {
+  try {
+    // Rufe die Daten von der API ab
+    const apiData = await fetchDataFromAPI();
+    console.log('API-Daten:', apiData);    return apiData;
+  } catch (error) {
+    // Handle Fehler entsprechend
+    throw error;
+  }
+}
+
+// Starte die Server-Anfrage und handle die Antwort
+handleServerRequest()
+  .then((result) => {
+    console.log('Verarbeitete Daten:', result);
+  })
+  .catch((error) => {
+    console.error('Fehler beim Verarbeiten der Daten:', error);
+  });

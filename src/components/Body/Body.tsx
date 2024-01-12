@@ -31,7 +31,7 @@ const Body: React.FC<Body> = () => {
   const [data2, setClansData2] = useState<any>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataFromAPI = async () => {
       try {
         const response = await fetch("/.netlify/functions/clans/endzone", {
           headers: {
