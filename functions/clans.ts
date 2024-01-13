@@ -1,4 +1,4 @@
-// functions/clans.ts
+
 import axios, { AxiosResponse } from 'axios';
 import { Handler, HandlerEvent } from '@netlify/functions';
 import { accessToken } from '../src/service/accestoken';
