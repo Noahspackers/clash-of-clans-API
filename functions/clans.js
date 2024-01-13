@@ -10,7 +10,8 @@ const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 const serverURL = `https://api-endzone-clan.netlify.app/clans/${encodeURIComponent(endzone)}`;
-const [clanData, setClanData] = useState<any | null>(null);
+const [clanData, setClanData] = useState([]);
+
 const fetchData = async () => {
   try {
     const response = await fetch('https://api.clashofclans.com/v1/clans/%232YPY9PLUU');
@@ -38,3 +39,4 @@ exports.handler = async function (event, context) {
     };
   }
 };
+fetchData();
