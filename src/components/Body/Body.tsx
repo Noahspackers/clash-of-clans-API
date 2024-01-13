@@ -28,7 +28,7 @@ interface ClanData {
 const Body: React.FC<Body> = () => {
   const scrollElementRef = useRef<HTMLDivElement>(null);
   const [data2, setClansData2] = useState<any>(null);
-  const [data, setClanData] = useState<any | null>(null);
+  const [data, setClanData] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {

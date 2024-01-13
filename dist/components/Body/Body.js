@@ -23,7 +23,7 @@ const twitch_logo_png_1 = __importDefault(require("../../assets/twitch_logo.png"
 const Body = () => {
     const scrollElementRef = (0, react_1.useRef)(null);
     const [data2, setClansData2] = (0, react_1.useState)(null);
-    const [data, setClanData] = (0, react_1.useState)(null);
+    const [data, setClanData] = (0, react_1.useState)();
     (0, react_1.useEffect)(() => {
         const fetchData = () => __awaiter(void 0, void 0, void 0, function* () {
             try {
