@@ -14,9 +14,16 @@ const [clanData, setClanData] = useState([]);
 
 const fetchData = async () => {
   try {
-    const response = await fetch('https://api.clashofclans.com/v1/clans/%232YPY9PLUU');
+    const response = await fetch('https://api.clashofclans.com/v1/clans/%232YPY9PLUU', {
+      headers: {  
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    },
+    );
     const data = await response.json();
     setClanData(data);
+    console.log(data);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -25,13 +32,19 @@ const fetch = require('node-fetch');
 
 exports.handler = async function (event, context) {
   try {
-    const response = await fetch('https://api.clashofclans.com/v1/clans/%232YPY9PLUU');
+    const response = await fetch('https://api.clashofclans.com/v1/clans/%232YPY9PLUU', {
+      headers: {  
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    },
+    );
     const data = await response.json();
-
+    setClanData(data); 
     return {
       statusCode: 200,
       body: JSON.stringify(data),
-    };
+    };   
   } catch (error) {
     return {
       statusCode: 500,

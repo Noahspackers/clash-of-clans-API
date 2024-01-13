@@ -5,7 +5,6 @@ require("./Header.scss");
 const react_1 = require("react");
 const Header = () => {
     const [isOpen, setIsOpen] = (0, react_1.useState)(false);
-    console.log("Toggle menu clicked");
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
