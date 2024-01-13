@@ -3,12 +3,13 @@ functions = "netlify/functions"
 
 
 [functions]
-directory = "functions"
+
 node_bundler = "esbuild"
 external_node_modules = [
     "cors",
     "axios",
     "serverless"
 ]
+include = "build/"
 
 
