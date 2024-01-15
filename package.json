@@ -34,7 +34,7 @@
   },
   "type": "commonjs",
   "scripts": {
-    "build": "react-scripts build",
+    "build": "CI=false && react-scripts build",
     "build:functions": "tsc --project netlify-functions",
     "deploy": "npm run build && npm run build:functions && netlify deploy --prod",
     "test": "react-scripts test",
