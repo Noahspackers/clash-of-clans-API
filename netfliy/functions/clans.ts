@@ -1,7 +1,7 @@
 
 import axios, { AxiosResponse } from 'axios';
 import { Handler, HandlerEvent } from '@netlify/functions';
-import { accessToken } from '../src/service/accestoken';
+import { accessToken } from '../../src/service/accestoken';
 import { error } from 'console';
 import React, { useEffect, useState } from 'react';
 
