@@ -4,3 +4,6 @@ node_modules
 build
 .gitignore
 
+
+# Local Netlify folder
+.netlify

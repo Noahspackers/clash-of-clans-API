@@ -34,9 +34,9 @@
   },
   "type": "commonjs",
   "scripts": {
-    "build": "CI=false && react-scripts build",
-    "build:functions": "tsc --project netlify-functions",
-    "deploy": "npm run build && npm run build:functions && netlify deploy --prod",
+    "build": "react-scripts build CI=false",
+    "build:functions": "CI=false tsc --project netlify/functions",
+    "deploy": "npm run build && npm run build:functions && netlify deploy --prod CI=false",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start:server": "node server.ts",
