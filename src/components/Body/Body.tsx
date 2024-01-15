@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { accessToken } from "../../service/accestoken";
 import join from "../../assets/Join_us.png";
 import twitch from "../../assets/twitch_logo.png";
+import axios from "axios";
 
 interface Body {}
 interface ClanMember {
@@ -28,16 +29,17 @@ interface ClanData {
 const Body: React.FC<Body> = () => {
   const scrollElementRef = useRef<HTMLDivElement>(null);
   const [data2, setClansData2] = useState<any>(null);
-  const [data, setClanData] = useState<any>();
+  const [data, setData] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/.netlify/functions/clans/endzone");
-        const data = await response.json();
-        setClanData(data);
+        const response = await axios.get(
+          "/.netlify/functions/server/api/clash-of-clans"
+        );
+        setData(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error(error);
       }
     };
 
