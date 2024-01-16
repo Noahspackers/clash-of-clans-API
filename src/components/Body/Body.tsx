@@ -29,8 +29,6 @@ interface Clan {
 }
 const Body: React.FC<Body> = () => {
   const scrollElementRef = useRef<HTMLDivElement>(null);
-  const [data2, setClansData2] = useState<any>(null);
-  const [data, setData] = useState<any>(null);
 
   async function myFunction(): Promise<void> {
     await client.login(`${accessToken}`);
