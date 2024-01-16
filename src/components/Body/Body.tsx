@@ -28,7 +28,18 @@ interface Clan {
   memberList: ClanMember[];
 }
 const Body: React.FC<Body> = () => {
+  const endzone = "#2YPY9PLUU";
   const scrollElementRef = useRef<HTMLDivElement>(null);
+  async function myFunction() {
+    await client.login({
+      email: "noah.walz158@gmail.com",
+      password: "bopba5-fuwryj-nyczEx",
+    });
+
+    await client.login(`${accessToken}`);
+    const clan = await client.getClan(`${encodeURIComponent(endzone)}`);
+    console.log(`${clan.name} (${clan.tag})`);
+  }
 
   return (
     <div className="body" ref={scrollElementRef}>
