@@ -40,7 +40,7 @@ const Body: React.FC<Body> = () => {
     const clan = await client.getClan(`${encodeURIComponent(endzone)}`);
     console.log(`${clan.name} (${clan.tag})`);
   }
-
+  myFunction();
   return (
     <div className="body" ref={scrollElementRef}>
       <Header />
