@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000;
 
 app.use(express.static('build'));
 
-app.get('/api/clash-of-clans', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const response = await axios.get(`https://api.clashofclans.com/v1/clans/${encodeURIComponent(endzone)}`, {
       headers: {

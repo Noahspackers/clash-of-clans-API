@@ -7,6 +7,7 @@ import { accessToken } from "../../service/accestoken";
 import join from "../../assets/Join_us.png";
 import twitch from "../../assets/twitch_logo.png";
 import axios from "axios";
+const client = require("clash-of-clans-node");
 
 interface Body {}
 interface ClanMember {
@@ -15,7 +16,7 @@ interface ClanMember {
   // other member properties
 }
 
-interface ClanData {
+interface Clan {
   tag: string;
   name: string;
   badgeUrls: {
@@ -31,34 +32,12 @@ const Body: React.FC<Body> = () => {
   const [data2, setClansData2] = useState<any>(null);
   const [data, setData] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "/.netlify/functions/server/api/clash-of-clans"
-        );
-        setData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData3 = async () => {
-      try {
-        const response = await fetch("/.netlify/functions/clans/secondzone");
-        const data2 = await response.json();
-        setClansData2(data2);
-      } catch (error) {
-        console.error("Error fetching data from server:", error);
-      }
-    };
-
-    fetchData3();
-  }, []);
+  async function myFunction(): Promise<void> {
+    await client.login(`${accessToken}`);
+    const clan: Clan = await client.getClan("#2YPY9PLUU");
+    console.log(`${clan.name} (${clan.tag})`);
+  }
+  myFunction();
   return (
     <div className="body" ref={scrollElementRef}>
       <Header />

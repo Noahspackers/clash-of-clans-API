@@ -1,7 +1,7 @@
 [build]
 functions = "netlify/functions"
-
-
+command = "nom run build"
+publish = "build"
 
 [functions]
 directory = "functions"
