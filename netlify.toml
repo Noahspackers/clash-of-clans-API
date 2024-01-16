@@ -13,3 +13,8 @@ external_node_modules = [
 ]
 
 
+
+
+[[edge_functions]]
+function = "api"
+path = "/api"

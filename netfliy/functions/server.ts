@@ -1,4 +1,4 @@
-import { accessToken } from './accestoken';
+import { accessToken } from '../../src/service/accestoken';
 
 const client = require("clash-of-clans-node");
 

@@ -30,12 +30,6 @@ interface Clan {
 const Body: React.FC<Body> = () => {
   const scrollElementRef = useRef<HTMLDivElement>(null);
 
-  async function myFunction(): Promise<void> {
-    await client.login(`${accessToken}`);
-    const clan: Clan = await client.getClan("#2YPY9PLUU");
-    console.log(`${clan.name} (${clan.tag})`);
-  }
-  myFunction();
   return (
     <div className="body" ref={scrollElementRef}>
       <Header />
