@@ -1,7 +1,7 @@
 [build]
 functions = "netlify/functions"
 command = "npm run build"
-publish = "build"
+
 
 [functions]
 directory = "functions"
@@ -11,10 +11,3 @@ external_node_modules = [
     "axios",
     "serverless"
 ]
-
-
-
-
-[[edge_functions]]
-function = "api"
-path = "/api"
