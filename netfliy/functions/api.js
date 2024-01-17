@@ -1,27 +1,26 @@
 const { response } = require('express');
 const { accessToken } = require('../../src/service/accestoken');
 const client = require("clash-of-clans-node");
-
+const fetch = require("node-fetch");
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
+const API = "https://api.clashofclans.com/v1/";
+
 
 exports.handler = async function () {
-  await client.login("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImVlNTUxYzMzLWFiMDAtNGZiNC04MGQ2LWMxMDA3YzE1MTI1OCIsImlhdCI6MTcwNDc1NTEzOSwic3ViIjoiZGV2ZWxvcGVyLzllODZjN2U4LTI2ZjctNjRmOC0zOTE4LWQ3MGQ2MzM1Y2FjMyIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjgxLjE2OS4xNDUuMTYzIiwiNjIuMTU3LjY1LjIxMCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.PXrA97dIdLu4_vheurBmDnJoiTjxriFjEg3x0iOwCN9DCCZRj1oNZNuanj1rFIIVKfumsSg9_0bquvFWf9xiMw");
-  const clan = await client.getClan(`${encodeURIComponent(endzone)}`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    }
-  });
-  console.log(`${clan.name} (${clan.tag})`);
-  clan = response.data;
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-     response: response.data
-    }),
-  };
-  };
+const clans = `${API}clans/${encodeURIComponent(endzone)}`;
+
+const response = await fetch(clans)
+const data = await response.json()
+return {
+  statusCode: 200,
+  body: JSON.stringify({
+    data
+  }),
+};
+}
+
 
 async function myFunction() {
   await client.login({ email: 'noah.walz158@gmail.com', password: 'bopba5-fuwryj-nyczEx' });
