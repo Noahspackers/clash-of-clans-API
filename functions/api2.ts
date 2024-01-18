@@ -3,7 +3,10 @@ import { accessToken } from "../src/service/accestoken";
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
+const expressApp = require('./proxy');
+
 const API = "https://api.clashofclans.com/v1";
+module.exports.handler = expressApp;
 
 exports.handler = async function (event, context) {
   const clans = `${API}/clans/${encodeURIComponent(endzone)}`;
