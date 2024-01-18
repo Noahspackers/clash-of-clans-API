@@ -13,7 +13,6 @@
       "allowJs": true, // allow import of JS modules
       // enable strict type checking
       "strict": true,
-      "type": "module",
       "strictNullChecks": true,
       "noImplicitAny": true
     }

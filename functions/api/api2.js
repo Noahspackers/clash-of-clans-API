@@ -1,6 +1,5 @@
 const { response } = require('express');
 const { accessToken } = require('../../src/service/accestoken');
-const client = require("clash-of-clans-node");
 const fetch = require("node-fetch");
 
 const endzone = "#2YPY9PLUU";
