@@ -6,9 +6,8 @@ const secondzone = "#2QQPYRRCU";
 const expressApp = require('./proxy');
 
 const API = "https://api.clashofclans.com/v1";
-module.exports.handler = expressApp;
-
-exports.handler = async function (event, context) {
+module.exports.handler = async function (event, context) {
+  console.log('Incoming request to /api from Netlify:', event.path);
   const clans = `${API}/clans/${encodeURIComponent(endzone)}`;
   const headers = new Headers();
   headers.set("Authorization", `Bearer ${accessToken}`);
