@@ -34,7 +34,7 @@ const Body: React.FC<Body> = () => {
     const client = await fetch("/.netlify/functions/api").then((response) =>
       response.json()
     );
-    console.log(`${client.name} (${client.tag})`);
+    console.log(`${client} (${client.tag})`);
   }
   myFunction();
   return (
