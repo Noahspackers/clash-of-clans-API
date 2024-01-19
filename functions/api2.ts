@@ -14,7 +14,7 @@ const options = {
     target: 'https://endzone-clan.de', // target host
     changeOrigin: true, // needed for virtual hosted sites
     pathRewrite: {
-       [`^/api2`]: '',
+       [``]: '',
     }, // rewrites our endpoints to '' when forwarded to our target
 }
 router.get('/api2', createProxyMiddleware(options));
