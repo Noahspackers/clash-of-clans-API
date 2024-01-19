@@ -11,11 +11,12 @@ const secondzone = "#2QQPYRRCU";
 const router = Router();
 
 const options = {
-    target: 'https://endzone-clan.de', // target host
+    target: 'https://api.clashofclans.com/v1', // target host
     changeOrigin: true, // needed for virtual hosted sites
     pathRewrite: {
-       [``]: '',
-    }, // rewrites our endpoints to '' when forwarded to our target
+       [`^/api2`]: '',
+    },
+  // rewrites our endpoints to '' when forwarded to our target
 }
 router.get('/api2', createProxyMiddleware(options));
 
