@@ -31,7 +31,7 @@ const Body: React.FC<Body> = () => {
   const endzone = "#2YPY9PLUU";
   const scrollElementRef = useRef<HTMLDivElement>(null);
   async function myFunction() {
-    const client = await fetch("/.netlify/functions/api").then((response) =>
+    const client = await fetch("/.netlify/functions/api2").then((response) =>
       response.json()
     );
     console.log(`${client} (${client.tag})`);
