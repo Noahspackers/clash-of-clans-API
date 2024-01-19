@@ -46,7 +46,15 @@
     "dev": "npm start \"npm run start:server\"",
     "start:netlify": "netlify dev"
   },
-  "proxy": "https://endzone-clan.de",
+  "proxy": {
+    "/api": {
+      "target": "http://api.clashofclans.com/v1",
+      "pathRewrite": {
+        "^/api": ""
+      },
+      "changeOrigin": true
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
