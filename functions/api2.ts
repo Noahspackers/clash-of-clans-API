@@ -4,7 +4,7 @@ import { accessToken } from "../src/service/accestoken";
 import { Router } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
-const endzone = "#2YPY9PLUU";
+const clan = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 
@@ -12,19 +12,17 @@ const router = Router();
 
 const options = {
     target: "http://api.clashofclans.com/v1",
-    changeOrigin: true, // needed for virtual hosted sites
+    changeOrigin: true, 
     pathRewrite: {
-       [`^/.netlify/functions/api2`]: '/',
+       [`^/.netlify/functions/api2`]: '',
     },
-  // rewrites our endpoints to '' when forwarded to our target
 }
-router.get('/api2', createProxyMiddleware(options));
 
 const API = "https://api.clashofclans.com/v1";
 
 exports.handler = async function (event, context) {
-
-  const clans = `${API}/clans/${encodeURIComponent(endzone)}`;
+  router.get('/api2', createProxyMiddleware(options));
+  const clans = `${API}/clans/${encodeURIComponent(clan)}`;
   const headers = new Headers();
   headers.set("Authorization", `Bearer ${accessToken}`);
   const response = await fetch(clans, { headers });
