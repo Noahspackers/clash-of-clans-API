@@ -11,10 +11,10 @@ const secondzone = "#2QQPYRRCU";
 const router = Router();
 
 const options = {
-    target: 'https://api.clashofclans.com/v1', // target host
+    target: "http://api.clashofclans.com/v1",
     changeOrigin: true, // needed for virtual hosted sites
     pathRewrite: {
-       [`^/api2`]: '',
+       [`^/.netlify/functions/api2`]: '',
     },
   // rewrites our endpoints to '' when forwarded to our target
 }

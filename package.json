@@ -47,10 +47,10 @@
     "start:netlify": "netlify dev"
   },
   "proxy": {
-    "/api2": {
+    "/.netlify/functions/api2": {
       "target": "http://api.clashofclans.com/v1",
       "pathRewrite": {
-        "^/api2": ""
+        "^/.netlify/functions/api2": ""
       },
       "changeOrigin": true
     }
