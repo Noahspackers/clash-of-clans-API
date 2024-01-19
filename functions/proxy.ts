@@ -1,6 +1,6 @@
 // netlify/functions/proxy/proxy-server.js
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+import express from 'express';
+import { createProxyMiddleware }from 'http-proxy-middleware';
 
 const app = express();
 
@@ -9,12 +9,12 @@ const apiEndpoint = 'https://api.clashofclans.com/v1';
 
 // Create the proxy middleware
 const apiProxy = createProxyMiddleware('/api', {
-  target: apiEndpoint,
-  changeOrigin: true,  // necessary for virtual hosted sites
-  pathRewrite: {
-    '^/api': '',  // remove the /api prefix when forwarding the request
-  },
-});
+    target: apiEndpoint,
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '',
+    },
+  });
 
 // Use the proxy middleware for /api requests
 app.use('/api', apiProxy);

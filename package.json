@@ -21,6 +21,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "generate-react-cli": "^8.3.0",
+    "http-proxy-middleware": "^2.0.6",
     "nestjs": "^0.0.1",
     "next": "^14.0.4",
     "node": "^21.2.0",
@@ -44,7 +45,15 @@
     "dev": "concurrently \"npm start\" \"npm run start:server\"",
     "start:netlify": "netlify dev"
   },
-  "proxy": "http://api-endzone-clan.netlify.app",
+  "proxy": {
+    "/api": {
+      "target": "http://endzone-clan.de",
+      "pathRewrite": {
+        "^/api": ""
+      },
+      "changeOrigin": true
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
