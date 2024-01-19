@@ -14,7 +14,7 @@ const options = {
     target: "http://api.clashofclans.com/v1",
     changeOrigin: true, // needed for virtual hosted sites
     pathRewrite: {
-       [`^/.netlify/functions/api2`]: '',
+       [`^/.netlify/functions/api2`]: 'https://endzone-clan.de',
     },
   // rewrites our endpoints to '' when forwarded to our target
 }
@@ -29,7 +29,7 @@ exports.handler = async function (event, context) {
   headers.set("Authorization", `Bearer ${accessToken}`);
   const response = await fetch(clans, { headers });
   const data = await response.json();
-  console.log(response)
+  console.log(data.name)
   return {
     statusCode: 200,
     body: JSON.stringify({
