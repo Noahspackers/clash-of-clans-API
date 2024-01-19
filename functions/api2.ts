@@ -4,7 +4,6 @@ import { accessToken } from "../src/service/accestoken";
 const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
-import expressApp from './proxy'
 
 // Get the network interfaces
 const networkInterfaces = os.networkInterfaces();
@@ -28,7 +27,6 @@ if (networkInterfaces) {
 }
 
 const API = "https://api.clashofclans.com/v1";
-module.exports.handler = expressApp;
 
 module.exports.handler = async function (event, context) {
   console.log('Incoming request to /api from Netlify:', event.path);

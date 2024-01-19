@@ -42,18 +42,9 @@
     "deploy": "npm run build npm run build:functions && netlify deploy --prod ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:server": "node .netlify/functions/server.ts",
-    "dev": "concurrently \"npm start\" \"npm run start:server\"",
+    "start:server": "node .netlify/functions/proxy.ts",
+    "dev": "npm start \"npm run start:server\"",
     "start:netlify": "netlify dev"
-  },
-  "proxy": {
-    "/api": {
-      "target": "http://endzone-clan.de",
-      "pathRewrite": {
-        "^/api2": ""
-      },
-      "changeOrigin": true
-    }
   },
   "eslintConfig": {
     "extends": [
@@ -85,21 +76,7 @@
     "sass-loader": "^14.0.0",
     "style-loader": "^3.3.4",
     "ts-node": "^10.9.2",
-    "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "keywords": [],
-  "author": "Noah",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Noahspackers/clash-of-clans-API.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Noahspackers/clash-of-clans-API/issues"
-  },
-  "homepage": "https://github.com/Noahspackers/clash-of-clans-API#readme"
+  }
 }
