@@ -12,12 +12,12 @@ const apiProxy = createProxyMiddleware('/api', {
     target: apiEndpoint,
     changeOrigin: true,
     pathRewrite: {
-      '^/api': '',
+      '^/api2': '',
     },
   });
 
 // Use the proxy middleware for /api requests
-app.use('/api', apiProxy);
+app.use('/api2', apiProxy);
 
 // Export the Express app
-module.exports = app;
+export default module.exports = app;
