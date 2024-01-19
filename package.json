@@ -50,7 +50,7 @@
     "/api": {
       "target": "http://api.clashofclans.com/v1",
       "pathRewrite": {
-        "^/api": ""
+        "^/api2": ""
       },
       "changeOrigin": true
     }
