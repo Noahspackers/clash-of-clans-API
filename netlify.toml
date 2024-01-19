@@ -7,7 +7,7 @@ command = "npm run build"
 directory = "functions"
 
 [[redirects]]
-  from = "/.netlify/functions/api2"
-  to = "/.netlify/functions/api"
+  from = "/api2"
+  to = "/api"
   status = 200
   force = true

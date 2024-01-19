@@ -46,15 +46,7 @@
     "dev": "npm start \"npm run start:server\"",
     "start:netlify": "netlify dev"
   },
-  "proxy": {
-    "/.netlify/functions/api2": {
-      "target": "http://api.clashofclans.com/v1",
-      "pathRewrite": {
-        "^/.netlify/functions/api2": ""
-      },
-      "changeOrigin": true
-    }
-  },
+  "proxy": "http://api.clashofclans.com/v1",
   "eslintConfig": {
     "extends": [
       "react-app",
