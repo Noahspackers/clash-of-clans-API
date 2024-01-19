@@ -46,6 +46,7 @@
     "dev": "npm start \"npm run start:server\"",
     "start:netlify": "netlify dev"
   },
+  "proxy": "https://endzone-clan.de",
   "eslintConfig": {
     "extends": [
       "react-app",
