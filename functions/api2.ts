@@ -5,6 +5,7 @@ const endzone = "#2YPY9PLUU";
 const firstzone = "#2YQQ80QGL";
 const secondzone = "#2QQPYRRCU";
 
+
 // Get the network interfaces
 const networkInterfaces = os.networkInterfaces();
 
