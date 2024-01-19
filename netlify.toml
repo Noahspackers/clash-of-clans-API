@@ -8,6 +8,6 @@ directory = "functions"
 
 [[redirects]]
   from = "/api2"
-  to = "/api"
+  to = "/"
   status = 200
   force = true
