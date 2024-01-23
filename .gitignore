@@ -5,3 +5,5 @@ build
 .gitignore
 
 state.json
+# Local Netlify folder
+.netlify
