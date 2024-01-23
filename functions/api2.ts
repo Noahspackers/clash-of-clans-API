@@ -35,7 +35,6 @@ exports.handler = async function (event, context) {
         const response = await fetch(clans, { headers });
         const data = await response.json();
         console.log(data.tag);
-
     return {
       statusCode: 200,
       headers: {
