@@ -7,7 +7,6 @@ command = "npm run build"
 directory = "functions"
 
 [[redirects]]
-  from = ".netlify/functions/api2"
-  to = "https://endzone-clan.de"
-  status = 200
-  force = true
+from="/api2/*"
+to="/.netlify/functions/api2/:splat"
+status=301

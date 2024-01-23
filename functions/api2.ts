@@ -32,7 +32,7 @@ exports.handler = async function (event, context) {
         const clans = `${API}/clans/${encodeURIComponent(clan)}`;
         const headers = new Headers();
         headers.set("Authorization", `Bearer ${accessToken}`);
-        headers.set(":path", "/");
+        
         const response = await fetch(clans, { headers });
         const data = await response.json();
 
