@@ -3,7 +3,3 @@ node_modules
 .ds_store
 build
 .gitignore
-
-state.json
-# Local Netlify folder
-.netlify

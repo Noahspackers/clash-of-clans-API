@@ -35196,11 +35196,11 @@ exports.handler = async function(event, context) {
     const data = await response.json();
     console.log(data.tag);
     return {
-      statusCode: 301,
+      statusCode: 200,
       headers: {
         Location: redirectTo
       },
-      body: JSON.stringify({ message: "Redirecting to endzone-clan.de" })
+      body: JSON.stringify({ data })
     };
   } catch (error) {
     console.error(error);
