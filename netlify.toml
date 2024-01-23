@@ -8,6 +8,6 @@ directory = "functions"
 
 [[redirects]]
   from = ".netlify/functions/api2"
-  to = "https://api.clashofclans.com/v1"
+  to = "https://endzone-clan.de"
   status = 200
   force = true
