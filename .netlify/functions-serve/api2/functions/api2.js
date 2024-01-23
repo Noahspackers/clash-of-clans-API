@@ -35172,34 +35172,26 @@ var clan = "#2YPY9PLUU";
 var router = (0, import_express.Router)();
 var API = "https://api.clashofclans.com/v1";
 exports.handler = async function(event, context) {
-  const redirectTo = "https://endzone-clan.de";
+  const proxy = (0, import_http_proxy_middleware.createProxyMiddleware)({
+    target: "https://endzone-clan.de",
+    changeOrigin: true,
+    onProxyReq: (proxyReq, req) => {
+      proxyReq.setHeader("Authorization", `Bearer ${accessToken}`);
+      proxyReq.setHeader("Host", "api.clashofclans.com");
+      proxyReq.setHeader("X-Forwarded-For", "62.157.65.210");
+      proxyReq.setHeader("X-Real-IP", "62.157.65.210");
+    }
+  });
   try {
     const clans = `${API}/clans/${encodeURIComponent(clan)}`;
     const headers = new Headers();
     headers.set("Authorization", `Bearer ${accessToken}`);
-    const proxy = (0, import_http_proxy_middleware.createProxyMiddleware)({
-      target: redirectTo,
-      changeOrigin: true,
-      pathRewrite: {
-        [``]: "/api"
-      },
-      onProxyReq: (proxyReq, req) => {
-        proxyReq.setHeader("Authorization", `Bearer ${accessToken}`);
-        proxyReq.setHeader("Host", "api.clashofclans.com");
-        proxyReq.setHeader("X-Forwarded-For", "62.157.65.210");
-        proxyReq.setHeader("X-Real-IP", "62.157.65.210");
-      }
-    });
-    ;
     console.log(event.path);
     const response = await fetch(clans, { headers });
     const data = await response.json();
     console.log(data.tag);
     return {
       statusCode: 200,
-      headers: {
-        Location: redirectTo
-      },
       body: JSON.stringify({ data })
     };
   } catch (error) {
