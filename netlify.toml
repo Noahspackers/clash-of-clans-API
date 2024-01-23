@@ -7,7 +7,7 @@ command = "npm run build"
 directory = "functions"
 
 [[redirects]]
-  from = "/api2"
+  from = ".netlify/functions/api2"
   to = "https://api.clashofclans.com/v1"
   status = 200
   force = true
