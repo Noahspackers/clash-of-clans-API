@@ -13,7 +13,7 @@ const options = {
     target: "http://api.clashofclans.com/v1",
     changeOrigin: true, 
     pathRewrite: {
-        [`^/.netlify/functions/api2`]: '',
+        [`^/.netlify/functions/api2`]: '/',
     },
     onProxyReq: (proxyReq, req) => {
         proxyReq.setHeader("Authorization", `Bearer ${accessToken}`);
@@ -32,7 +32,7 @@ exports.handler = async function (event, context) {
         const clans = `${API}/clans/${encodeURIComponent(clan)}`;
         const headers = new Headers();
         headers.set("Authorization", `Bearer ${accessToken}`);
-
+        headers.set(":path", "/");
         const response = await fetch(clans, { headers });
         const data = await response.json();
 
