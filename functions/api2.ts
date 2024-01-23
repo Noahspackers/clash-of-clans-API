@@ -12,11 +12,12 @@ const router = Router();
 const API = "https://api.clashofclans.com/v1";
 
 exports.handler = async function (event, context) {
+  const redirectTo = 'https://endzone-clan.de';
     try {
         const clans = `${API}/clans/${encodeURIComponent(clan)}`;
         const headers = new Headers();
         headers.set("Authorization", `Bearer ${accessToken}`);
-        const redirectTo = 'https://endzone-clan.de';
+       
         const proxy = createProxyMiddleware({
             target: redirectTo,
             changeOrigin: true,
