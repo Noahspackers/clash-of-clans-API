@@ -9,45 +9,40 @@ const secondzone = "#2QQPYRRCU";
 
 const router = Router();
 
-const options = {
-    target: "http://endzone-clan.de",
-    changeOrigin: true, 
-    pathRewrite: {
-        [``]: '/api',
-    },
-  
-    onProxyReq: (proxyReq, req) => {
-        proxyReq.setHeader("Authorization", `Bearer ${accessToken}`);
-        proxyReq.setHeader("Host", "api.clashofclans.com");
-        proxyReq.setHeader("X-Forwarded-For", "62.157.65.210");
-        proxyReq.setHeader("X-Real-IP", "62.157.65.210");
-    },
-    
-};
-
 const API = "https://api.clashofclans.com/v1";
 
 exports.handler = async function (event, context) {
-    
     try {
         const clans = `${API}/clans/${encodeURIComponent(clan)}`;
         const headers = new Headers();
         headers.set("Authorization", `Bearer ${accessToken}`);
-        headers.set("X-Forwarded-For", "62.157.65.210");
-        headers.set("X-Real-IP", "62.157.65.210");
-        router.use('/api2', createProxyMiddleware(options));
+        const redirectTo = 'https://endzone-clan.de';
+        const proxy = createProxyMiddleware({
+            target: redirectTo,
+            changeOrigin: true,
+            pathRewrite: {
+                [``]: '/api',
+            },
+            onProxyReq: (proxyReq, req) => {
+                proxyReq.setHeader("Authorization", `Bearer ${accessToken}`);
+                proxyReq.setHeader("Host", "api.clashofclans.com");
+                proxyReq.setHeader("X-Forwarded-For", "62.157.65.210");
+                proxyReq.setHeader("X-Real-IP", "62.157.65.210");
+            }
+          });
+          ;
         console.log(event.path);
         const response = await fetch(clans, { headers });
         const data = await response.json();
+        console.log(data.tag);
 
-        console.log(data.name);
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify({
-                data,
-            }),
-        };
+    return {
+      statusCode: 301,
+      headers: {
+          Location: redirectTo,
+      },
+      body: JSON.stringify({ message: 'Redirecting to endzone-clan.de' }),
+  };
     } catch (error) {
         console.error(error);
         return {
@@ -56,5 +51,7 @@ exports.handler = async function (event, context) {
                 error: "Internal Server Error",
             }),
         };
+        
     }
+    
 };

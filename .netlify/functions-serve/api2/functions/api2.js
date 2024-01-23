@@ -1411,9 +1411,9 @@ var require_ponyfill_es2018 = __commonJS({
       function byteStreamControllerBrandCheckException(name) {
         return new TypeError(`ReadableByteStreamController.prototype.${name} can only be used on a ReadableByteStreamController`);
       }
-      function convertReaderOptions(options2, context) {
-        assertDictionary(options2, context);
-        const mode = options2 === null || options2 === void 0 ? void 0 : options2.mode;
+      function convertReaderOptions(options, context) {
+        assertDictionary(options, context);
+        const mode = options === null || options === void 0 ? void 0 : options.mode;
         return {
           mode: mode === void 0 ? void 0 : convertReadableStreamReaderMode(mode, `${context} has member 'mode' that`)
         };
@@ -1425,10 +1425,10 @@ var require_ponyfill_es2018 = __commonJS({
         }
         return mode;
       }
-      function convertByobReadOptions(options2, context) {
+      function convertByobReadOptions(options, context) {
         var _a;
-        assertDictionary(options2, context);
-        const min = (_a = options2 === null || options2 === void 0 ? void 0 : options2.min) !== null && _a !== void 0 ? _a : 1;
+        assertDictionary(options, context);
+        const min = (_a = options === null || options === void 0 ? void 0 : options.min) !== null && _a !== void 0 ? _a : 1;
         return {
           min: convertUnsignedLongLongWithEnforceRange(min, `${context} has member 'min' that`)
         };
@@ -1512,13 +1512,13 @@ var require_ponyfill_es2018 = __commonJS({
           if (IsDetachedBuffer(view.buffer)) {
             return promiseRejectedWith(new TypeError("view's buffer has been detached"));
           }
-          let options2;
+          let options;
           try {
-            options2 = convertByobReadOptions(rawOptions, "options");
+            options = convertByobReadOptions(rawOptions, "options");
           } catch (e2) {
             return promiseRejectedWith(e2);
           }
-          const min = options2.min;
+          const min = options.min;
           if (min === 0) {
             return promiseRejectedWith(new TypeError("options.min must be greater than 0"));
           }
@@ -3473,17 +3473,17 @@ var require_ponyfill_es2018 = __commonJS({
         }
         return type;
       }
-      function convertIteratorOptions(options2, context) {
-        assertDictionary(options2, context);
-        const preventCancel = options2 === null || options2 === void 0 ? void 0 : options2.preventCancel;
+      function convertIteratorOptions(options, context) {
+        assertDictionary(options, context);
+        const preventCancel = options === null || options === void 0 ? void 0 : options.preventCancel;
         return { preventCancel: Boolean(preventCancel) };
       }
-      function convertPipeOptions(options2, context) {
-        assertDictionary(options2, context);
-        const preventAbort = options2 === null || options2 === void 0 ? void 0 : options2.preventAbort;
-        const preventCancel = options2 === null || options2 === void 0 ? void 0 : options2.preventCancel;
-        const preventClose = options2 === null || options2 === void 0 ? void 0 : options2.preventClose;
-        const signal = options2 === null || options2 === void 0 ? void 0 : options2.signal;
+      function convertPipeOptions(options, context) {
+        assertDictionary(options, context);
+        const preventAbort = options === null || options === void 0 ? void 0 : options.preventAbort;
+        const preventCancel = options === null || options === void 0 ? void 0 : options.preventCancel;
+        const preventClose = options === null || options === void 0 ? void 0 : options.preventClose;
+        const signal = options === null || options === void 0 ? void 0 : options.signal;
         if (signal !== void 0) {
           assertAbortSignal(signal, `${context} has member 'signal' that`);
         }
@@ -3559,8 +3559,8 @@ var require_ponyfill_es2018 = __commonJS({
           if (!IsReadableStream(this)) {
             throw streamBrandCheckException$1("getReader");
           }
-          const options2 = convertReaderOptions(rawOptions, "First parameter");
-          if (options2.mode === void 0) {
+          const options = convertReaderOptions(rawOptions, "First parameter");
+          if (options.mode === void 0) {
             return AcquireReadableStreamDefaultReader(this);
           }
           return AcquireReadableStreamBYOBReader(this);
@@ -3571,14 +3571,14 @@ var require_ponyfill_es2018 = __commonJS({
           }
           assertRequiredArgument(rawTransform, 1, "pipeThrough");
           const transform = convertReadableWritablePair(rawTransform, "First parameter");
-          const options2 = convertPipeOptions(rawOptions, "Second parameter");
+          const options = convertPipeOptions(rawOptions, "Second parameter");
           if (IsReadableStreamLocked(this)) {
             throw new TypeError("ReadableStream.prototype.pipeThrough cannot be used on a locked ReadableStream");
           }
           if (IsWritableStreamLocked(transform.writable)) {
             throw new TypeError("ReadableStream.prototype.pipeThrough cannot be used on a locked WritableStream");
           }
-          const promise = ReadableStreamPipeTo(this, transform.writable, options2.preventClose, options2.preventAbort, options2.preventCancel, options2.signal);
+          const promise = ReadableStreamPipeTo(this, transform.writable, options.preventClose, options.preventAbort, options.preventCancel, options.signal);
           setPromiseIsHandledToTrue(promise);
           return transform.readable;
         }
@@ -3592,9 +3592,9 @@ var require_ponyfill_es2018 = __commonJS({
           if (!IsWritableStream(destination)) {
             return promiseRejectedWith(new TypeError(`ReadableStream.prototype.pipeTo's first argument must be a WritableStream`));
           }
-          let options2;
+          let options;
           try {
-            options2 = convertPipeOptions(rawOptions, "Second parameter");
+            options = convertPipeOptions(rawOptions, "Second parameter");
           } catch (e2) {
             return promiseRejectedWith(e2);
           }
@@ -3604,7 +3604,7 @@ var require_ponyfill_es2018 = __commonJS({
           if (IsWritableStreamLocked(destination)) {
             return promiseRejectedWith(new TypeError("ReadableStream.prototype.pipeTo cannot be used on a locked WritableStream"));
           }
-          return ReadableStreamPipeTo(this, destination, options2.preventClose, options2.preventAbort, options2.preventCancel, options2.signal);
+          return ReadableStreamPipeTo(this, destination, options.preventClose, options.preventAbort, options.preventCancel, options.signal);
         }
         /**
          * Tees this readable stream, returning a two-element array containing the two resulting branches as
@@ -3628,8 +3628,8 @@ var require_ponyfill_es2018 = __commonJS({
           if (!IsReadableStream(this)) {
             throw streamBrandCheckException$1("values");
           }
-          const options2 = convertIteratorOptions(rawOptions, "First parameter");
-          return AcquireReadableStreamAsyncIterator(this, options2.preventCancel);
+          const options = convertIteratorOptions(rawOptions, "First parameter");
+          return AcquireReadableStreamAsyncIterator(this, options.preventCancel);
         }
         /**
          * Creates a new ReadableStream wrapping the provided iterable or async iterable.
@@ -3773,10 +3773,10 @@ var require_ponyfill_es2018 = __commonJS({
       };
       setFunctionName(byteLengthSizeFunction, "size");
       class ByteLengthQueuingStrategy {
-        constructor(options2) {
-          assertRequiredArgument(options2, 1, "ByteLengthQueuingStrategy");
-          options2 = convertQueuingStrategyInit(options2, "First parameter");
-          this._byteLengthQueuingStrategyHighWaterMark = options2.highWaterMark;
+        constructor(options) {
+          assertRequiredArgument(options, 1, "ByteLengthQueuingStrategy");
+          options = convertQueuingStrategyInit(options, "First parameter");
+          this._byteLengthQueuingStrategyHighWaterMark = options.highWaterMark;
         }
         /**
          * Returns the high water mark provided to the constructor.
@@ -3824,10 +3824,10 @@ var require_ponyfill_es2018 = __commonJS({
       };
       setFunctionName(countSizeFunction, "size");
       class CountQueuingStrategy {
-        constructor(options2) {
-          assertRequiredArgument(options2, 1, "CountQueuingStrategy");
-          options2 = convertQueuingStrategyInit(options2, "First parameter");
-          this._countQueuingStrategyHighWaterMark = options2.highWaterMark;
+        constructor(options) {
+          assertRequiredArgument(options, 1, "CountQueuingStrategy");
+          options = convertQueuingStrategyInit(options, "First parameter");
+          this._countQueuingStrategyHighWaterMark = options.highWaterMark;
         }
         /**
          * Returns the high water mark provided to the constructor.
@@ -4407,18 +4407,18 @@ var init_fetch_blob = __esm({
        * @param {*} blobParts
        * @param {{ type?: string, endings?: string }} [options]
        */
-      constructor(blobParts = [], options2 = {}) {
+      constructor(blobParts = [], options = {}) {
         if (typeof blobParts !== "object" || blobParts === null) {
           throw new TypeError("Failed to construct 'Blob': The provided value cannot be converted to a sequence.");
         }
         if (typeof blobParts[Symbol.iterator] !== "function") {
           throw new TypeError("Failed to construct 'Blob': The object must have a callable @@iterator property.");
         }
-        if (typeof options2 !== "object" && typeof options2 !== "function") {
+        if (typeof options !== "object" && typeof options !== "function") {
           throw new TypeError("Failed to construct 'Blob': parameter 2 cannot convert to dictionary.");
         }
-        if (options2 === null)
-          options2 = {};
+        if (options === null)
+          options = {};
         const encoder = new TextEncoder();
         for (const element of blobParts) {
           let part;
@@ -4434,8 +4434,8 @@ var init_fetch_blob = __esm({
           this.#size += ArrayBuffer.isView(part) ? part.byteLength : part.size;
           this.#parts.push(part);
         }
-        this.#endings = `${options2.endings === void 0 ? "transparent" : options2.endings}`;
-        const type = options2.type === void 0 ? "" : String(options2.type);
+        this.#endings = `${options.endings === void 0 ? "transparent" : options.endings}`;
+        const type = options.type === void 0 ? "" : String(options.type);
         this.#type = /^[\x20-\x7E]*$/.test(type) ? type : "";
       }
       /**
@@ -4572,14 +4572,14 @@ var init_file = __esm({
        * @param {{lastModified?: number, type?: string}} options
        */
       // @ts-ignore
-      constructor(fileBits, fileName, options2 = {}) {
+      constructor(fileBits, fileName, options = {}) {
         if (arguments.length < 2) {
           throw new TypeError(`Failed to construct 'File': 2 arguments required, but only ${arguments.length} present.`);
         }
-        super(fileBits, options2);
-        if (options2 === null)
-          options2 = {};
-        const lastModified = options2.lastModified === void 0 ? Date.now() : Number(options2.lastModified);
+        super(fileBits, options);
+        if (options === null)
+          options = {};
+        const lastModified = options.lastModified === void 0 ? Date.now() : Number(options.lastModified);
         if (!Number.isNaN(lastModified)) {
           this.#lastModified = lastModified;
         }
@@ -4734,11 +4734,11 @@ var init_from = __esm({
     BlobDataItem = class _BlobDataItem {
       #path;
       #start;
-      constructor(options2) {
-        this.#path = options2.path;
-        this.#start = options2.start;
-        this.size = options2.size;
-        this.lastModified = options2.lastModified;
+      constructor(options) {
+        this.#path = options.path;
+        this.#start = options.start;
+        this.size = options.size;
+        this.lastModified = options.lastModified;
       }
       /**
        * Slicing arguments is first validated and formatted
@@ -5452,25 +5452,25 @@ var require_bytes = __commonJS({
       pb: Math.pow(1024, 5)
     };
     var parseRegExp = /^((-|\+)?(\d+(?:\.\d+)?)) *(kb|mb|gb|tb|pb)$/i;
-    function bytes(value, options2) {
+    function bytes(value, options) {
       if (typeof value === "string") {
         return parse(value);
       }
       if (typeof value === "number") {
-        return format(value, options2);
+        return format(value, options);
       }
       return null;
     }
-    function format(value, options2) {
+    function format(value, options) {
       if (!Number.isFinite(value)) {
         return null;
       }
       var mag = Math.abs(value);
-      var thousandsSeparator = options2 && options2.thousandsSeparator || "";
-      var unitSeparator = options2 && options2.unitSeparator || "";
-      var decimalPlaces = options2 && options2.decimalPlaces !== void 0 ? options2.decimalPlaces : 2;
-      var fixedDecimals = Boolean(options2 && options2.fixedDecimals);
-      var unit = options2 && options2.unit || "";
+      var thousandsSeparator = options && options.thousandsSeparator || "";
+      var unitSeparator = options && options.unitSeparator || "";
+      var decimalPlaces = options && options.decimalPlaces !== void 0 ? options.decimalPlaces : 2;
+      var fixedDecimals = Boolean(options && options.fixedDecimals);
+      var unit = options && options.unit || "";
       if (!unit || !map[unit.toLowerCase()]) {
         if (mag >= map.pb) {
           unit = "PB";
@@ -6021,13 +6021,13 @@ var require_ms = __commonJS({
     var h2 = m2 * 60;
     var d = h2 * 24;
     var y = d * 365.25;
-    module2.exports = function(val, options2) {
-      options2 = options2 || {};
+    module2.exports = function(val, options) {
+      options = options || {};
       var type = typeof val;
       if (type === "string" && val.length > 0) {
         return parse(val);
       } else if (type === "number" && isNaN(val) === false) {
-        return options2.long ? fmtLong(val) : fmtShort(val);
+        return options.long ? fmtLong(val) : fmtShort(val);
       }
       throw new Error(
         "val is not a non-empty string or a valid number. val=" + JSON.stringify(val)
@@ -6612,7 +6612,7 @@ var require_bom_handling = __commonJS({
     "use strict";
     var BOMChar = "\uFEFF";
     exports2.PrependBOM = PrependBOMWrapper;
-    function PrependBOMWrapper(encoder, options2) {
+    function PrependBOMWrapper(encoder, options) {
       this.encoder = encoder;
       this.addBOM = true;
     }
@@ -6627,10 +6627,10 @@ var require_bom_handling = __commonJS({
       return this.encoder.end();
     };
     exports2.StripBOM = StripBOMWrapper;
-    function StripBOMWrapper(decoder, options2) {
+    function StripBOMWrapper(decoder, options) {
       this.decoder = decoder;
       this.pass = false;
-      this.options = options2 || {};
+      this.options = options || {};
     }
     StripBOMWrapper.prototype.write = function(buf) {
       var res = this.decoder.write(buf);
@@ -6688,11 +6688,11 @@ var require_internal = __commonJS({
     if (!StringDecoder.prototype.end)
       StringDecoder.prototype.end = function() {
       };
-    function InternalDecoder(options2, codec) {
+    function InternalDecoder(options, codec) {
       StringDecoder.call(this, codec.enc);
     }
     InternalDecoder.prototype = StringDecoder.prototype;
-    function InternalEncoder(options2, codec) {
+    function InternalEncoder(options, codec) {
       this.enc = codec.enc;
     }
     InternalEncoder.prototype.write = function(str) {
@@ -6700,7 +6700,7 @@ var require_internal = __commonJS({
     };
     InternalEncoder.prototype.end = function() {
     };
-    function InternalEncoderBase64(options2, codec) {
+    function InternalEncoderBase64(options, codec) {
       this.prevStr = "";
     }
     InternalEncoderBase64.prototype.write = function(str) {
@@ -6713,7 +6713,7 @@ var require_internal = __commonJS({
     InternalEncoderBase64.prototype.end = function() {
       return Buffer4.from(this.prevStr, "base64");
     };
-    function InternalEncoderCesu8(options2, codec) {
+    function InternalEncoderCesu8(options, codec) {
     }
     InternalEncoderCesu8.prototype.write = function(str) {
       var buf = Buffer4.alloc(str.length * 3), bufIdx = 0;
@@ -6734,7 +6734,7 @@ var require_internal = __commonJS({
     };
     InternalEncoderCesu8.prototype.end = function() {
     };
-    function InternalDecoderCesu8(options2, codec) {
+    function InternalDecoderCesu8(options, codec) {
       this.acc = 0;
       this.contBytes = 0;
       this.accBytes = 0;
@@ -6846,11 +6846,11 @@ var require_utf16 = __commonJS({
     }
     Utf16Codec.prototype.encoder = Utf16Encoder;
     Utf16Codec.prototype.decoder = Utf16Decoder;
-    function Utf16Encoder(options2, codec) {
-      options2 = options2 || {};
-      if (options2.addBOM === void 0)
-        options2.addBOM = true;
-      this.encoder = codec.iconv.getEncoder("utf-16le", options2);
+    function Utf16Encoder(options, codec) {
+      options = options || {};
+      if (options.addBOM === void 0)
+        options.addBOM = true;
+      this.encoder = codec.iconv.getEncoder("utf-16le", options);
     }
     Utf16Encoder.prototype.write = function(str) {
       return this.encoder.write(str);
@@ -6858,11 +6858,11 @@ var require_utf16 = __commonJS({
     Utf16Encoder.prototype.end = function() {
       return this.encoder.end();
     };
-    function Utf16Decoder(options2, codec) {
+    function Utf16Decoder(options, codec) {
       this.decoder = null;
       this.initialBytes = [];
       this.initialBytesLen = 0;
-      this.options = options2 || {};
+      this.options = options || {};
       this.iconv = codec.iconv;
     }
     Utf16Decoder.prototype.write = function(buf) {
@@ -6926,7 +6926,7 @@ var require_utf7 = __commonJS({
     Utf7Codec.prototype.decoder = Utf7Decoder;
     Utf7Codec.prototype.bomAware = true;
     var nonDirectChars = /[^A-Za-z0-9'\(\),-\.\/:\? \n\r\t]+/g;
-    function Utf7Encoder(options2, codec) {
+    function Utf7Encoder(options, codec) {
       this.iconv = codec.iconv;
     }
     Utf7Encoder.prototype.write = function(str) {
@@ -6936,7 +6936,7 @@ var require_utf7 = __commonJS({
     };
     Utf7Encoder.prototype.end = function() {
     };
-    function Utf7Decoder(options2, codec) {
+    function Utf7Decoder(options, codec) {
       this.iconv = codec.iconv;
       this.inBase64 = false;
       this.base64Accum = "";
@@ -7002,7 +7002,7 @@ var require_utf7 = __commonJS({
     Utf7IMAPCodec.prototype.encoder = Utf7IMAPEncoder;
     Utf7IMAPCodec.prototype.decoder = Utf7IMAPDecoder;
     Utf7IMAPCodec.prototype.bomAware = true;
-    function Utf7IMAPEncoder(options2, codec) {
+    function Utf7IMAPEncoder(options, codec) {
       this.iconv = codec.iconv;
       this.inBase64 = false;
       this.base64Accum = Buffer4.alloc(6);
@@ -7057,7 +7057,7 @@ var require_utf7 = __commonJS({
       }
       return buf.slice(0, bufIdx);
     };
-    function Utf7IMAPDecoder(options2, codec) {
+    function Utf7IMAPDecoder(options, codec) {
       this.iconv = codec.iconv;
       this.inBase64 = false;
       this.base64Accum = "";
@@ -7138,7 +7138,7 @@ var require_sbcs_codec = __commonJS({
     }
     SBCSCodec.prototype.encoder = SBCSEncoder;
     SBCSCodec.prototype.decoder = SBCSDecoder;
-    function SBCSEncoder(options2, codec) {
+    function SBCSEncoder(options, codec) {
       this.encodeBuf = codec.encodeBuf;
     }
     SBCSEncoder.prototype.write = function(str) {
@@ -7149,7 +7149,7 @@ var require_sbcs_codec = __commonJS({
     };
     SBCSEncoder.prototype.end = function() {
     };
-    function SBCSDecoder(options2, codec) {
+    function SBCSDecoder(options, codec) {
       this.decodeBuf = codec.decodeBuf;
     }
     SBCSDecoder.prototype.write = function(buf) {
@@ -7954,7 +7954,7 @@ var require_dbcs_codec = __commonJS({
           this._setEncodeSequence(this.decodeTableSeq[SEQ_START - uCode], mbCode);
       }
     };
-    function DBCSEncoder(options2, codec) {
+    function DBCSEncoder(options, codec) {
       this.leadSurrogate = -1;
       this.seqObj = void 0;
       this.encodeTable = codec.encodeTable;
@@ -8076,7 +8076,7 @@ var require_dbcs_codec = __commonJS({
       return newBuf.slice(0, j);
     };
     DBCSEncoder.prototype.findIdx = findIdx;
-    function DBCSDecoder(options2, codec) {
+    function DBCSDecoder(options, codec) {
       this.nodeIdx = 0;
       this.prevBuf = Buffer4.alloc(0);
       this.decodeTables = codec.decodeTables;
@@ -9613,22 +9613,22 @@ var require_streams2 = __commonJS({
     var Buffer4 = require("buffer").Buffer;
     var Transform = require("stream").Transform;
     module2.exports = function(iconv) {
-      iconv.encodeStream = function encodeStream(encoding, options2) {
-        return new IconvLiteEncoderStream(iconv.getEncoder(encoding, options2), options2);
+      iconv.encodeStream = function encodeStream(encoding, options) {
+        return new IconvLiteEncoderStream(iconv.getEncoder(encoding, options), options);
       };
-      iconv.decodeStream = function decodeStream(encoding, options2) {
-        return new IconvLiteDecoderStream(iconv.getDecoder(encoding, options2), options2);
+      iconv.decodeStream = function decodeStream(encoding, options) {
+        return new IconvLiteDecoderStream(iconv.getDecoder(encoding, options), options);
       };
       iconv.supportsStreams = true;
       iconv.IconvLiteEncoderStream = IconvLiteEncoderStream;
       iconv.IconvLiteDecoderStream = IconvLiteDecoderStream;
       iconv._collect = IconvLiteDecoderStream.prototype.collect;
     };
-    function IconvLiteEncoderStream(conv, options2) {
+    function IconvLiteEncoderStream(conv, options) {
       this.conv = conv;
-      options2 = options2 || {};
-      options2.decodeStrings = false;
-      Transform.call(this, options2);
+      options = options || {};
+      options.decodeStrings = false;
+      Transform.call(this, options);
     }
     IconvLiteEncoderStream.prototype = Object.create(Transform.prototype, {
       constructor: { value: IconvLiteEncoderStream }
@@ -9666,11 +9666,11 @@ var require_streams2 = __commonJS({
       });
       return this;
     };
-    function IconvLiteDecoderStream(conv, options2) {
+    function IconvLiteDecoderStream(conv, options) {
       this.conv = conv;
-      options2 = options2 || {};
-      options2.encoding = this.encoding = "utf8";
-      Transform.call(this, options2);
+      options = options || {};
+      options.encoding = this.encoding = "utf8";
+      Transform.call(this, options);
     }
     IconvLiteDecoderStream.prototype = Object.create(Transform.prototype, {
       constructor: { value: IconvLiteDecoderStream }
@@ -9849,8 +9849,8 @@ var require_extend_node = __commonJS({
         if (iconv.supportsStreams) {
           var Readable = require("stream").Readable;
           original.ReadableSetEncoding = Readable.prototype.setEncoding;
-          Readable.prototype.setEncoding = function setEncoding(enc, options2) {
-            this._readableState.decoder = iconv.getDecoder(enc, options2);
+          Readable.prototype.setEncoding = function setEncoding(enc, options) {
+            this._readableState.decoder = iconv.getDecoder(enc, options);
             this._readableState.encoding = enc;
           };
           Readable.prototype.collect = iconv._collect;
@@ -9890,14 +9890,14 @@ var require_lib = __commonJS({
     iconv.encodings = null;
     iconv.defaultCharUnicode = "\uFFFD";
     iconv.defaultCharSingleByte = "?";
-    iconv.encode = function encode(str, encoding, options2) {
+    iconv.encode = function encode(str, encoding, options) {
       str = "" + (str || "");
-      var encoder = iconv.getEncoder(encoding, options2);
+      var encoder = iconv.getEncoder(encoding, options);
       var res = encoder.write(str);
       var trail = encoder.end();
       return trail && trail.length > 0 ? Buffer4.concat([res, trail]) : res;
     };
-    iconv.decode = function decode(buf, encoding, options2) {
+    iconv.decode = function decode(buf, encoding, options) {
       if (typeof buf === "string") {
         if (!iconv.skipDecodeWarning) {
           console.error("Iconv-lite warning: decode()-ing strings is deprecated. Refer to https://github.com/ashtuchkin/iconv-lite/wiki/Use-Buffers-when-decoding");
@@ -9905,7 +9905,7 @@ var require_lib = __commonJS({
         }
         buf = Buffer4.from("" + (buf || ""), "binary");
       }
-      var decoder = iconv.getDecoder(encoding, options2);
+      var decoder = iconv.getDecoder(encoding, options);
       var res = decoder.write(buf);
       var trail = decoder.end();
       return trail ? res + trail : res;
@@ -9956,16 +9956,16 @@ var require_lib = __commonJS({
     iconv._canonicalizeEncoding = function(encoding) {
       return ("" + encoding).toLowerCase().replace(/:\d{4}$|[^0-9a-z]/g, "");
     };
-    iconv.getEncoder = function getEncoder(encoding, options2) {
-      var codec = iconv.getCodec(encoding), encoder = new codec.encoder(options2, codec);
-      if (codec.bomAware && options2 && options2.addBOM)
-        encoder = new bomHandling.PrependBOM(encoder, options2);
+    iconv.getEncoder = function getEncoder(encoding, options) {
+      var codec = iconv.getCodec(encoding), encoder = new codec.encoder(options, codec);
+      if (codec.bomAware && options && options.addBOM)
+        encoder = new bomHandling.PrependBOM(encoder, options);
       return encoder;
     };
-    iconv.getDecoder = function getDecoder(encoding, options2) {
-      var codec = iconv.getCodec(encoding), decoder = new codec.decoder(options2, codec);
-      if (codec.bomAware && !(options2 && options2.stripBOM === false))
-        decoder = new bomHandling.StripBOM(decoder, options2);
+    iconv.getDecoder = function getDecoder(encoding, options) {
+      var codec = iconv.getCodec(encoding), decoder = new codec.decoder(options, codec);
+      if (codec.bomAware && !(options && options.stripBOM === false))
+        decoder = new bomHandling.StripBOM(decoder, options);
       return decoder;
     };
     var nodeVer = typeof process !== "undefined" && process.versions && process.versions.node;
@@ -10046,16 +10046,16 @@ var require_raw_body = __commonJS({
         });
       }
     }
-    function getRawBody(stream, options2, callback) {
+    function getRawBody(stream, options, callback) {
       var done = callback;
-      var opts = options2 || {};
-      if (options2 === true || typeof options2 === "string") {
+      var opts = options || {};
+      if (options === true || typeof options === "string") {
         opts = {
-          encoding: options2
+          encoding: options
         };
       }
-      if (typeof options2 === "function") {
-        done = options2;
+      if (typeof options === "function") {
+        done = options;
         opts = {};
       }
       if (done !== void 0 && typeof done !== "function") {
@@ -10389,9 +10389,9 @@ var require_read = __commonJS({
     var unpipe = require_unpipe();
     var zlib2 = require("zlib");
     module2.exports = read;
-    function read(req, res, next, parse, debug, options2) {
+    function read(req, res, next, parse, debug, options) {
       var length;
-      var opts = options2;
+      var opts = options;
       var stream;
       req._body = true;
       var encoding = opts.encoding !== null ? opts.encoding : null;
@@ -19368,8 +19368,8 @@ var require_json = __commonJS({
     var typeis = require_type_is();
     module2.exports = json;
     var FIRST_CHAR_REGEXP = /^[\x20\x09\x0a\x0d]*([^\x20\x09\x0a\x0d])/;
-    function json(options2) {
-      var opts = options2 || {};
+    function json(options) {
+      var opts = options || {};
       var limit = typeof opts.limit !== "number" ? bytes.parse(opts.limit || "100kb") : opts.limit;
       var inflate = opts.inflate !== false;
       var reviver = opts.reviver;
@@ -19489,8 +19489,8 @@ var require_raw = __commonJS({
     var read = require_read();
     var typeis = require_type_is();
     module2.exports = raw;
-    function raw(options2) {
-      var opts = options2 || {};
+    function raw(options) {
+      var opts = options || {};
       var inflate = opts.inflate !== false;
       var limit = typeof opts.limit !== "number" ? bytes.parse(opts.limit || "100kb") : opts.limit;
       var type = opts.type || "application/octet-stream";
@@ -19546,8 +19546,8 @@ var require_text = __commonJS({
     var read = require_read();
     var typeis = require_type_is();
     module2.exports = text;
-    function text(options2) {
-      var opts = options2 || {};
+    function text(options) {
+      var opts = options || {};
       var defaultCharset = opts.defaultCharset || "utf-8";
       var inflate = opts.inflate !== false;
       var limit = typeof opts.limit !== "number" ? bytes.parse(opts.limit || "100kb") : opts.limit;
@@ -20376,8 +20376,8 @@ var require_object_inspect = __commonJS({
     var utilInspect = require_util_inspect();
     var inspectCustom = utilInspect.custom;
     var inspectSymbol = isSymbol(inspectCustom) ? inspectCustom : null;
-    module2.exports = function inspect_(obj, options2, depth, seen) {
-      var opts = options2 || {};
+    module2.exports = function inspect_(obj, options, depth, seen) {
+      var opts = options || {};
       if (has(opts, "quoteStyle") && (opts.quoteStyle !== "single" && opts.quoteStyle !== "double")) {
         throw new TypeError('option "quoteStyle" must be "single" or "double"');
       }
@@ -21000,8 +21000,8 @@ var require_utils = __commonJS({
         }
       }
     };
-    var arrayToObject = function arrayToObject2(source, options2) {
-      var obj = options2 && options2.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
+    var arrayToObject = function arrayToObject2(source, options) {
+      var obj = options && options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
       for (var i2 = 0; i2 < source.length; ++i2) {
         if (typeof source[i2] !== "undefined") {
           obj[i2] = source[i2];
@@ -21009,7 +21009,7 @@ var require_utils = __commonJS({
       }
       return obj;
     };
-    var merge = function merge2(target, source, options2) {
+    var merge = function merge2(target, source, options) {
       if (!source) {
         return target;
       }
@@ -21017,7 +21017,7 @@ var require_utils = __commonJS({
         if (isArray(target)) {
           target.push(source);
         } else if (target && typeof target === "object") {
-          if (options2 && (options2.plainObjects || options2.allowPrototypes) || !has.call(Object.prototype, source)) {
+          if (options && (options.plainObjects || options.allowPrototypes) || !has.call(Object.prototype, source)) {
             target[source] = true;
           }
         } else {
@@ -21030,14 +21030,14 @@ var require_utils = __commonJS({
       }
       var mergeTarget = target;
       if (isArray(target) && !isArray(source)) {
-        mergeTarget = arrayToObject(target, options2);
+        mergeTarget = arrayToObject(target, options);
       }
       if (isArray(target) && isArray(source)) {
         source.forEach(function(item, i2) {
           if (has.call(target, i2)) {
             var targetItem = target[i2];
             if (targetItem && typeof targetItem === "object" && item && typeof item === "object") {
-              target[i2] = merge2(targetItem, item, options2);
+              target[i2] = merge2(targetItem, item, options);
             } else {
               target.push(item);
             }
@@ -21050,7 +21050,7 @@ var require_utils = __commonJS({
       return Object.keys(source).reduce(function(acc, key) {
         var value = source[key];
         if (has.call(acc, key)) {
-          acc[key] = merge2(acc[key], value, options2);
+          acc[key] = merge2(acc[key], value, options);
         } else {
           acc[key] = value;
         }
@@ -21361,14 +21361,14 @@ var require_stringify = __commonJS({
     };
     module2.exports = function(object, opts) {
       var obj = object;
-      var options2 = normalizeStringifyOptions(opts);
+      var options = normalizeStringifyOptions(opts);
       var objKeys;
       var filter;
-      if (typeof options2.filter === "function") {
-        filter = options2.filter;
+      if (typeof options.filter === "function") {
+        filter = options.filter;
         obj = filter("", obj);
-      } else if (isArray(options2.filter)) {
-        filter = options2.filter;
+      } else if (isArray(options.filter)) {
+        filter = options.filter;
         objKeys = filter;
       }
       var keys = [];
@@ -21391,13 +21391,13 @@ var require_stringify = __commonJS({
       if (!objKeys) {
         objKeys = Object.keys(obj);
       }
-      if (options2.sort) {
-        objKeys.sort(options2.sort);
+      if (options.sort) {
+        objKeys.sort(options.sort);
       }
       var sideChannel = getSideChannel();
       for (var i2 = 0; i2 < objKeys.length; ++i2) {
         var key = objKeys[i2];
-        if (options2.skipNulls && obj[key] === null) {
+        if (options.skipNulls && obj[key] === null) {
           continue;
         }
         pushToArray(keys, stringify(
@@ -21405,24 +21405,24 @@ var require_stringify = __commonJS({
           key,
           generateArrayPrefix,
           commaRoundTrip,
-          options2.strictNullHandling,
-          options2.skipNulls,
-          options2.encode ? options2.encoder : null,
-          options2.filter,
-          options2.sort,
-          options2.allowDots,
-          options2.serializeDate,
-          options2.format,
-          options2.formatter,
-          options2.encodeValuesOnly,
-          options2.charset,
+          options.strictNullHandling,
+          options.skipNulls,
+          options.encode ? options.encoder : null,
+          options.filter,
+          options.sort,
+          options.allowDots,
+          options.serializeDate,
+          options.format,
+          options.formatter,
+          options.encodeValuesOnly,
+          options.charset,
           sideChannel
         ));
       }
-      var joined = keys.join(options2.delimiter);
-      var prefix = options2.addQueryPrefix === true ? "?" : "";
-      if (options2.charsetSentinel) {
-        if (options2.charset === "iso-8859-1") {
+      var joined = keys.join(options.delimiter);
+      var prefix = options.addQueryPrefix === true ? "?" : "";
+      if (options.charsetSentinel) {
+        if (options.charset === "iso-8859-1") {
           prefix += "utf8=%26%2310003%3B&";
         } else {
           prefix += "utf8=%E2%9C%93&";
@@ -21463,23 +21463,23 @@ var require_parse = __commonJS({
         return String.fromCharCode(parseInt(numberStr, 10));
       });
     };
-    var parseArrayValue = function(val, options2) {
-      if (val && typeof val === "string" && options2.comma && val.indexOf(",") > -1) {
+    var parseArrayValue = function(val, options) {
+      if (val && typeof val === "string" && options.comma && val.indexOf(",") > -1) {
         return val.split(",");
       }
       return val;
     };
     var isoSentinel = "utf8=%26%2310003%3B";
     var charsetSentinel = "utf8=%E2%9C%93";
-    var parseValues = function parseQueryStringValues(str, options2) {
+    var parseValues = function parseQueryStringValues(str, options) {
       var obj = {};
-      var cleanStr = options2.ignoreQueryPrefix ? str.replace(/^\?/, "") : str;
-      var limit = options2.parameterLimit === Infinity ? void 0 : options2.parameterLimit;
-      var parts = cleanStr.split(options2.delimiter, limit);
+      var cleanStr = options.ignoreQueryPrefix ? str.replace(/^\?/, "") : str;
+      var limit = options.parameterLimit === Infinity ? void 0 : options.parameterLimit;
+      var parts = cleanStr.split(options.delimiter, limit);
       var skipIndex = -1;
       var i2;
-      var charset = options2.charset;
-      if (options2.charsetSentinel) {
+      var charset = options.charset;
+      if (options.charsetSentinel) {
         for (i2 = 0; i2 < parts.length; ++i2) {
           if (parts[i2].indexOf("utf8=") === 0) {
             if (parts[i2] === charsetSentinel) {
@@ -21501,18 +21501,18 @@ var require_parse = __commonJS({
         var pos = bracketEqualsPos === -1 ? part.indexOf("=") : bracketEqualsPos + 1;
         var key, val;
         if (pos === -1) {
-          key = options2.decoder(part, defaults.decoder, charset, "key");
-          val = options2.strictNullHandling ? null : "";
+          key = options.decoder(part, defaults.decoder, charset, "key");
+          val = options.strictNullHandling ? null : "";
         } else {
-          key = options2.decoder(part.slice(0, pos), defaults.decoder, charset, "key");
+          key = options.decoder(part.slice(0, pos), defaults.decoder, charset, "key");
           val = utils.maybeMap(
-            parseArrayValue(part.slice(pos + 1), options2),
+            parseArrayValue(part.slice(pos + 1), options),
             function(encodedVal) {
-              return options2.decoder(encodedVal, defaults.decoder, charset, "value");
+              return options.decoder(encodedVal, defaults.decoder, charset, "value");
             }
           );
         }
-        if (val && options2.interpretNumericEntities && charset === "iso-8859-1") {
+        if (val && options.interpretNumericEntities && charset === "iso-8859-1") {
           val = interpretNumericEntities(val);
         }
         if (part.indexOf("[]=") > -1) {
@@ -21526,20 +21526,20 @@ var require_parse = __commonJS({
       }
       return obj;
     };
-    var parseObject = function(chain, val, options2, valuesParsed) {
-      var leaf = valuesParsed ? val : parseArrayValue(val, options2);
+    var parseObject = function(chain, val, options, valuesParsed) {
+      var leaf = valuesParsed ? val : parseArrayValue(val, options);
       for (var i2 = chain.length - 1; i2 >= 0; --i2) {
         var obj;
         var root = chain[i2];
-        if (root === "[]" && options2.parseArrays) {
+        if (root === "[]" && options.parseArrays) {
           obj = [].concat(leaf);
         } else {
-          obj = options2.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
+          obj = options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
           var cleanRoot = root.charAt(0) === "[" && root.charAt(root.length - 1) === "]" ? root.slice(1, -1) : root;
           var index = parseInt(cleanRoot, 10);
-          if (!options2.parseArrays && cleanRoot === "") {
+          if (!options.parseArrays && cleanRoot === "") {
             obj = { 0: leaf };
-          } else if (!isNaN(index) && root !== cleanRoot && String(index) === cleanRoot && index >= 0 && (options2.parseArrays && index <= options2.arrayLimit)) {
+          } else if (!isNaN(index) && root !== cleanRoot && String(index) === cleanRoot && index >= 0 && (options.parseArrays && index <= options.arrayLimit)) {
             obj = [];
             obj[index] = leaf;
           } else if (cleanRoot !== "__proto__") {
@@ -21550,29 +21550,29 @@ var require_parse = __commonJS({
       }
       return leaf;
     };
-    var parseKeys = function parseQueryStringKeys(givenKey, val, options2, valuesParsed) {
+    var parseKeys = function parseQueryStringKeys(givenKey, val, options, valuesParsed) {
       if (!givenKey) {
         return;
       }
-      var key = options2.allowDots ? givenKey.replace(/\.([^.[]+)/g, "[$1]") : givenKey;
+      var key = options.allowDots ? givenKey.replace(/\.([^.[]+)/g, "[$1]") : givenKey;
       var brackets = /(\[[^[\]]*])/;
       var child = /(\[[^[\]]*])/g;
-      var segment = options2.depth > 0 && brackets.exec(key);
+      var segment = options.depth > 0 && brackets.exec(key);
       var parent = segment ? key.slice(0, segment.index) : key;
       var keys = [];
       if (parent) {
-        if (!options2.plainObjects && has.call(Object.prototype, parent)) {
-          if (!options2.allowPrototypes) {
+        if (!options.plainObjects && has.call(Object.prototype, parent)) {
+          if (!options.allowPrototypes) {
             return;
           }
         }
         keys.push(parent);
       }
       var i2 = 0;
-      while (options2.depth > 0 && (segment = child.exec(key)) !== null && i2 < options2.depth) {
+      while (options.depth > 0 && (segment = child.exec(key)) !== null && i2 < options.depth) {
         i2 += 1;
-        if (!options2.plainObjects && has.call(Object.prototype, segment[1].slice(1, -1))) {
-          if (!options2.allowPrototypes) {
+        if (!options.plainObjects && has.call(Object.prototype, segment[1].slice(1, -1))) {
+          if (!options.allowPrototypes) {
             return;
           }
         }
@@ -21581,7 +21581,7 @@ var require_parse = __commonJS({
       if (segment) {
         keys.push("[" + key.slice(segment.index) + "]");
       }
-      return parseObject(keys, val, options2, valuesParsed);
+      return parseObject(keys, val, options, valuesParsed);
     };
     var normalizeParseOptions = function normalizeParseOptions2(opts) {
       if (!opts) {
@@ -21615,19 +21615,19 @@ var require_parse = __commonJS({
       };
     };
     module2.exports = function(str, opts) {
-      var options2 = normalizeParseOptions(opts);
+      var options = normalizeParseOptions(opts);
       if (str === "" || str === null || typeof str === "undefined") {
-        return options2.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
+        return options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
       }
-      var tempObj = typeof str === "string" ? parseValues(str, options2) : str;
-      var obj = options2.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
+      var tempObj = typeof str === "string" ? parseValues(str, options) : str;
+      var obj = options.plainObjects ? /* @__PURE__ */ Object.create(null) : {};
       var keys = Object.keys(tempObj);
       for (var i2 = 0; i2 < keys.length; ++i2) {
         var key = keys[i2];
-        var newObj = parseKeys(key, tempObj[key], options2, typeof str === "string");
-        obj = utils.merge(obj, newObj, options2);
+        var newObj = parseKeys(key, tempObj[key], options, typeof str === "string");
+        obj = utils.merge(obj, newObj, options);
       }
-      if (options2.allowSparse === true) {
+      if (options.allowSparse === true) {
         return obj;
       }
       return utils.compact(obj);
@@ -21663,8 +21663,8 @@ var require_urlencoded = __commonJS({
     var typeis = require_type_is();
     module2.exports = urlencoded;
     var parsers = /* @__PURE__ */ Object.create(null);
-    function urlencoded(options2) {
-      var opts = options2 || {};
+    function urlencoded(options) {
+      var opts = options || {};
       if (opts.extended === void 0) {
         deprecate3("undefined extended: provide extended option");
       }
@@ -21717,8 +21717,8 @@ var require_urlencoded = __commonJS({
         });
       };
     }
-    function extendedparser(options2) {
-      var parameterLimit = options2.parameterLimit !== void 0 ? options2.parameterLimit : 1e3;
+    function extendedparser(options) {
+      var parameterLimit = options.parameterLimit !== void 0 ? options.parameterLimit : 1e3;
       var parse = parser("qs");
       if (isNaN(parameterLimit) || parameterLimit < 1) {
         throw new TypeError("option parameterLimit must be a positive number");
@@ -21779,8 +21779,8 @@ var require_urlencoded = __commonJS({
       parsers[name] = mod;
       return mod.parse;
     }
-    function simpleparser(options2) {
-      var parameterLimit = options2.parameterLimit !== void 0 ? options2.parameterLimit : 1e3;
+    function simpleparser(options) {
+      var parameterLimit = options.parameterLimit !== void 0 ? options.parameterLimit : 1e3;
       var parse = parser("querystring");
       if (isNaN(parameterLimit) || parameterLimit < 1) {
         throw new TypeError("option parameterLimit must be a positive number");
@@ -21838,8 +21838,8 @@ var require_body_parser = __commonJS({
       enumerable: true,
       get: createParserGetter("urlencoded")
     });
-    function bodyParser(options2) {
-      var opts = Object.create(options2 || null, {
+    function bodyParser(options) {
+      var opts = Object.create(options || null, {
         type: {
           configurable: true,
           enumerable: true,
@@ -21922,13 +21922,13 @@ var require_ms2 = __commonJS({
     var h2 = m2 * 60;
     var d = h2 * 24;
     var y = d * 365.25;
-    module2.exports = function(val, options2) {
-      options2 = options2 || {};
+    module2.exports = function(val, options) {
+      options = options || {};
       var type = typeof val;
       if (type === "string" && val.length > 0) {
         return parse(val);
       } else if (type === "number" && isNaN(val) === false) {
-        return options2.long ? fmtLong(val) : fmtShort(val);
+        return options.long ? fmtLong(val) : fmtShort(val);
       }
       throw new Error(
         "val is not a non-empty string or a valid number. val=" + JSON.stringify(val)
@@ -22509,8 +22509,8 @@ var require_finalhandler = __commonJS({
       return '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Error</title>\n</head>\n<body>\n<pre>' + body + "</pre>\n</body>\n</html>\n";
     }
     module2.exports = finalhandler;
-    function finalhandler(req, res, options2) {
-      var opts = options2 || {};
+    function finalhandler(req, res, options) {
+      var opts = options || {};
       var env = opts.env || process.env.NODE_ENV || "development";
       var onerror = opts.onerror;
       return function(err) {
@@ -22674,12 +22674,12 @@ var require_path_to_regexp = __commonJS({
   "node_modules/express/node_modules/path-to-regexp/index.js"(exports2, module2) {
     module2.exports = pathtoRegexp;
     var MATCHING_GROUP_REGEXP = /\((?!\?)/g;
-    function pathtoRegexp(path, keys, options2) {
-      options2 = options2 || {};
+    function pathtoRegexp(path, keys, options) {
+      options = options || {};
       keys = keys || [];
-      var strict = options2.strict;
-      var end = options2.end !== false;
-      var flags = options2.sensitive ? "" : "i";
+      var strict = options.strict;
+      var end = options.end !== false;
+      var flags = options.sensitive ? "" : "i";
       var extraOffset = 0;
       var keysOffset = keys.length;
       var i2 = 0;
@@ -22697,7 +22697,7 @@ var require_path_to_regexp = __commonJS({
       }
       if (Array.isArray(path)) {
         path = path.map(function(value) {
-          return pathtoRegexp(value, keys, options2).source;
+          return pathtoRegexp(value, keys, options).source;
         });
         return new RegExp("(?:" + path.join("|") + ")", flags);
       }
@@ -22754,12 +22754,12 @@ var require_layer = __commonJS({
     var debug = require_src()("express:router:layer");
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     module2.exports = Layer;
-    function Layer(path, options2, fn) {
+    function Layer(path, options, fn) {
       if (!(this instanceof Layer)) {
-        return new Layer(path, options2, fn);
+        return new Layer(path, options, fn);
       }
       debug("new %o", path);
-      var opts = options2 || {};
+      var opts = options || {};
       this.handle = fn;
       this.name = fn.name || "<anonymous>";
       this.params = void 0;
@@ -23027,8 +23027,8 @@ var require_router = __commonJS({
     var objectRegExp = /^\[object (\S+)\]$/;
     var slice = Array.prototype.slice;
     var toString = Object.prototype.toString;
-    var proto = module2.exports = function(options2) {
-      var opts = options2 || {};
+    var proto = module2.exports = function(options) {
+      var opts = options || {};
       function router2(req, res, next) {
         router2.handle(req, res, next);
       }
@@ -23074,7 +23074,7 @@ var require_router = __commonJS({
       var slashAdded = false;
       var sync = 0;
       var paramcalled = {};
-      var options2 = [];
+      var options = [];
       var stack = self2.stack;
       var parentParams = req.params;
       var parentUrl = req.baseUrl || "";
@@ -23082,9 +23082,9 @@ var require_router = __commonJS({
       req.next = next;
       if (req.method === "OPTIONS") {
         done = wrap(done, function(old, err) {
-          if (err || options2.length === 0)
+          if (err || options.length === 0)
             return old(err);
-          sendOptionsResponse(res, options2, old);
+          sendOptionsResponse(res, options, old);
         });
       }
       req.baseUrl = parentUrl;
@@ -23139,7 +23139,7 @@ var require_router = __commonJS({
           var method = req.method;
           var has_method = route._handles_method(method);
           if (!has_method && method === "OPTIONS") {
-            appendMethods(options2, route._options());
+            appendMethods(options, route._options());
           }
           if (!has_method && method !== "HEAD") {
             match = false;
@@ -23375,9 +23375,9 @@ var require_router = __commonJS({
         return fn.apply(this, arguments);
       };
     }
-    function sendOptionsResponse(res, options2, next) {
+    function sendOptionsResponse(res, options, next) {
       try {
-        var body = options2.join(",");
+        var body = options.join(",");
         res.set("Allow", body);
         res.send(body);
       } catch (err) {
@@ -23425,11 +23425,11 @@ var require_query = __commonJS({
     var merge = require_utils_merge();
     var parseUrl = require_parseurl();
     var qs = require_lib2();
-    module2.exports = function query(options2) {
-      var opts = merge({}, options2);
+    module2.exports = function query(options) {
+      var opts = merge({}, options);
       var queryparse = qs.parse;
-      if (typeof options2 === "function") {
-        queryparse = options2;
+      if (typeof options === "function") {
+        queryparse = options;
         opts = void 0;
       }
       if (opts !== void 0 && opts.allowPrototypes === void 0) {
@@ -23459,8 +23459,8 @@ var require_view = __commonJS({
     var join = path.join;
     var resolve = path.resolve;
     module2.exports = View;
-    function View(name, options2) {
-      var opts = options2 || {};
+    function View(name, options) {
+      var opts = options || {};
       this.defaultEngine = opts.defaultEngine;
       this.ext = extname(name);
       this.name = name;
@@ -23498,9 +23498,9 @@ var require_view = __commonJS({
       }
       return path2;
     };
-    View.prototype.render = function render(options2, callback) {
+    View.prototype.render = function render(options, callback) {
       debug('render "%s"', this.path);
-      this.engine(this.path, options2, callback);
+      this.engine(this.path, options, callback);
     };
     View.prototype.resolve = function resolve2(dir, file) {
       var ext = this.ext;
@@ -23603,8 +23603,8 @@ var require_content_disposition = __commonJS({
     var TOKEN_REGEXP = /^[!#$%&'*+.0-9A-Z^_`a-z|~-]+$/;
     var EXT_VALUE_REGEXP = /^([A-Za-z0-9!#$%&+\-^_`{}~]+)'(?:[A-Za-z]{2,3}(?:-[A-Za-z]{3}){0,3}|[A-Za-z]{4,8}|)'((?:%[0-9A-Fa-f]{2}|[A-Za-z0-9!#$&+.^_`|~-])+)$/;
     var DISPOSITION_TYPE_REGEXP = /^([!#$%&'*+.0-9A-Z^_`a-z|~-]+)[\x09\x20]*(?:$|;)/;
-    function contentDisposition(filename, options2) {
-      var opts = options2 || {};
+    function contentDisposition(filename, options) {
+      var opts = options || {};
       var type = opts.type || "attachment";
       var params = createparams(filename, opts.fallback);
       return format(new ContentDisposition(type, params));
@@ -23755,13 +23755,13 @@ var require_ms3 = __commonJS({
     var h2 = m2 * 60;
     var d = h2 * 24;
     var y = d * 365.25;
-    module2.exports = function(val, options2) {
-      options2 = options2 || {};
+    module2.exports = function(val, options) {
+      options = options || {};
       var type = typeof val;
       if (type === "string" && val.length > 0) {
         return parse(val);
       } else if (type === "number" && isNaN(val) === false) {
-        return options2.long ? fmtLong(val) : fmtShort(val);
+        return options.long ? fmtLong(val) : fmtShort(val);
       }
       throw new Error(
         "val is not a non-empty string or a valid number. val=" + JSON.stringify(val)
@@ -24197,12 +24197,12 @@ var require_etag = __commonJS({
       var len = typeof entity === "string" ? Buffer.byteLength(entity, "utf8") : entity.length;
       return '"' + len.toString(16) + "-" + hash + '"';
     }
-    function etag(entity, options2) {
+    function etag(entity, options) {
       if (entity == null) {
         throw new TypeError("argument entity is required");
       }
       var isStats = isstats(entity);
-      var weak = options2 && typeof options2.weak === "boolean" ? options2.weak : isStats;
+      var weak = options && typeof options.weak === "boolean" ? options.weak : isStats;
       if (!isStats && typeof entity !== "string" && !Buffer.isBuffer(entity)) {
         throw new TypeError("argument entity must be string, Buffer, or fs.Stats");
       }
@@ -24366,13 +24366,13 @@ var require_ms4 = __commonJS({
     var d = h2 * 24;
     var w = d * 7;
     var y = d * 365.25;
-    module2.exports = function(val, options2) {
-      options2 = options2 || {};
+    module2.exports = function(val, options) {
+      options = options || {};
       var type = typeof val;
       if (type === "string" && val.length > 0) {
         return parse(val);
       } else if (type === "number" && isFinite(val)) {
-        return options2.long ? fmtLong(val) : fmtShort(val);
+        return options.long ? fmtLong(val) : fmtShort(val);
       }
       throw new Error(
         "val is not a non-empty string or a valid number. val=" + JSON.stringify(val)
@@ -24478,7 +24478,7 @@ var require_range_parser = __commonJS({
   "node_modules/range-parser/index.js"(exports2, module2) {
     "use strict";
     module2.exports = rangeParser;
-    function rangeParser(size, str, options2) {
+    function rangeParser(size, str, options) {
       if (typeof str !== "string") {
         throw new TypeError("argument str must be a string");
       }
@@ -24513,7 +24513,7 @@ var require_range_parser = __commonJS({
       if (ranges.length < 1) {
         return -1;
       }
-      return options2 && options2.combine ? combineRanges(ranges) : ranges;
+      return options && options.combine ? combineRanges(ranges) : ranges;
     }
     function combineRanges(ranges) {
       var ordered = ranges.map(mapWithIndex).sort(sortByRangeStart);
@@ -24585,12 +24585,12 @@ var require_send = __commonJS({
     var UP_PATH_REGEXP = /(?:^|[\\/])\.\.(?:[\\/]|$)/;
     module2.exports = send;
     module2.exports.mime = mime;
-    function send(req, path2, options2) {
-      return new SendStream(req, path2, options2);
+    function send(req, path2, options) {
+      return new SendStream(req, path2, options);
     }
-    function SendStream(req, path2, options2) {
+    function SendStream(req, path2, options) {
       Stream3.call(this);
-      var opts = options2 || {};
+      var opts = options || {};
       this.options = opts;
       this.path = path2;
       this.req = req;
@@ -24832,12 +24832,12 @@ var require_send = __commonJS({
     };
     SendStream.prototype.send = function send2(path2, stat2) {
       var len = stat2.size;
-      var options2 = this.options;
+      var options = this.options;
       var opts = {};
       var res = this.res;
       var req = this.req;
       var ranges = req.headers.range;
-      var offset = options2.start || 0;
+      var offset = options.start || 0;
       if (headersSent(res)) {
         this.headersAlreadySent();
         return;
@@ -24856,8 +24856,8 @@ var require_send = __commonJS({
         }
       }
       len = Math.max(0, len - offset);
-      if (options2.end !== void 0) {
-        var bytes = options2.end - offset + 1;
+      if (options.end !== void 0) {
+        var bytes = options.end - offset + 1;
         if (len > bytes)
           len = bytes;
       }
@@ -24884,8 +24884,8 @@ var require_send = __commonJS({
           len = ranges[0].end - ranges[0].start + 1;
         }
       }
-      for (var prop in options2) {
-        opts[prop] = options2[prop];
+      for (var prop in options) {
+        opts[prop] = options[prop];
       }
       opts.start = offset;
       opts.end = Math.max(offset, offset + len - 1);
@@ -24949,10 +24949,10 @@ var require_send = __commonJS({
       }
       next();
     };
-    SendStream.prototype.stream = function stream(path2, options2) {
+    SendStream.prototype.stream = function stream(path2, options) {
       var self2 = this;
       var res = this.res;
-      var stream2 = fs2.createReadStream(path2, options2);
+      var stream2 = fs2.createReadStream(path2, options);
       this.emit("stream", stream2);
       stream2.pipe(res);
       function cleanup() {
@@ -26063,10 +26063,10 @@ var require_utils2 = __commonJS({
       parsed.parameters.charset = charset;
       return contentType.format(parsed);
     };
-    function createETagGenerator(options2) {
+    function createETagGenerator(options) {
       return function generateETag(body, encoding) {
         var buf = !Buffer4.isBuffer(body) ? Buffer4.from(body, encoding) : body;
-        return etag(buf, options2);
+        return etag(buf, options);
       };
     }
     function parseExtendedQueryString(str) {
@@ -26298,15 +26298,15 @@ var require_application = __commonJS({
       return this;
     };
     app.del = deprecate3.function(app.delete, "app.del: Use app.delete instead");
-    app.render = function render(name, options2, callback) {
+    app.render = function render(name, options, callback) {
       var cache = this.cache;
       var done = callback;
       var engines = this.engines;
-      var opts = options2;
+      var opts = options;
       var renderOptions = {};
       var view;
-      if (typeof options2 === "function") {
-        done = options2;
+      if (typeof options === "function") {
+        done = options;
         opts = {};
       }
       merge(renderOptions, this.locals);
@@ -26347,9 +26347,9 @@ var require_application = __commonJS({
       if (this.get("env") !== "test")
         console.error(err.stack || err.toString());
     }
-    function tryRender(view, options2, callback) {
+    function tryRender(view, options, callback) {
       try {
-        view.render(options2, callback);
+        view.render(options, callback);
       } catch (err) {
         callback(err);
       }
@@ -27001,11 +27001,11 @@ var require_request = __commonJS({
       req.acceptsLanguages,
       "req.acceptsLanguage: Use acceptsLanguages instead"
     );
-    req.range = function range(size, options2) {
+    req.range = function range(size, options) {
       var range2 = this.get("Range");
       if (!range2)
         return;
-      return parseRange(size, range2, options2);
+      return parseRange(size, range2, options);
     };
     req.param = function param(name, defaultValue) {
       var params = this.params || {};
@@ -27146,12 +27146,12 @@ var require_cookie = __commonJS({
     exports2.serialize = serialize;
     var __toString = Object.prototype.toString;
     var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-    function parse(str, options2) {
+    function parse(str, options) {
       if (typeof str !== "string") {
         throw new TypeError("argument str must be a string");
       }
       var obj = {};
-      var opt = options2 || {};
+      var opt = options || {};
       var dec = opt.decode || decode;
       var index = 0;
       while (index < str.length) {
@@ -27178,8 +27178,8 @@ var require_cookie = __commonJS({
       }
       return obj;
     }
-    function serialize(name, val, options2) {
-      var opt = options2 || {};
+    function serialize(name, val, options) {
+      var opt = options || {};
       var enc = opt.encode || encode;
       if (typeof enc !== "function") {
         throw new TypeError("option encode is invalid");
@@ -27555,20 +27555,20 @@ var require_response = __commonJS({
       this.type("txt");
       return this.send(body);
     };
-    res.sendFile = function sendFile(path2, options2, callback) {
+    res.sendFile = function sendFile(path2, options, callback) {
       var done = callback;
       var req = this.req;
       var res2 = this;
       var next = req.next;
-      var opts = options2 || {};
+      var opts = options || {};
       if (!path2) {
         throw new TypeError("path argument is required to res.sendFile");
       }
       if (typeof path2 !== "string") {
         throw new TypeError("path must be a string to res.sendFile");
       }
-      if (typeof options2 === "function") {
-        done = options2;
+      if (typeof options === "function") {
+        done = options;
         opts = {};
       }
       if (!opts.root && !isAbsolute(path2)) {
@@ -27586,14 +27586,14 @@ var require_response = __commonJS({
         }
       });
     };
-    res.sendfile = function(path2, options2, callback) {
+    res.sendfile = function(path2, options, callback) {
       var done = callback;
       var req = this.req;
       var res2 = this;
       var next = req.next;
-      var opts = options2 || {};
-      if (typeof options2 === "function") {
-        done = options2;
+      var opts = options || {};
+      if (typeof options === "function") {
+        done = options;
         opts = {};
       }
       var file = send(req, path2, opts);
@@ -27611,19 +27611,19 @@ var require_response = __commonJS({
       res.sendfile,
       "res.sendfile: Use res.sendFile instead"
     );
-    res.download = function download(path2, filename, options2, callback) {
+    res.download = function download(path2, filename, options, callback) {
       var done = callback;
       var name = filename;
-      var opts = options2 || null;
+      var opts = options || null;
       if (typeof filename === "function") {
         done = filename;
         name = null;
         opts = null;
-      } else if (typeof options2 === "function") {
-        done = options2;
+      } else if (typeof options === "function") {
+        done = options;
         opts = null;
       }
-      if (typeof filename === "object" && (typeof options2 === "function" || options2 === void 0)) {
+      if (typeof filename === "object" && (typeof options === "function" || options === void 0)) {
         name = null;
         opts = filename;
       }
@@ -27709,12 +27709,12 @@ var require_response = __commonJS({
     res.get = function(field) {
       return this.getHeader(field);
     };
-    res.clearCookie = function clearCookie(name, options2) {
-      var opts = merge({ expires: /* @__PURE__ */ new Date(1), path: "/" }, options2);
+    res.clearCookie = function clearCookie(name, options) {
+      var opts = merge({ expires: /* @__PURE__ */ new Date(1), path: "/" }, options);
       return this.cookie(name, "", opts);
     };
-    res.cookie = function(name, value, options2) {
-      var opts = merge({}, options2);
+    res.cookie = function(name, value, options) {
+      var opts = merge({}, options);
       var secret = this.req.secret;
       var signed = opts.signed;
       if (signed && !secret) {
@@ -27786,14 +27786,14 @@ var require_response = __commonJS({
       vary(this, field);
       return this;
     };
-    res.render = function render(view, options2, callback) {
+    res.render = function render(view, options, callback) {
       var app = this.req.app;
       var done = callback;
-      var opts = options2 || {};
+      var opts = options || {};
       var req = this.req;
       var self2 = this;
-      if (typeof options2 === "function") {
-        done = options2;
+      if (typeof options === "function") {
+        done = options;
         opts = {};
       }
       opts._locals = self2.locals;
@@ -27804,7 +27804,7 @@ var require_response = __commonJS({
       };
       app.render(view, opts, done);
     };
-    function sendfile(res2, file, options2, callback) {
+    function sendfile(res2, file, options, callback) {
       var done = false;
       var streaming;
       function onaborted() {
@@ -27865,9 +27865,9 @@ var require_response = __commonJS({
       file.on("file", onfile);
       file.on("stream", onstream);
       onFinished(res2, onfinish);
-      if (options2.headers) {
+      if (options.headers) {
         file.on("headers", function headers(res3) {
-          var obj = options2.headers;
+          var obj = options.headers;
           var keys = Object.keys(obj);
           for (var i2 = 0; i2 < keys.length; i2++) {
             var k = keys[i2];
@@ -27910,14 +27910,14 @@ var require_serve_static = __commonJS({
     var url = require("url");
     module2.exports = serveStatic;
     module2.exports.mime = send.mime;
-    function serveStatic(root, options2) {
+    function serveStatic(root, options) {
       if (!root) {
         throw new TypeError("root path required");
       }
       if (typeof root !== "string") {
         throw new TypeError("root path must be a string");
       }
-      var opts = Object.create(options2 || null);
+      var opts = Object.create(options || null);
       var fallthrough = opts.fallthrough !== false;
       var redirect = opts.redirect !== false;
       var setHeaders = opts.setHeaders;
@@ -28300,8 +28300,8 @@ var require_common = __commonJS({
     var upgradeHeader = /(^|,)\s*upgrade\s*($|,)/i;
     var isSSL = /^https|wss/;
     common.isSSL = isSSL;
-    common.setupOutgoing = function(outgoing, options2, req, forward) {
-      outgoing.port = options2[forward || "target"].port || (isSSL.test(options2[forward || "target"].protocol) ? 443 : 80);
+    common.setupOutgoing = function(outgoing, options, req, forward) {
+      outgoing.port = options[forward || "target"].port || (isSSL.test(options[forward || "target"].protocol) ? 443 : 80);
       [
         "host",
         "hostname",
@@ -28315,38 +28315,38 @@ var require_common = __commonJS({
         "secureProtocol"
       ].forEach(
         function(e2) {
-          outgoing[e2] = options2[forward || "target"][e2];
+          outgoing[e2] = options[forward || "target"][e2];
         }
       );
-      outgoing.method = options2.method || req.method;
+      outgoing.method = options.method || req.method;
       outgoing.headers = extend({}, req.headers);
-      if (options2.headers) {
-        extend(outgoing.headers, options2.headers);
+      if (options.headers) {
+        extend(outgoing.headers, options.headers);
       }
-      if (options2.auth) {
-        outgoing.auth = options2.auth;
+      if (options.auth) {
+        outgoing.auth = options.auth;
       }
-      if (options2.ca) {
-        outgoing.ca = options2.ca;
+      if (options.ca) {
+        outgoing.ca = options.ca;
       }
-      if (isSSL.test(options2[forward || "target"].protocol)) {
-        outgoing.rejectUnauthorized = typeof options2.secure === "undefined" ? true : options2.secure;
+      if (isSSL.test(options[forward || "target"].protocol)) {
+        outgoing.rejectUnauthorized = typeof options.secure === "undefined" ? true : options.secure;
       }
-      outgoing.agent = options2.agent || false;
-      outgoing.localAddress = options2.localAddress;
+      outgoing.agent = options.agent || false;
+      outgoing.localAddress = options.localAddress;
       if (!outgoing.agent) {
         outgoing.headers = outgoing.headers || {};
         if (typeof outgoing.headers.connection !== "string" || !upgradeHeader.test(outgoing.headers.connection)) {
           outgoing.headers.connection = "close";
         }
       }
-      var target = options2[forward || "target"];
-      var targetPath = target && options2.prependPath !== false ? target.path || "" : "";
-      var outgoingPath = !options2.toProxy ? url.parse(req.url).path || "" : req.url;
-      outgoingPath = !options2.ignorePath ? outgoingPath : "";
+      var target = options[forward || "target"];
+      var targetPath = target && options.prependPath !== false ? target.path || "" : "";
+      var outgoingPath = !options.toProxy ? url.parse(req.url).path || "" : req.url;
+      outgoingPath = !options.ignorePath ? outgoingPath : "";
       outgoing.path = common.urlJoin(targetPath, outgoingPath);
-      if (options2.changeOrigin) {
-        outgoing.headers.host = required(outgoing.port, options2[forward || "target"].protocol) && !hasPort(outgoing.host) ? outgoing.host + ":" + outgoing.port : outgoing.host;
+      if (options.changeOrigin) {
+        outgoing.headers.host = required(outgoing.port, options[forward || "target"].protocol) && !hasPort(outgoing.host) ? outgoing.host + ":" + outgoing.port : outgoing.host;
       }
       return outgoing;
     };
@@ -28439,20 +28439,20 @@ var require_web_outgoing = __commonJS({
           proxyRes.headers.connection = req.headers.connection || "keep-alive";
         }
       },
-      setRedirectHostRewrite: function setRedirectHostRewrite(req, res, proxyRes, options2) {
-        if ((options2.hostRewrite || options2.autoRewrite || options2.protocolRewrite) && proxyRes.headers["location"] && redirectRegex.test(proxyRes.statusCode)) {
-          var target = url.parse(options2.target);
+      setRedirectHostRewrite: function setRedirectHostRewrite(req, res, proxyRes, options) {
+        if ((options.hostRewrite || options.autoRewrite || options.protocolRewrite) && proxyRes.headers["location"] && redirectRegex.test(proxyRes.statusCode)) {
+          var target = url.parse(options.target);
           var u = url.parse(proxyRes.headers["location"]);
           if (target.host != u.host) {
             return;
           }
-          if (options2.hostRewrite) {
-            u.host = options2.hostRewrite;
-          } else if (options2.autoRewrite) {
+          if (options.hostRewrite) {
+            u.host = options.hostRewrite;
+          } else if (options.autoRewrite) {
             u.host = req.headers["host"];
           }
-          if (options2.protocolRewrite) {
-            u.protocol = options2.protocolRewrite;
+          if (options.protocolRewrite) {
+            u.protocol = options.protocolRewrite;
           }
           proxyRes.headers["location"] = u.format();
         }
@@ -28468,8 +28468,8 @@ var require_web_outgoing = __commonJS({
        *
        * @api private
        */
-      writeHeaders: function writeHeaders(req, res, proxyRes, options2) {
-        var rewriteCookieDomainConfig = options2.cookieDomainRewrite, rewriteCookiePathConfig = options2.cookiePathRewrite, preserveHeaderKeyCase = options2.preserveHeaderKeyCase, rawHeaderKeyMap, setHeader = function(key2, header) {
+      writeHeaders: function writeHeaders(req, res, proxyRes, options) {
+        var rewriteCookieDomainConfig = options.cookieDomainRewrite, rewriteCookiePathConfig = options.cookiePathRewrite, preserveHeaderKeyCase = options.preserveHeaderKeyCase, rawHeaderKeyMap, setHeader = function(key2, header) {
           if (header == void 0)
             return;
           if (rewriteCookieDomainConfig && key2.toLowerCase() === "set-cookie") {
@@ -28531,13 +28531,13 @@ var require_ms5 = __commonJS({
     var d = h2 * 24;
     var w = d * 7;
     var y = d * 365.25;
-    module2.exports = function(val, options2) {
-      options2 = options2 || {};
+    module2.exports = function(val, options) {
+      options = options || {};
       var type = typeof val;
       if (type === "string" && val.length > 0) {
         return parse(val);
       } else if (type === "number" && isFinite(val)) {
-        return options2.long ? fmtLong(val) : fmtShort(val);
+        return options.long ? fmtLong(val) : fmtShort(val);
       }
       throw new Error(
         "val is not a non-empty string or a valid number. val=" + JSON.stringify(val)
@@ -29343,10 +29343,10 @@ var require_follow_redirects = __commonJS({
       "write after end"
     );
     var destroy = Writable.prototype.destroy || noop2;
-    function RedirectableRequest(options2, responseCallback) {
+    function RedirectableRequest(options, responseCallback) {
       Writable.call(this);
-      this._sanitizeOptions(options2);
-      this._options = options2;
+      this._sanitizeOptions(options);
+      this._options = options;
       this._ended = false;
       this._ending = false;
       this._redirectCount = 0;
@@ -29497,23 +29497,23 @@ var require_follow_redirects = __commonJS({
         }
       });
     });
-    RedirectableRequest.prototype._sanitizeOptions = function(options2) {
-      if (!options2.headers) {
-        options2.headers = {};
+    RedirectableRequest.prototype._sanitizeOptions = function(options) {
+      if (!options.headers) {
+        options.headers = {};
       }
-      if (options2.host) {
-        if (!options2.hostname) {
-          options2.hostname = options2.host;
+      if (options.host) {
+        if (!options.hostname) {
+          options.hostname = options.host;
         }
-        delete options2.host;
+        delete options.host;
       }
-      if (!options2.pathname && options2.path) {
-        var searchPos = options2.path.indexOf("?");
+      if (!options.pathname && options.path) {
+        var searchPos = options.path.indexOf("?");
         if (searchPos < 0) {
-          options2.pathname = options2.path;
+          options.pathname = options.path;
         } else {
-          options2.pathname = options2.path.substring(0, searchPos);
-          options2.search = options2.path.substring(searchPos);
+          options.pathname = options.path.substring(0, searchPos);
+          options.search = options.path.substring(searchPos);
         }
       }
     };
@@ -29633,34 +29633,34 @@ var require_follow_redirects = __commonJS({
         var protocol = scheme + ":";
         var nativeProtocol = nativeProtocols[protocol] = protocols[scheme];
         var wrappedProtocol = exports3[scheme] = Object.create(nativeProtocol);
-        function request(input, options2, callback) {
+        function request(input, options, callback) {
           if (isURL(input)) {
             input = spreadUrlObject(input);
           } else if (isString(input)) {
             input = spreadUrlObject(parseUrl(input));
           } else {
-            callback = options2;
-            options2 = validateUrl(input);
+            callback = options;
+            options = validateUrl(input);
             input = { protocol };
           }
-          if (isFunction(options2)) {
-            callback = options2;
-            options2 = null;
+          if (isFunction(options)) {
+            callback = options;
+            options = null;
           }
-          options2 = Object.assign({
+          options = Object.assign({
             maxRedirects: exports3.maxRedirects,
             maxBodyLength: exports3.maxBodyLength
-          }, input, options2);
-          options2.nativeProtocols = nativeProtocols;
-          if (!isString(options2.host) && !isString(options2.hostname)) {
-            options2.hostname = "::1";
+          }, input, options);
+          options.nativeProtocols = nativeProtocols;
+          if (!isString(options.host) && !isString(options.hostname)) {
+            options.hostname = "::1";
           }
-          assert.equal(options2.protocol, protocol, "protocol mismatch");
-          debug("options", options2);
-          return new RedirectableRequest(options2, callback);
+          assert.equal(options.protocol, protocol, "protocol mismatch");
+          debug("options", options);
+          return new RedirectableRequest(options, callback);
         }
-        function get(input, options2, callback) {
-          var wrappedRequest = wrappedProtocol.request(input, options2, callback);
+        function get(input, options, callback) {
+          var wrappedRequest = wrappedProtocol.request(input, options, callback);
           wrappedRequest.end();
           return wrappedRequest;
         }
@@ -29792,7 +29792,7 @@ var require_web_incoming = __commonJS({
        *
        * @api private
        */
-      deleteLength: function deleteLength(req, res, options2) {
+      deleteLength: function deleteLength(req, res, options) {
         if ((req.method === "DELETE" || req.method === "OPTIONS") && !req.headers["content-length"]) {
           req.headers["content-length"] = "0";
           delete req.headers["transfer-encoding"];
@@ -29807,9 +29807,9 @@ var require_web_incoming = __commonJS({
        *
        * @api private
        */
-      timeout: function timeout(req, res, options2) {
-        if (options2.timeout) {
-          req.socket.setTimeout(options2.timeout);
+      timeout: function timeout(req, res, options) {
+        if (options.timeout) {
+          req.socket.setTimeout(options.timeout);
         }
       },
       /**
@@ -29821,8 +29821,8 @@ var require_web_incoming = __commonJS({
        *
        * @api private
        */
-      XHeaders: function XHeaders(req, res, options2) {
-        if (!options2.xfwd)
+      XHeaders: function XHeaders(req, res, options) {
+        if (!options.xfwd)
           return;
         var encrypted = req.isSpdy || common.hasEncryptedConnection(req);
         var values = {
@@ -29846,40 +29846,40 @@ var require_web_incoming = __commonJS({
        *
        * @api private
        */
-      stream: function stream(req, res, options2, _, server, clb) {
-        server.emit("start", req, res, options2.target || options2.forward);
-        var agents = options2.followRedirects ? followRedirects : nativeAgents;
+      stream: function stream(req, res, options, _, server, clb) {
+        server.emit("start", req, res, options.target || options.forward);
+        var agents = options.followRedirects ? followRedirects : nativeAgents;
         var http3 = agents.http;
         var https2 = agents.https;
-        if (options2.forward) {
-          var forwardReq = (options2.forward.protocol === "https:" ? https2 : http3).request(
-            common.setupOutgoing(options2.ssl || {}, options2, req, "forward")
+        if (options.forward) {
+          var forwardReq = (options.forward.protocol === "https:" ? https2 : http3).request(
+            common.setupOutgoing(options.ssl || {}, options, req, "forward")
           );
-          var forwardError = createErrorHandler(forwardReq, options2.forward);
+          var forwardError = createErrorHandler(forwardReq, options.forward);
           req.on("error", forwardError);
           forwardReq.on("error", forwardError);
-          (options2.buffer || req).pipe(forwardReq);
-          if (!options2.target) {
+          (options.buffer || req).pipe(forwardReq);
+          if (!options.target) {
             return res.end();
           }
         }
-        var proxyReq = (options2.target.protocol === "https:" ? https2 : http3).request(
-          common.setupOutgoing(options2.ssl || {}, options2, req)
+        var proxyReq = (options.target.protocol === "https:" ? https2 : http3).request(
+          common.setupOutgoing(options.ssl || {}, options, req)
         );
         proxyReq.on("socket", function(socket) {
           if (server && !proxyReq.getHeader("expect")) {
-            server.emit("proxyReq", proxyReq, req, res, options2);
+            server.emit("proxyReq", proxyReq, req, res, options);
           }
         });
-        if (options2.proxyTimeout) {
-          proxyReq.setTimeout(options2.proxyTimeout, function() {
+        if (options.proxyTimeout) {
+          proxyReq.setTimeout(options.proxyTimeout, function() {
             proxyReq.abort();
           });
         }
         req.on("aborted", function() {
           proxyReq.abort();
         });
-        var proxyError = createErrorHandler(proxyReq, options2.target);
+        var proxyError = createErrorHandler(proxyReq, options.target);
         req.on("error", proxyError);
         proxyReq.on("error", proxyError);
         function createErrorHandler(proxyReq2, url) {
@@ -29895,14 +29895,14 @@ var require_web_incoming = __commonJS({
             }
           };
         }
-        (options2.buffer || req).pipe(proxyReq);
+        (options.buffer || req).pipe(proxyReq);
         proxyReq.on("response", function(proxyRes) {
           if (server) {
             server.emit("proxyRes", proxyRes, req, res);
           }
-          if (!res.headersSent && !options2.selfHandleResponse) {
+          if (!res.headersSent && !options.selfHandleResponse) {
             for (var i2 = 0; i2 < web_o.length; i2++) {
-              if (web_o[i2](req, res, proxyRes, options2)) {
+              if (web_o[i2](req, res, proxyRes, options)) {
                 break;
               }
             }
@@ -29912,7 +29912,7 @@ var require_web_incoming = __commonJS({
               if (server)
                 server.emit("end", req, res, proxyRes);
             });
-            if (!options2.selfHandleResponse)
+            if (!options.selfHandleResponse)
               proxyRes.pipe(res);
           } else {
             if (server)
@@ -29959,8 +29959,8 @@ var require_ws_incoming = __commonJS({
        *
        * @api private
        */
-      XHeaders: function XHeaders(req, socket, options2) {
-        if (!options2.xfwd)
+      XHeaders: function XHeaders(req, socket, options) {
+        if (!options.xfwd)
           return;
         var values = {
           for: req.connection.remoteAddress || req.socket.remoteAddress,
@@ -29981,7 +29981,7 @@ var require_ws_incoming = __commonJS({
        *
        * @api private
        */
-      stream: function stream(req, socket, options2, head, server, clb) {
+      stream: function stream(req, socket, options, head, server, clb) {
         var createHttpHeader = function(line, headers) {
           return Object.keys(headers).reduce(function(head2, key) {
             var value = headers[key];
@@ -29998,11 +29998,11 @@ var require_ws_incoming = __commonJS({
         common.setupSocket(socket);
         if (head && head.length)
           socket.unshift(head);
-        var proxyReq = (common.isSSL.test(options2.target.protocol) ? https2 : http3).request(
-          common.setupOutgoing(options2.ssl || {}, options2, req)
+        var proxyReq = (common.isSSL.test(options.target.protocol) ? https2 : http3).request(
+          common.setupOutgoing(options.ssl || {}, options, req)
         );
         if (server) {
-          server.emit("proxyReqWs", proxyReq, req, socket, options2, head);
+          server.emit("proxyReqWs", proxyReq, req, socket, options, head);
         }
         proxyReq.on("error", onOutgoingError);
         proxyReq.on("response", function(res) {
@@ -30054,16 +30054,16 @@ var require_http_proxy = __commonJS({
     var ws = require_ws_incoming();
     httpProxy.Server = ProxyServer;
     function createRightProxy(type) {
-      return function(options2) {
+      return function(options) {
         return function(req, res) {
           var passes = type === "ws" ? this.wsPasses : this.webPasses, args = [].slice.call(arguments), cntr = args.length - 1, head, cbl;
           if (typeof args[cntr] === "function") {
             cbl = args[cntr];
             cntr--;
           }
-          var requestOptions = options2;
+          var requestOptions = options;
           if (!(args[cntr] instanceof Buffer) && args[cntr] !== res) {
-            requestOptions = extend({}, options2);
+            requestOptions = extend({}, options);
             extend(requestOptions, args[cntr]);
             cntr--;
           }
@@ -30086,13 +30086,13 @@ var require_http_proxy = __commonJS({
       };
     }
     httpProxy.createRightProxy = createRightProxy;
-    function ProxyServer(options2) {
+    function ProxyServer(options) {
       EE3.call(this);
-      options2 = options2 || {};
-      options2.prependPath = options2.prependPath === false ? false : true;
-      this.web = this.proxyRequest = createRightProxy("web")(options2);
-      this.ws = this.proxyWebsocketRequest = createRightProxy("ws")(options2);
-      this.options = options2;
+      options = options || {};
+      options.prependPath = options.prependPath === false ? false : true;
+      this.web = this.proxyRequest = createRightProxy("web")(options);
+      this.ws = this.proxyWebsocketRequest = createRightProxy("ws")(options);
+      this.options = options;
       this.webPasses = Object.keys(web).map(function(pass) {
         return web[pass];
       });
@@ -30166,8 +30166,8 @@ var require_http_proxy = __commonJS({
 var require_http_proxy2 = __commonJS({
   "node_modules/http-proxy/lib/http-proxy.js"(exports2, module2) {
     var ProxyServer = require_http_proxy().Server;
-    function createProxyServer(options2) {
-      return new ProxyServer(options2);
+    function createProxyServer(options) {
+      return new ProxyServer(options);
     }
     ProxyServer.createProxyServer = createProxyServer;
     ProxyServer.createServer = createProxyServer;
@@ -30383,12 +30383,12 @@ var require_config_factory = __commonJS({
     function isContextless(context, opts) {
       return isPlainObj(context) && (opts == null || Object.keys(opts).length === 0);
     }
-    function configureLogger(options2) {
-      if (options2.logLevel) {
-        logger.setLevel(options2.logLevel);
+    function configureLogger(options) {
+      if (options.logLevel) {
+        logger.setLevel(options.logLevel);
       }
-      if (options2.logProvider) {
-        logger.setProvider(options2.logProvider);
+      if (options.logProvider) {
+        logger.setProvider(options.logProvider);
       }
     }
   }
@@ -30527,7 +30527,7 @@ var require_is_glob = __commonJS({
       }
       return false;
     };
-    module2.exports = function isGlob(str, options2) {
+    module2.exports = function isGlob(str, options) {
       if (typeof str !== "string" || str === "") {
         return false;
       }
@@ -30535,7 +30535,7 @@ var require_is_glob = __commonJS({
         return true;
       }
       var check = strictCheck;
-      if (options2 && options2.strict === false) {
+      if (options && options.strict === false) {
         check = relaxedCheck;
       }
       return check(str);
@@ -30632,10 +30632,10 @@ var require_stringify2 = __commonJS({
   "node_modules/braces/lib/stringify.js"(exports2, module2) {
     "use strict";
     var utils = require_utils3();
-    module2.exports = (ast, options2 = {}) => {
+    module2.exports = (ast, options = {}) => {
       let stringify = (node, parent = {}) => {
-        let invalidBlock = options2.escapeInvalid && utils.isInvalidBrace(parent);
-        let invalidNode = node.invalid === true && options2.escapeInvalid === true;
+        let invalidBlock = options.escapeInvalid && utils.isInvalidBrace(parent);
+        let invalidNode = node.invalid === true && options.escapeInvalid === true;
         let output = "";
         if (node.value) {
           if ((invalidBlock || invalidNode) && utils.isOpenOrClose(node)) {
@@ -30679,7 +30679,7 @@ var require_to_regex_range = __commonJS({
   "node_modules/to-regex-range/index.js"(exports2, module2) {
     "use strict";
     var isNumber = require_is_number();
-    var toRegexRange = (min, max, options2) => {
+    var toRegexRange = (min, max, options) => {
       if (isNumber(min) === false) {
         throw new TypeError("toRegexRange: expected the first argument to be a number");
       }
@@ -30689,7 +30689,7 @@ var require_to_regex_range = __commonJS({
       if (isNumber(max) === false) {
         throw new TypeError("toRegexRange: expected the second argument to be a number.");
       }
-      let opts = { relaxZeros: true, ...options2 };
+      let opts = { relaxZeros: true, ...options };
       if (typeof opts.strictZeros === "boolean") {
         opts.relaxZeros = opts.strictZeros === false;
       }
@@ -30740,10 +30740,10 @@ var require_to_regex_range = __commonJS({
       toRegexRange.cache[cacheKey] = state;
       return state.result;
     };
-    function collatePatterns(neg, pos, options2) {
-      let onlyNegative = filterPatterns(neg, pos, "-", false, options2) || [];
-      let onlyPositive = filterPatterns(pos, neg, "", false, options2) || [];
-      let intersected = filterPatterns(neg, pos, "-?", true, options2) || [];
+    function collatePatterns(neg, pos, options) {
+      let onlyNegative = filterPatterns(neg, pos, "-", false, options) || [];
+      let onlyPositive = filterPatterns(pos, neg, "", false, options) || [];
+      let intersected = filterPatterns(neg, pos, "-?", true, options) || [];
       let subpatterns = onlyNegative.concat(intersected).concat(onlyPositive);
       return subpatterns.join("|");
     }
@@ -30767,7 +30767,7 @@ var require_to_regex_range = __commonJS({
       stops.sort(compare);
       return stops;
     }
-    function rangeToPattern(start, stop, options2) {
+    function rangeToPattern(start, stop, options) {
       if (start === stop) {
         return { pattern: start, count: [], digits: 0 };
       }
@@ -30780,24 +30780,24 @@ var require_to_regex_range = __commonJS({
         if (startDigit === stopDigit) {
           pattern += startDigit;
         } else if (startDigit !== "0" || stopDigit !== "9") {
-          pattern += toCharacterClass(startDigit, stopDigit, options2);
+          pattern += toCharacterClass(startDigit, stopDigit, options);
         } else {
           count++;
         }
       }
       if (count) {
-        pattern += options2.shorthand === true ? "\\d" : "[0-9]";
+        pattern += options.shorthand === true ? "\\d" : "[0-9]";
       }
       return { pattern, count: [count], digits };
     }
-    function splitToPatterns(min, max, tok, options2) {
+    function splitToPatterns(min, max, tok, options) {
       let ranges = splitToRanges(min, max);
       let tokens = [];
       let start = min;
       let prev;
       for (let i2 = 0; i2 < ranges.length; i2++) {
         let max2 = ranges[i2];
-        let obj = rangeToPattern(String(start), String(max2), options2);
+        let obj = rangeToPattern(String(start), String(max2), options);
         let zeros = "";
         if (!tok.isPadded && prev && prev.pattern === obj.pattern) {
           if (prev.count.length > 1) {
@@ -30809,7 +30809,7 @@ var require_to_regex_range = __commonJS({
           continue;
         }
         if (tok.isPadded) {
-          zeros = padZeros(max2, tok, options2);
+          zeros = padZeros(max2, tok, options);
         }
         obj.string = zeros + obj.pattern + toQuantifier(obj.count);
         tokens.push(obj);
@@ -30818,7 +30818,7 @@ var require_to_regex_range = __commonJS({
       }
       return tokens;
     }
-    function filterPatterns(arr, comparison, prefix, intersection, options2) {
+    function filterPatterns(arr, comparison, prefix, intersection, options) {
       let result = [];
       for (let ele of arr) {
         let { string } = ele;
@@ -30856,18 +30856,18 @@ var require_to_regex_range = __commonJS({
       }
       return "";
     }
-    function toCharacterClass(a, b, options2) {
+    function toCharacterClass(a, b, options) {
       return `[${a}${b - a === 1 ? "" : "-"}${b}]`;
     }
     function hasPadding(str) {
       return /^-?(0+)\d/.test(str);
     }
-    function padZeros(value, tok, options2) {
+    function padZeros(value, tok, options) {
       if (!tok.isPadded) {
         return value;
       }
       let diff = Math.abs(tok.maxLen - String(value).length);
-      let relax = options2.relaxZeros !== false;
+      let relax = options.relaxZeros !== false;
       switch (diff) {
         case 0:
           return "";
@@ -30911,11 +30911,11 @@ var require_fill_range = __commonJS({
         ;
       return index > 0;
     };
-    var stringify = (start, end, options2) => {
+    var stringify = (start, end, options) => {
       if (typeof start === "string" || typeof end === "string") {
         return true;
       }
-      return options2.stringify === true;
+      return options.stringify === true;
     };
     var pad = (input, maxLength, toNumber) => {
       if (maxLength > 0) {
@@ -30939,10 +30939,10 @@ var require_fill_range = __commonJS({
         input = "0" + input;
       return negative ? "-" + input : input;
     };
-    var toSequence = (parts, options2) => {
+    var toSequence = (parts, options) => {
       parts.negatives.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
       parts.positives.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
-      let prefix = options2.capture ? "" : "?:";
+      let prefix = options.capture ? "" : "?:";
       let positives = "";
       let negatives = "";
       let result;
@@ -30957,14 +30957,14 @@ var require_fill_range = __commonJS({
       } else {
         result = positives || negatives;
       }
-      if (options2.wrap) {
+      if (options.wrap) {
         return `(${prefix}${result})`;
       }
       return result;
     };
-    var toRange = (a, b, isNumbers, options2) => {
+    var toRange = (a, b, isNumbers, options) => {
       if (isNumbers) {
-        return toRegexRange(a, b, { wrap: false, ...options2 });
+        return toRegexRange(a, b, { wrap: false, ...options });
       }
       let start = String.fromCharCode(a);
       if (a === b)
@@ -30972,33 +30972,33 @@ var require_fill_range = __commonJS({
       let stop = String.fromCharCode(b);
       return `[${start}-${stop}]`;
     };
-    var toRegex = (start, end, options2) => {
+    var toRegex = (start, end, options) => {
       if (Array.isArray(start)) {
-        let wrap = options2.wrap === true;
-        let prefix = options2.capture ? "" : "?:";
+        let wrap = options.wrap === true;
+        let prefix = options.capture ? "" : "?:";
         return wrap ? `(${prefix}${start.join("|")})` : start.join("|");
       }
-      return toRegexRange(start, end, options2);
+      return toRegexRange(start, end, options);
     };
     var rangeError = (...args) => {
       return new RangeError("Invalid range arguments: " + util.inspect(...args));
     };
-    var invalidRange = (start, end, options2) => {
-      if (options2.strictRanges === true)
+    var invalidRange = (start, end, options) => {
+      if (options.strictRanges === true)
         throw rangeError([start, end]);
       return [];
     };
-    var invalidStep = (step, options2) => {
-      if (options2.strictRanges === true) {
+    var invalidStep = (step, options) => {
+      if (options.strictRanges === true) {
         throw new TypeError(`Expected step "${step}" to be a number`);
       }
       return [];
     };
-    var fillNumbers = (start, end, step = 1, options2 = {}) => {
+    var fillNumbers = (start, end, step = 1, options = {}) => {
       let a = Number(start);
       let b = Number(end);
       if (!Number.isInteger(a) || !Number.isInteger(b)) {
-        if (options2.strictRanges === true)
+        if (options.strictRanges === true)
           throw rangeError([start, end]);
         return [];
       }
@@ -31013,17 +31013,17 @@ var require_fill_range = __commonJS({
       step = Math.max(Math.abs(step), 1);
       let padded = zeros(startString) || zeros(endString) || zeros(stepString);
       let maxLen = padded ? Math.max(startString.length, endString.length, stepString.length) : 0;
-      let toNumber = padded === false && stringify(start, end, options2) === false;
-      let format = options2.transform || transform(toNumber);
-      if (options2.toRegex && step === 1) {
-        return toRange(toMaxLen(start, maxLen), toMaxLen(end, maxLen), true, options2);
+      let toNumber = padded === false && stringify(start, end, options) === false;
+      let format = options.transform || transform(toNumber);
+      if (options.toRegex && step === 1) {
+        return toRange(toMaxLen(start, maxLen), toMaxLen(end, maxLen), true, options);
       }
       let parts = { negatives: [], positives: [] };
       let push = (num) => parts[num < 0 ? "negatives" : "positives"].push(Math.abs(num));
       let range = [];
       let index = 0;
       while (descending ? a >= b : a <= b) {
-        if (options2.toRegex === true && step > 1) {
+        if (options.toRegex === true && step > 1) {
           push(a);
         } else {
           range.push(pad(format(a, index), maxLen, toNumber));
@@ -31031,23 +31031,23 @@ var require_fill_range = __commonJS({
         a = descending ? a - step : a + step;
         index++;
       }
-      if (options2.toRegex === true) {
-        return step > 1 ? toSequence(parts, options2) : toRegex(range, null, { wrap: false, ...options2 });
+      if (options.toRegex === true) {
+        return step > 1 ? toSequence(parts, options) : toRegex(range, null, { wrap: false, ...options });
       }
       return range;
     };
-    var fillLetters = (start, end, step = 1, options2 = {}) => {
+    var fillLetters = (start, end, step = 1, options = {}) => {
       if (!isNumber(start) && start.length > 1 || !isNumber(end) && end.length > 1) {
-        return invalidRange(start, end, options2);
+        return invalidRange(start, end, options);
       }
-      let format = options2.transform || ((val) => String.fromCharCode(val));
+      let format = options.transform || ((val) => String.fromCharCode(val));
       let a = `${start}`.charCodeAt(0);
       let b = `${end}`.charCodeAt(0);
       let descending = a > b;
       let min = Math.min(a, b);
       let max = Math.max(a, b);
-      if (options2.toRegex && step === 1) {
-        return toRange(min, max, false, options2);
+      if (options.toRegex && step === 1) {
+        return toRange(min, max, false, options);
       }
       let range = [];
       let index = 0;
@@ -31056,17 +31056,17 @@ var require_fill_range = __commonJS({
         a = descending ? a - step : a + step;
         index++;
       }
-      if (options2.toRegex === true) {
-        return toRegex(range, null, { wrap: false, options: options2 });
+      if (options.toRegex === true) {
+        return toRegex(range, null, { wrap: false, options });
       }
       return range;
     };
-    var fill = (start, end, step, options2 = {}) => {
+    var fill = (start, end, step, options = {}) => {
       if (end == null && isValidValue(start)) {
         return [start];
       }
       if (!isValidValue(start) || !isValidValue(end)) {
-        return invalidRange(start, end, options2);
+        return invalidRange(start, end, options);
       }
       if (typeof step === "function") {
         return fill(start, end, 1, { transform: step });
@@ -31074,7 +31074,7 @@ var require_fill_range = __commonJS({
       if (isObject(step)) {
         return fill(start, end, 0, step);
       }
-      let opts = { ...options2 };
+      let opts = { ...options };
       if (opts.capture === true)
         opts.wrap = true;
       step = step || opts.step || 1;
@@ -31098,12 +31098,12 @@ var require_compile = __commonJS({
     "use strict";
     var fill = require_fill_range();
     var utils = require_utils3();
-    var compile = (ast, options2 = {}) => {
+    var compile = (ast, options = {}) => {
       let walk = (node, parent = {}) => {
         let invalidBlock = utils.isInvalidBrace(parent);
-        let invalidNode = node.invalid === true && options2.escapeInvalid === true;
+        let invalidNode = node.invalid === true && options.escapeInvalid === true;
         let invalid = invalidBlock === true || invalidNode === true;
-        let prefix = options2.escapeInvalid === true ? "\\" : "";
+        let prefix = options.escapeInvalid === true ? "\\" : "";
         let output = "";
         if (node.isOpen === true) {
           return prefix + node.value;
@@ -31125,7 +31125,7 @@ var require_compile = __commonJS({
         }
         if (node.nodes && node.ranges > 0) {
           let args = utils.reduce(node.nodes);
-          let range = fill(...args, { ...options2, wrap: false, toRegex: true });
+          let range = fill(...args, { ...options, wrap: false, toRegex: true });
           if (range.length !== 0) {
             return args.length > 1 && range.length > 1 ? `(${range})` : range;
           }
@@ -31174,8 +31174,8 @@ var require_expand = __commonJS({
       }
       return utils.flatten(result);
     };
-    var expand = (ast, options2 = {}) => {
-      let rangeLimit = options2.rangeLimit === void 0 ? 1e3 : options2.rangeLimit;
+    var expand = (ast, options = {}) => {
+      let rangeLimit = options.rangeLimit === void 0 ? 1e3 : options.rangeLimit;
       let walk = (node, parent = {}) => {
         node.queue = [];
         let p = parent;
@@ -31185,7 +31185,7 @@ var require_expand = __commonJS({
           q = p.queue;
         }
         if (node.invalid || node.dollar) {
-          q.push(append(q.pop(), stringify(node, options2)));
+          q.push(append(q.pop(), stringify(node, options)));
           return;
         }
         if (node.type === "brace" && node.invalid !== true && node.nodes.length === 2) {
@@ -31194,12 +31194,12 @@ var require_expand = __commonJS({
         }
         if (node.nodes && node.ranges > 0) {
           let args = utils.reduce(node.nodes);
-          if (utils.exceedsLimit(...args, options2.step, rangeLimit)) {
+          if (utils.exceedsLimit(...args, options.step, rangeLimit)) {
             throw new RangeError("expanded array length exceeds range limit. Use options.rangeLimit to increase or disable the limit.");
           }
-          let range = fill(...args, options2);
+          let range = fill(...args, options);
           if (range.length === 0) {
-            range = stringify(node, options2);
+            range = stringify(node, options);
           }
           q.push(append(q.pop(), range));
           node.nodes = [];
@@ -31375,11 +31375,11 @@ var require_parse2 = __commonJS({
       CHAR_NO_BREAK_SPACE,
       CHAR_ZERO_WIDTH_NOBREAK_SPACE
     } = require_constants();
-    var parse = (input, options2 = {}) => {
+    var parse = (input, options = {}) => {
       if (typeof input !== "string") {
         throw new TypeError("Expected a string");
       }
-      let opts = options2 || {};
+      let opts = options || {};
       let max = typeof opts.maxLength === "number" ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
       if (input.length > max) {
         throw new SyntaxError(`Input length (${input.length}), exceeds max characters (${max})`);
@@ -31417,7 +31417,7 @@ var require_parse2 = __commonJS({
           continue;
         }
         if (value === CHAR_BACKSLASH) {
-          push({ type: "text", value: (options2.keepEscaping ? value : "") + advance() });
+          push({ type: "text", value: (options.keepEscaping ? value : "") + advance() });
           continue;
         }
         if (value === CHAR_RIGHT_SQUARE_BRACKET) {
@@ -31467,7 +31467,7 @@ var require_parse2 = __commonJS({
         if (value === CHAR_DOUBLE_QUOTE || value === CHAR_SINGLE_QUOTE || value === CHAR_BACKTICK) {
           let open = value;
           let next;
-          if (options2.keepQuotes !== true) {
+          if (options.keepQuotes !== true) {
             value = "";
           }
           while (index < length && (next = advance())) {
@@ -31476,7 +31476,7 @@ var require_parse2 = __commonJS({
               continue;
             }
             if (next === open) {
-              if (options2.keepQuotes === true)
+              if (options.keepQuotes === true)
                 value += next;
               break;
             }
@@ -31593,11 +31593,11 @@ var require_braces = __commonJS({
     var compile = require_compile();
     var expand = require_expand();
     var parse = require_parse2();
-    var braces = (input, options2 = {}) => {
+    var braces = (input, options = {}) => {
       let output = [];
       if (Array.isArray(input)) {
         for (let pattern of input) {
-          let result = braces.create(pattern, options2);
+          let result = braces.create(pattern, options);
           if (Array.isArray(result)) {
             output.push(...result);
           } else {
@@ -31605,44 +31605,44 @@ var require_braces = __commonJS({
           }
         }
       } else {
-        output = [].concat(braces.create(input, options2));
+        output = [].concat(braces.create(input, options));
       }
-      if (options2 && options2.expand === true && options2.nodupes === true) {
+      if (options && options.expand === true && options.nodupes === true) {
         output = [...new Set(output)];
       }
       return output;
     };
-    braces.parse = (input, options2 = {}) => parse(input, options2);
-    braces.stringify = (input, options2 = {}) => {
+    braces.parse = (input, options = {}) => parse(input, options);
+    braces.stringify = (input, options = {}) => {
       if (typeof input === "string") {
-        return stringify(braces.parse(input, options2), options2);
+        return stringify(braces.parse(input, options), options);
       }
-      return stringify(input, options2);
+      return stringify(input, options);
     };
-    braces.compile = (input, options2 = {}) => {
+    braces.compile = (input, options = {}) => {
       if (typeof input === "string") {
-        input = braces.parse(input, options2);
+        input = braces.parse(input, options);
       }
-      return compile(input, options2);
+      return compile(input, options);
     };
-    braces.expand = (input, options2 = {}) => {
+    braces.expand = (input, options = {}) => {
       if (typeof input === "string") {
-        input = braces.parse(input, options2);
+        input = braces.parse(input, options);
       }
-      let result = expand(input, options2);
-      if (options2.noempty === true) {
+      let result = expand(input, options);
+      if (options.noempty === true) {
         result = result.filter(Boolean);
       }
-      if (options2.nodupes === true) {
+      if (options.nodupes === true) {
         result = [...new Set(result)];
       }
       return result;
     };
-    braces.create = (input, options2 = {}) => {
+    braces.create = (input, options = {}) => {
       if (input === "" || input.length < 3) {
         return [input];
       }
-      return options2.expand !== true ? braces.compile(input, options2) : braces.expand(input, options2);
+      return options.expand !== true ? braces.compile(input, options) : braces.expand(input, options);
     };
     module2.exports = braces;
   }
@@ -31874,9 +31874,9 @@ var require_utils4 = __commonJS({
       }
       return false;
     };
-    exports2.isWindows = (options2) => {
-      if (options2 && typeof options2.windows === "boolean") {
-        return options2.windows;
+    exports2.isWindows = (options) => {
+      if (options && typeof options.windows === "boolean") {
+        return options.windows;
       }
       return win32 === true || path.sep === "\\";
     };
@@ -31896,9 +31896,9 @@ var require_utils4 = __commonJS({
       }
       return output;
     };
-    exports2.wrapOutput = (input, state = {}, options2 = {}) => {
-      const prepend = options2.contains ? "" : "^";
-      const append = options2.contains ? "" : "$";
+    exports2.wrapOutput = (input, state = {}, options = {}) => {
+      const prepend = options.contains ? "" : "^";
+      const append = options.contains ? "" : "$";
       let output = `${prepend}(?:${input})${append}`;
       if (state.negated === true) {
         output = `(?:^(?!${output}).*$)`;
@@ -31953,8 +31953,8 @@ var require_scan = __commonJS({
         token.depth = token.isGlobstar ? Infinity : 1;
       }
     };
-    var scan = (input, options2) => {
-      const opts = options2 || {};
+    var scan = (input, options) => {
+      const opts = options || {};
       const length = input.length - 1;
       const scanToEnd = opts.parts === true || opts.scanToEnd === true;
       const slashes = [];
@@ -32254,9 +32254,9 @@ var require_parse3 = __commonJS({
       REGEX_SPECIAL_CHARS_BACKREF,
       REPLACEMENTS
     } = constants;
-    var expandRange = (args, options2) => {
-      if (typeof options2.expandRange === "function") {
-        return options2.expandRange(...args, options2);
+    var expandRange = (args, options) => {
+      if (typeof options.expandRange === "function") {
+        return options.expandRange(...args, options);
       }
       args.sort();
       const value = `[${args.join("-")}]`;
@@ -32270,12 +32270,12 @@ var require_parse3 = __commonJS({
     var syntaxError = (type, char) => {
       return `Missing ${type}: "${char}" - use "\\\\${char}" to match literal characters`;
     };
-    var parse = (input, options2) => {
+    var parse = (input, options) => {
       if (typeof input !== "string") {
         throw new TypeError("Expected a string");
       }
       input = REPLACEMENTS[input] || input;
-      const opts = { ...options2 };
+      const opts = { ...options };
       const max = typeof opts.maxLength === "number" ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
       let len = input.length;
       if (len > max) {
@@ -32284,7 +32284,7 @@ var require_parse3 = __commonJS({
       const bos = { type: "bos", value: "", output: opts.prepend || "" };
       const tokens = [bos];
       const capture = opts.capture ? "" : "?:";
-      const win32 = utils.isWindows(options2);
+      const win32 = utils.isWindows(options);
       const PLATFORM_CHARS = constants.globChars(win32);
       const EXTGLOB_CHARS = constants.extglobChars(PLATFORM_CHARS);
       const {
@@ -32420,7 +32420,7 @@ var require_parse3 = __commonJS({
             output = token.close = `)$))${extglobStar}`;
           }
           if (token.inner.includes("*") && (rest = remaining()) && /^\.[^\\/.]+$/.test(rest)) {
-            const expression = parse(rest, { ...options2, fastpaths: false }).output;
+            const expression = parse(rest, { ...options, fastpaths: false }).output;
             output = token.close = `)${expression})${extglobStar})`;
           }
           if (token.prev.type === "bos") {
@@ -32470,7 +32470,7 @@ var require_parse3 = __commonJS({
           state.output = input;
           return state;
         }
-        state.output = utils.wrapOutput(output, state, options2);
+        state.output = utils.wrapOutput(output, state, options);
         return state;
       }
       while (!eos()) {
@@ -32949,15 +32949,15 @@ var require_parse3 = __commonJS({
       }
       return state;
     };
-    parse.fastpaths = (input, options2) => {
-      const opts = { ...options2 };
+    parse.fastpaths = (input, options) => {
+      const opts = { ...options };
       const max = typeof opts.maxLength === "number" ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
       const len = input.length;
       if (len > max) {
         throw new SyntaxError(`Input length: ${len}, exceeds maximum allowed length: ${max}`);
       }
       input = REPLACEMENTS[input] || input;
-      const win32 = utils.isWindows(options2);
+      const win32 = utils.isWindows(options);
       const {
         DOT_LITERAL,
         SLASH_LITERAL,
@@ -33032,9 +33032,9 @@ var require_picomatch = __commonJS({
     var utils = require_utils4();
     var constants = require_constants2();
     var isObject = (val) => val && typeof val === "object" && !Array.isArray(val);
-    var picomatch = (glob, options2, returnState = false) => {
+    var picomatch = (glob, options, returnState = false) => {
       if (Array.isArray(glob)) {
-        const fns = glob.map((input) => picomatch(input, options2, returnState));
+        const fns = glob.map((input) => picomatch(input, options, returnState));
         const arrayMatcher = (str) => {
           for (const isMatch of fns) {
             const state2 = isMatch(str);
@@ -33049,18 +33049,18 @@ var require_picomatch = __commonJS({
       if (glob === "" || typeof glob !== "string" && !isState) {
         throw new TypeError("Expected pattern to be a non-empty string");
       }
-      const opts = options2 || {};
-      const posix = utils.isWindows(options2);
-      const regex = isState ? picomatch.compileRe(glob, options2) : picomatch.makeRe(glob, options2, false, true);
+      const opts = options || {};
+      const posix = utils.isWindows(options);
+      const regex = isState ? picomatch.compileRe(glob, options) : picomatch.makeRe(glob, options, false, true);
       const state = regex.state;
       delete regex.state;
       let isIgnored = () => false;
       if (opts.ignore) {
-        const ignoreOpts = { ...options2, ignore: null, onMatch: null, onResult: null };
+        const ignoreOpts = { ...options, ignore: null, onMatch: null, onResult: null };
         isIgnored = picomatch(opts.ignore, ignoreOpts, returnState);
       }
       const matcher = (input, returnObject = false) => {
-        const { isMatch, match, output } = picomatch.test(input, regex, options2, { glob, posix });
+        const { isMatch, match, output } = picomatch.test(input, regex, options, { glob, posix });
         const result = { glob, state, regex, posix, input, output, match, isMatch };
         if (typeof opts.onResult === "function") {
           opts.onResult(result);
@@ -33086,14 +33086,14 @@ var require_picomatch = __commonJS({
       }
       return matcher;
     };
-    picomatch.test = (input, regex, options2, { glob, posix } = {}) => {
+    picomatch.test = (input, regex, options, { glob, posix } = {}) => {
       if (typeof input !== "string") {
         throw new TypeError("Expected input to be a string");
       }
       if (input === "") {
         return { isMatch: false, output: "" };
       }
-      const opts = options2 || {};
+      const opts = options || {};
       const format = opts.format || (posix ? utils.toPosixSlashes : null);
       let match = input === glob;
       let output = match && format ? format(input) : input;
@@ -33103,60 +33103,60 @@ var require_picomatch = __commonJS({
       }
       if (match === false || opts.capture === true) {
         if (opts.matchBase === true || opts.basename === true) {
-          match = picomatch.matchBase(input, regex, options2, posix);
+          match = picomatch.matchBase(input, regex, options, posix);
         } else {
           match = regex.exec(output);
         }
       }
       return { isMatch: Boolean(match), match, output };
     };
-    picomatch.matchBase = (input, glob, options2, posix = utils.isWindows(options2)) => {
-      const regex = glob instanceof RegExp ? glob : picomatch.makeRe(glob, options2);
+    picomatch.matchBase = (input, glob, options, posix = utils.isWindows(options)) => {
+      const regex = glob instanceof RegExp ? glob : picomatch.makeRe(glob, options);
       return regex.test(path.basename(input));
     };
-    picomatch.isMatch = (str, patterns, options2) => picomatch(patterns, options2)(str);
-    picomatch.parse = (pattern, options2) => {
+    picomatch.isMatch = (str, patterns, options) => picomatch(patterns, options)(str);
+    picomatch.parse = (pattern, options) => {
       if (Array.isArray(pattern))
-        return pattern.map((p) => picomatch.parse(p, options2));
-      return parse(pattern, { ...options2, fastpaths: false });
+        return pattern.map((p) => picomatch.parse(p, options));
+      return parse(pattern, { ...options, fastpaths: false });
     };
-    picomatch.scan = (input, options2) => scan(input, options2);
-    picomatch.compileRe = (state, options2, returnOutput = false, returnState = false) => {
+    picomatch.scan = (input, options) => scan(input, options);
+    picomatch.compileRe = (state, options, returnOutput = false, returnState = false) => {
       if (returnOutput === true) {
         return state.output;
       }
-      const opts = options2 || {};
+      const opts = options || {};
       const prepend = opts.contains ? "" : "^";
       const append = opts.contains ? "" : "$";
       let source = `${prepend}(?:${state.output})${append}`;
       if (state && state.negated === true) {
         source = `^(?!${source}).*$`;
       }
-      const regex = picomatch.toRegex(source, options2);
+      const regex = picomatch.toRegex(source, options);
       if (returnState === true) {
         regex.state = state;
       }
       return regex;
     };
-    picomatch.makeRe = (input, options2 = {}, returnOutput = false, returnState = false) => {
+    picomatch.makeRe = (input, options = {}, returnOutput = false, returnState = false) => {
       if (!input || typeof input !== "string") {
         throw new TypeError("Expected a non-empty string");
       }
       let parsed = { negated: false, fastpaths: true };
-      if (options2.fastpaths !== false && (input[0] === "." || input[0] === "*")) {
-        parsed.output = parse.fastpaths(input, options2);
+      if (options.fastpaths !== false && (input[0] === "." || input[0] === "*")) {
+        parsed.output = parse.fastpaths(input, options);
       }
       if (!parsed.output) {
-        parsed = parse(input, options2);
+        parsed = parse(input, options);
       }
-      return picomatch.compileRe(parsed, options2, returnOutput, returnState);
+      return picomatch.compileRe(parsed, options, returnOutput, returnState);
     };
-    picomatch.toRegex = (source, options2) => {
+    picomatch.toRegex = (source, options) => {
       try {
-        const opts = options2 || {};
+        const opts = options || {};
         return new RegExp(source, opts.flags || (opts.nocase ? "i" : ""));
       } catch (err) {
-        if (options2 && options2.debug === true)
+        if (options && options.debug === true)
           throw err;
         return /$^/;
       }
@@ -33183,7 +33183,7 @@ var require_micromatch = __commonJS({
     var picomatch = require_picomatch2();
     var utils = require_utils4();
     var isEmptyString = (val) => val === "" || val === "./";
-    var micromatch = (list, patterns, options2) => {
+    var micromatch = (list, patterns, options) => {
       patterns = [].concat(patterns);
       list = [].concat(list);
       let omit = /* @__PURE__ */ new Set();
@@ -33192,12 +33192,12 @@ var require_micromatch = __commonJS({
       let negatives = 0;
       let onResult = (state) => {
         items.add(state.output);
-        if (options2 && options2.onResult) {
-          options2.onResult(state);
+        if (options && options.onResult) {
+          options.onResult(state);
         }
       };
       for (let i2 = 0; i2 < patterns.length; i2++) {
-        let isMatch = picomatch(String(patterns[i2]), { ...options2, onResult }, true);
+        let isMatch = picomatch(String(patterns[i2]), { ...options, onResult }, true);
         let negated = isMatch.state.negated || isMatch.state.negatedExtglob;
         if (negated)
           negatives++;
@@ -33216,30 +33216,30 @@ var require_micromatch = __commonJS({
       }
       let result = negatives === patterns.length ? [...items] : [...keep];
       let matches = result.filter((item) => !omit.has(item));
-      if (options2 && matches.length === 0) {
-        if (options2.failglob === true) {
+      if (options && matches.length === 0) {
+        if (options.failglob === true) {
           throw new Error(`No matches found for "${patterns.join(", ")}"`);
         }
-        if (options2.nonull === true || options2.nullglob === true) {
-          return options2.unescape ? patterns.map((p) => p.replace(/\\/g, "")) : patterns;
+        if (options.nonull === true || options.nullglob === true) {
+          return options.unescape ? patterns.map((p) => p.replace(/\\/g, "")) : patterns;
         }
       }
       return matches;
     };
     micromatch.match = micromatch;
-    micromatch.matcher = (pattern, options2) => picomatch(pattern, options2);
-    micromatch.isMatch = (str, patterns, options2) => picomatch(patterns, options2)(str);
+    micromatch.matcher = (pattern, options) => picomatch(pattern, options);
+    micromatch.isMatch = (str, patterns, options) => picomatch(patterns, options)(str);
     micromatch.any = micromatch.isMatch;
-    micromatch.not = (list, patterns, options2 = {}) => {
+    micromatch.not = (list, patterns, options = {}) => {
       patterns = [].concat(patterns).map(String);
       let result = /* @__PURE__ */ new Set();
       let items = [];
       let onResult = (state) => {
-        if (options2.onResult)
-          options2.onResult(state);
+        if (options.onResult)
+          options.onResult(state);
         items.push(state.output);
       };
-      let matches = new Set(micromatch(list, patterns, { ...options2, onResult }));
+      let matches = new Set(micromatch(list, patterns, { ...options, onResult }));
       for (let item of items) {
         if (!matches.has(item)) {
           result.add(item);
@@ -33247,12 +33247,12 @@ var require_micromatch = __commonJS({
       }
       return [...result];
     };
-    micromatch.contains = (str, pattern, options2) => {
+    micromatch.contains = (str, pattern, options) => {
       if (typeof str !== "string") {
         throw new TypeError(`Expected a string: "${util.inspect(str)}"`);
       }
       if (Array.isArray(pattern)) {
-        return pattern.some((p) => micromatch.contains(str, p, options2));
+        return pattern.some((p) => micromatch.contains(str, p, options));
       }
       if (typeof pattern === "string") {
         if (isEmptyString(str) || isEmptyString(pattern)) {
@@ -33262,47 +33262,47 @@ var require_micromatch = __commonJS({
           return true;
         }
       }
-      return micromatch.isMatch(str, pattern, { ...options2, contains: true });
+      return micromatch.isMatch(str, pattern, { ...options, contains: true });
     };
-    micromatch.matchKeys = (obj, patterns, options2) => {
+    micromatch.matchKeys = (obj, patterns, options) => {
       if (!utils.isObject(obj)) {
         throw new TypeError("Expected the first argument to be an object");
       }
-      let keys = micromatch(Object.keys(obj), patterns, options2);
+      let keys = micromatch(Object.keys(obj), patterns, options);
       let res = {};
       for (let key of keys)
         res[key] = obj[key];
       return res;
     };
-    micromatch.some = (list, patterns, options2) => {
+    micromatch.some = (list, patterns, options) => {
       let items = [].concat(list);
       for (let pattern of [].concat(patterns)) {
-        let isMatch = picomatch(String(pattern), options2);
+        let isMatch = picomatch(String(pattern), options);
         if (items.some((item) => isMatch(item))) {
           return true;
         }
       }
       return false;
     };
-    micromatch.every = (list, patterns, options2) => {
+    micromatch.every = (list, patterns, options) => {
       let items = [].concat(list);
       for (let pattern of [].concat(patterns)) {
-        let isMatch = picomatch(String(pattern), options2);
+        let isMatch = picomatch(String(pattern), options);
         if (!items.every((item) => isMatch(item))) {
           return false;
         }
       }
       return true;
     };
-    micromatch.all = (str, patterns, options2) => {
+    micromatch.all = (str, patterns, options) => {
       if (typeof str !== "string") {
         throw new TypeError(`Expected a string: "${util.inspect(str)}"`);
       }
-      return [].concat(patterns).every((p) => picomatch(p, options2)(str));
+      return [].concat(patterns).every((p) => picomatch(p, options)(str));
     };
-    micromatch.capture = (glob, input, options2) => {
-      let posix = utils.isWindows(options2);
-      let regex = picomatch.makeRe(String(glob), { ...options2, capture: true });
+    micromatch.capture = (glob, input, options) => {
+      let posix = utils.isWindows(options);
+      let regex = picomatch.makeRe(String(glob), { ...options, capture: true });
       let match = regex.exec(posix ? utils.toPosixSlashes(input) : input);
       if (match) {
         return match.slice(1).map((v) => v === void 0 ? "" : v);
@@ -33310,27 +33310,27 @@ var require_micromatch = __commonJS({
     };
     micromatch.makeRe = (...args) => picomatch.makeRe(...args);
     micromatch.scan = (...args) => picomatch.scan(...args);
-    micromatch.parse = (patterns, options2) => {
+    micromatch.parse = (patterns, options) => {
       let res = [];
       for (let pattern of [].concat(patterns || [])) {
-        for (let str of braces(String(pattern), options2)) {
-          res.push(picomatch.parse(str, options2));
+        for (let str of braces(String(pattern), options)) {
+          res.push(picomatch.parse(str, options));
         }
       }
       return res;
     };
-    micromatch.braces = (pattern, options2) => {
+    micromatch.braces = (pattern, options) => {
       if (typeof pattern !== "string")
         throw new TypeError("Expected a string");
-      if (options2 && options2.nobrace === true || !/\{.*\}/.test(pattern)) {
+      if (options && options.nobrace === true || !/\{.*\}/.test(pattern)) {
         return [pattern];
       }
-      return braces(pattern, options2);
+      return braces(pattern, options);
     };
-    micromatch.braceExpand = (pattern, options2) => {
+    micromatch.braceExpand = (pattern, options) => {
       if (typeof pattern !== "string")
         throw new TypeError("Expected a string");
-      return micromatch.braces(pattern, { ...options2, expand: true });
+      return micromatch.braces(pattern, { ...options, expand: true });
     };
     module2.exports = micromatch;
   }
@@ -33419,7 +33419,7 @@ var require_handlers = __commonJS({
       proxy.on("econnreset", (error, req, res, target) => {
         logger.error(`[HPM] ECONNRESET: %O`, error);
       });
-      proxy.on("proxyReqWs", (proxyReq, req, socket, options2, head) => {
+      proxy.on("proxyReqWs", (proxyReq, req, socket, options, head) => {
         socket.on("error", (error) => {
           logger.error(`[HPM] WebSocket error: %O`, error);
         });
@@ -33427,7 +33427,7 @@ var require_handlers = __commonJS({
       logger.debug("[HPM] Subscribed to http-proxy events:", Object.keys(handlers));
     }
     exports2.init = init;
-    function getHandlers(options2) {
+    function getHandlers(options) {
       const proxyEventsMap = {
         error: "onError",
         proxyReq: "onProxyReq",
@@ -33438,7 +33438,7 @@ var require_handlers = __commonJS({
       };
       const handlers = {};
       for (const [eventName, onEventName] of Object.entries(proxyEventsMap)) {
-        const fnHandler = options2 ? options2[onEventName] : null;
+        const fnHandler = options ? options[onEventName] : null;
         if (typeof fnHandler === "function") {
           handlers[eventName] = fnHandler;
         }
@@ -33663,13 +33663,13 @@ var require_http_proxy_middleware = __commonJS({
           }
           return newProxyOptions;
         };
-        this.applyRouter = async (req, options2) => {
+        this.applyRouter = async (req, options) => {
           let newTarget;
-          if (options2.router) {
-            newTarget = await Router2.getTarget(req, options2);
+          if (options.router) {
+            newTarget = await Router2.getTarget(req, options);
             if (newTarget) {
-              this.logger.debug('[HPM] Router new target: %s -> "%s"', options2.target, newTarget);
-              options2.target = newTarget;
+              this.logger.debug('[HPM] Router new target: %s -> "%s"', options.target, newTarget);
+              options.target = newTarget;
             }
           }
         };
@@ -33872,8 +33872,8 @@ var require_dist = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createProxyMiddleware = void 0;
     var http_proxy_middleware_1 = require_http_proxy_middleware();
-    function createProxyMiddleware2(context, options2) {
-      const { middleware } = new http_proxy_middleware_1.HttpProxyMiddleware(context, options2);
+    function createProxyMiddleware2(context, options) {
+      const { middleware } = new http_proxy_middleware_1.HttpProxyMiddleware(context, options);
       return middleware;
     }
     exports2.createProxyMiddleware = createProxyMiddleware2;
@@ -34427,10 +34427,10 @@ var isRedirect = (code) => {
 // node_modules/node-fetch/src/response.js
 var INTERNALS2 = Symbol("Response internals");
 var Response = class _Response extends Body {
-  constructor(body = null, options2 = {}) {
-    super(body, options2);
-    const status = options2.status != null ? options2.status : 200;
-    const headers = new Headers(options2.headers);
+  constructor(body = null, options = {}) {
+    super(body, options);
+    const status = options.status != null ? options.status : 200;
+    const headers = new Headers(options.headers);
     if (body !== null && !headers.has("Content-Type")) {
       const contentType = extractContentType(body, this);
       if (contentType) {
@@ -34439,12 +34439,12 @@ var Response = class _Response extends Body {
     }
     this[INTERNALS2] = {
       type: "default",
-      url: options2.url,
+      url: options.url,
       status,
-      statusText: options2.statusText || "",
+      statusText: options.statusText || "",
       headers,
-      counter: options2.counter,
-      highWaterMark: options2.highWaterMark
+      counter: options.counter,
+      highWaterMark: options.highWaterMark
     };
   }
   get type() {
@@ -34873,7 +34873,7 @@ var getNodeRequestOptions = (request) => {
     agent = agent(parsedURL);
   }
   const search = getSearch(parsedURL);
-  const options2 = {
+  const options = {
     // Overwrite search to retain trailing ? (issue #776)
     path: parsedURL.pathname + search,
     // The following options are not expressed in the URL
@@ -34885,7 +34885,7 @@ var getNodeRequestOptions = (request) => {
   return {
     /** @type {URL} */
     parsedURL,
-    options: options2
+    options
   };
 };
 
@@ -34903,7 +34903,7 @@ var supportedSchemas = /* @__PURE__ */ new Set(["data:", "http:", "https:"]);
 async function fetch(url, options_) {
   return new Promise((resolve, reject) => {
     const request = new Request(url, options_);
-    const { parsedURL, options: options2 } = getNodeRequestOptions(request);
+    const { parsedURL, options } = getNodeRequestOptions(request);
     if (!supportedSchemas.has(parsedURL.protocol)) {
       throw new TypeError(`node-fetch cannot load ${url}. URL scheme "${parsedURL.protocol.replace(/:$/, "")}" is not supported.`);
     }
@@ -34935,7 +34935,7 @@ async function fetch(url, options_) {
       abort();
       finalize();
     };
-    const request_ = send(parsedURL.toString(), options2);
+    const request_ = send(parsedURL.toString(), options);
     if (signal) {
       signal.addEventListener("abort", abortAndFinalize);
     }
@@ -35170,37 +35170,37 @@ var import_express = __toESM(require_express2());
 var import_http_proxy_middleware = __toESM(require_dist());
 var clan = "#2YPY9PLUU";
 var router = (0, import_express.Router)();
-var options = {
-  target: "http://endzone-clan.de",
-  changeOrigin: true,
-  pathRewrite: {
-    [``]: "/api"
-  },
-  onProxyReq: (proxyReq, req) => {
-    proxyReq.setHeader("Authorization", `Bearer ${accessToken}`);
-    proxyReq.setHeader("Host", "api.clashofclans.com");
-    proxyReq.setHeader("X-Forwarded-For", "62.157.65.210");
-    proxyReq.setHeader("X-Real-IP", "62.157.65.210");
-  }
-};
 var API = "https://api.clashofclans.com/v1";
 exports.handler = async function(event, context) {
   try {
     const clans = `${API}/clans/${encodeURIComponent(clan)}`;
     const headers = new Headers();
     headers.set("Authorization", `Bearer ${accessToken}`);
-    headers.set("X-Forwarded-For", "62.157.65.210");
-    headers.set("X-Real-IP", "62.157.65.210");
-    router.use("/api2", (0, import_http_proxy_middleware.createProxyMiddleware)(options));
+    const redirectTo = "https://endzone-clan.de";
+    const proxy = (0, import_http_proxy_middleware.createProxyMiddleware)({
+      target: redirectTo,
+      changeOrigin: true,
+      pathRewrite: {
+        [``]: "/api"
+      },
+      onProxyReq: (proxyReq, req) => {
+        proxyReq.setHeader("Authorization", `Bearer ${accessToken}`);
+        proxyReq.setHeader("Host", "api.clashofclans.com");
+        proxyReq.setHeader("X-Forwarded-For", "62.157.65.210");
+        proxyReq.setHeader("X-Real-IP", "62.157.65.210");
+      }
+    });
+    ;
     console.log(event.path);
     const response = await fetch(clans, { headers });
     const data = await response.json();
-    console.log(data.name);
+    console.log(data.tag);
     return {
-      statusCode: 200,
-      body: JSON.stringify({
-        data
-      })
+      statusCode: 301,
+      headers: {
+        Location: redirectTo
+      },
+      body: JSON.stringify({ message: "Redirecting to endzone-clan.de" })
     };
   } catch (error) {
     console.error(error);
