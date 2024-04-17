@@ -1,20 +1,24 @@
 {
   "files": {
     "main.css": "/static/css/main.eca234e1.css",
-    "main.js": "/static/js/main.2cde0da4.js",
+    "main.js": "/static/js/main.1d99eda5.js",
     "static/js/787.7e96763a.chunk.js": "/static/js/787.7e96763a.chunk.js",
     "static/media/IMG_3465.gif": "/static/media/IMG_3465.ea8aec0f5bfd9a2fe00e.gif",
     "static/media/IMG_3954.png": "/static/media/IMG_3954.6fcf100af699cf2c3e68.png",
+    "static/media/Firstzone_Badge.png": "/static/media/Firstzone_Badge.71efab7f51e32f4d193c.png",
+    "static/media/Secondzone_Badge.png": "/static/media/Secondzone_Badge.27e1f0657eace0803e24.png",
+    "static/media/Thirdzone_Badge.png": "/static/media/Thirdzone_Badge.837aa36bbe00f2d2775e.png",
+    "static/media/Endzone_Badge.png": "/static/media/Endzone_Badge.405711aa87bea236bc8f.png",
     "static/media/clan_badge.png": "/static/media/clan_badge.00e8a8e6ac7acb2ac616.png",
     "static/media/Join_us.png": "/static/media/Join_us.06c51195d34449dcef9b.png",
     "static/media/HoltwoodOneSC-Regular.ttf": "/static/media/HoltwoodOneSC-Regular.7ee7f2d0f13e4770accd.ttf",
     "index.html": "/index.html",
     "main.eca234e1.css.map": "/static/css/main.eca234e1.css.map",
-    "main.2cde0da4.js.map": "/static/js/main.2cde0da4.js.map",
+    "main.1d99eda5.js.map": "/static/js/main.1d99eda5.js.map",
     "787.7e96763a.chunk.js.map": "/static/js/787.7e96763a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.eca234e1.css",
-    "static/js/main.2cde0da4.js"
+    "static/js/main.1d99eda5.js"
   ]
 }

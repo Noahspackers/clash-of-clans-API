@@ -6,7 +6,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { accessToken } from "../../service/accestoken";
 import join from "../../assets/Join_us.png";
 import twitch from "../../assets/twitch_logo.png";
-import axios from "axios";
+import EndzoneBadge from "../../assets/Endzone_Badge.png";
+import SecondzoneBadge from "../../assets/Secondzone_Badge.png";
+import FirstzoneBadge from "../../assets/Firstzone_Badge.png";
+import ThridzoneBadge from "../../assets/Thirdzone_Badge.png";
+
 const client = require("clash-of-clans-node");
 
 interface Body {}
@@ -35,6 +39,8 @@ const Body: React.FC<Body> = () => {
     console.log(client);
   }
   myFunction();
+
+  const clan = "https://link.clashofclans.com/de?action=OpenClanProfile&tag=";
   return (
     <div className="body" ref={scrollElementRef}>
       <Header />
@@ -53,20 +59,14 @@ const Body: React.FC<Body> = () => {
           <div className="mainclan">
             <>
               <div className="clan_order" id="whereToGo">
-                <a
-                  className="clan_name"
-                  href={`https://link.clashofclans.com/de?action=OpenClanProfile&tag=2YPY9PLUU`}
-                >
+                <a className="clan_name" href={`${clan}2YPY9PLUU`}>
                   <p>Endzone</p>
                 </a>
-                <a
-                  className="clan_id"
-                  href={`https://link.clashofclans.com/de?action=OpenClanProfile&tag=2YPY9PLUU`}
-                >
+                <a className="clan_id" href={`${clan}2YPY9PLUU`}>
                   <p>#2YPY9PLUU</p>
                 </a>
 
-                <img src={badge} className="badge" alt="Logo" />
+                <img src={EndzoneBadge} className="badge" alt="Logo" />
               </div>
               <span className="madeFor">
                 <ul>
@@ -83,19 +83,13 @@ const Body: React.FC<Body> = () => {
           <div className="firstzone">
             <>
               <div className="clan_order">
-                <a
-                  className="clan_name"
-                  href={`https://link.clashofclans.com/de?action=OpenClanProfile&tag=2YQQ80QGL`}
-                >
+                <a className="clan_name" href={`${clan}2YQQ80QGL`}>
                   <p>Firstzone</p>
                 </a>
-                <a
-                  className="clan_id"
-                  href={`https://link.clashofclans.com/de?action=OpenClanProfile&tag=2YQQ80QGL`}
-                >
+                <a className="clan_id" href={`${clan}2YQQ80QGL`}>
                   <p>#2YQQ80QGL</p>
                 </a>
-                <img src={badge} className="badge" alt="Logo" />
+                <img src={FirstzoneBadge} className="badge" alt="Logo" />
               </div>
               <span className="madeFor">
                 <ul>
@@ -111,19 +105,13 @@ const Body: React.FC<Body> = () => {
         <div className="container-clan">
           <div className="secondclan">
             <div className="clan_order">
-              <a
-                className="clan_name"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2QQPYRRCU"
-              >
+              <a className="clan_name" href={`${clan}2QQPYRRCU`}>
                 <p>Secondzone:</p>
               </a>
-              <a
-                className="clan_id"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2QQPYRRCU"
-              >
+              <a className="clan_id" href={`${clan}2QQPYRRCU`}>
                 <p>#2QQPYRRCU</p>
               </a>
-              <img src={badge} className="badge" alt="Logo" />
+              <img src={SecondzoneBadge} className="badge" alt="Logo" />
             </div>
 
             <span className="madeFor">
@@ -140,19 +128,13 @@ const Body: React.FC<Body> = () => {
         <div className="container-clan">
           <div className="thirdzone">
             <div className="clan_order">
-              <a
-                className="clan_name"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2GCQLVPR9"
-              >
+              <a className="clan_name" href={`${clan}2GCQLVPR9`}>
                 <p>Thirdzone:</p>
               </a>
-              <a
-                className="clan_id"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2GCQLVPR9"
-              >
+              <a className="clan_id" href={`${clan}2GCQLVPR9`}>
                 <p>#2GCQLVPR9</p>
               </a>
-              <img src={badge} className="badge" alt="Logo" />
+              <img src={ThridzoneBadge} className="badge" alt="Logo" />
             </div>
             <span className="madeFor">
               <ul>
@@ -168,16 +150,10 @@ const Body: React.FC<Body> = () => {
         <div className="container-clan">
           <div className="fourthzone">
             <div className="clan_order">
-              <a
-                className="clan_name"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2GU0V2VCR"
-              >
+              <a className="clan_name" href={`${clan}2GU0V2VCR`}>
                 <p>Fourthzone:</p>
               </a>
-              <a
-                className="clan_id"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2GU0V2VCR"
-              >
+              <a className="clan_id" href={`${clan}2GU0V2VCR`}>
                 <p>#2GU0V2VCR</p>
               </a>
               <img src={badge} className="badge" alt="Logo" />
@@ -195,16 +171,10 @@ const Body: React.FC<Body> = () => {
         <div className="container-clan">
           <div className="endzoneCWL">
             <div className="clan_order">
-              <a
-                className="clan_name"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2QYJVOCJ2"
-              >
+              <a className="clan_name" href={`${clan}2QYJVOCJ2`}>
                 <p>Endzone CWL:</p>
               </a>
-              <a
-                className="clan_id"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2QYJVOCJ2"
-              >
+              <a className="clan_id" href={`${clan}2QYJVOCJ2`}>
                 <p>#2QYJVOCJ2</p>
               </a>
               <img src={badge} className="badge" alt="Logo" />
@@ -221,16 +191,10 @@ const Body: React.FC<Body> = () => {
         <div className="container-clan">
           <div className="eventzone">
             <div className="clan_order">
-              <a
-                className="clan_name"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2LPRVJUPL"
-              >
+              <a className="clan_name" href={`${clan}2LPRVJUPL`}>
                 <p>Eventzone:</p>
               </a>
-              <a
-                className="clan_id"
-                href="https://link.clashofclans.com/de?action=OpenClanProfile&tag=2LPRVJUPL"
-              >
+              <a className="clan_id" href={`${clan}2LPRVJUPL`}>
                 <p>#2LPRVJUPL</p>
               </a>
               <img src={badge} className="badge" alt="Logo" />
@@ -253,10 +217,11 @@ const Body: React.FC<Body> = () => {
             <p>
               Wir sind der Endzone Clan.
               <br /> Gegründet haben wir uns 2021 und sind seitdem stetig am
-              Wachsen. Inzwischen sind wir eine Clanfamilie aus insgesamt 5
-              Clans. Uns zeichnet eine familiäre Atmosphäre und unser
-              freundlicher und herzlicher Umgang mit einander aus. Wir versuchen
-              stets Zufriedenheit zu gewährleisten. <br /> <br />
+              Wachsen. Inzwischen sind wir eine Clanfamilie aus insgesamt 6
+              Clans und über 300 Mitgliedern. Uns zeichnet eine familiäre
+              Atmosphäre und unser freundlicher und herzlicher Umgang mit
+              einander aus. Wir versuchen stets Zufriedenheit zu gewährleisten.{" "}
+              <br /> <br />
               Wir bieten eine Bleibe für jede Art von Spieler, ob Wettkampf
               orientiert oder Hobbyspieler, hier kann sich jeder wie Zuhause
               fühlen. Das Endzone Team freut sich auf dich!
@@ -302,17 +267,6 @@ const Body: React.FC<Body> = () => {
           </div>
         </div>
       </div>
-      {/*    
-        <div
-          style={{
-            color: "white",
-            margin: "35vh 0",
-            textAlign: "center",
-          }}
-        >
-          "Wir sind grade offline! Besuche uns später einfach nochmal!"
-        </div>
-  */}
     </div>
   );
 };
