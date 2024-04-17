@@ -147,7 +147,7 @@ const Body: React.FC<Body> = () => {
             </span>
           </div>
         </div>
-        <div className="container-clan">
+        {/* <div className="container-clan">
           <div className="fourthzone">
             <div className="clan_order">
               <a className="clan_name" href={`${clan}2GU0V2VCR`}>
@@ -167,7 +167,7 @@ const Body: React.FC<Body> = () => {
               </ul>
             </span>
           </div>
-        </div>
+        </div> */}
         <div className="container-clan">
           <div className="endzoneCWL">
             <div className="clan_order">
