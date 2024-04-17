@@ -46,7 +46,7 @@ const Body: React.FC<Body> = () => {
       <Header />
 
       <div className="containerBody">
-        <div className="wrapperDiscord" id="server">
+        <div className="wrapperDiscord">
           <a href="https://discord.gg/PZtZ4Pu6a4">
             <img src={join} alt="Join Us!" />
           </a>
@@ -58,7 +58,7 @@ const Body: React.FC<Body> = () => {
         <div className="container-clan">
           <div className="mainclan">
             <>
-              <div className="clan_order" id="whereToGo">
+              <div className="clan_order">
                 <a className="clan_name" href={`${clan}2YPY9PLUU`}>
                   <p>Endzone</p>
                 </a>
