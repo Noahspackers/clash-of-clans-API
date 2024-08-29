@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.eca234e1.css",
-    "main.js": "/static/js/main.1d99eda5.js",
+    "main.css": "/static/css/main.261c8794.css",
+    "main.js": "/static/js/main.232387dc.js",
     "static/js/787.7e96763a.chunk.js": "/static/js/787.7e96763a.chunk.js",
     "static/media/IMG_3465.gif": "/static/media/IMG_3465.ea8aec0f5bfd9a2fe00e.gif",
     "static/media/IMG_3954.png": "/static/media/IMG_3954.6fcf100af699cf2c3e68.png",
@@ -13,12 +13,12 @@
     "static/media/Join_us.png": "/static/media/Join_us.06c51195d34449dcef9b.png",
     "static/media/HoltwoodOneSC-Regular.ttf": "/static/media/HoltwoodOneSC-Regular.7ee7f2d0f13e4770accd.ttf",
     "index.html": "/index.html",
-    "main.eca234e1.css.map": "/static/css/main.eca234e1.css.map",
-    "main.1d99eda5.js.map": "/static/js/main.1d99eda5.js.map",
+    "main.261c8794.css.map": "/static/css/main.261c8794.css.map",
+    "main.232387dc.js.map": "/static/js/main.232387dc.js.map",
     "787.7e96763a.chunk.js.map": "/static/js/787.7e96763a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eca234e1.css",
-    "static/js/main.1d99eda5.js"
+    "static/css/main.261c8794.css",
+    "static/js/main.232387dc.js"
   ]
 }

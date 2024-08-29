@@ -1,17 +1,29 @@
 .App {
   text-align: center;
-  font-family: Holtwood One SC;
+  font-family: "ClashRegular";
 }
 body {
-  font-family: holtwood one sc;
+  font-family: ClashRegular;
   margin: 0;
   padding: 0;
+  $purple: #6520b9;
+  $white: #ffffff;
+  $dark: #070707;
+  $text: #e0e2db;
 }
 @font-face {
-  font-family: 'Holtwood One SC';
-  src: url("https://fonts.google.com/specimen/Holtwood+One+SC");
-  src: local('Holtwood One SC'), url(./fonts/Holtwood_One_SC/HoltwoodOneSC-Regular.ttf) format('opentype');
+  font-family: "ClashRegular";
+  src:
+    local("ClashRegular"),
+    url("./fonts/Clash_Regular.otf") format("opentype");
 }
+@font-face {
+  font-family: "Inter";
+  src:
+    local("Inter"),
+    url("./fonts/Inter-VariableFont_slnt\,wght.ttf") format("opentype");
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -45,4 +57,10 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+body {
+  $purple: #6520b9;
+  $white: #ffffff;
+  $dark: #070707;
+  $text: #e0e2db;
 }
