@@ -1,6 +1,7 @@
 import { Clan } from 'clashofclans.js';
 import { create } from 'zustand';
 import axios from 'axios';
+import 'dotenv/config';
 
 interface ClanStore {
     clans: Record<string, Clan>;
