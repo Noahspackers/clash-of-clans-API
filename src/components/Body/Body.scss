@@ -255,6 +255,7 @@ img {
   grid-column: 2;
   > img {
     width: 100%;
+    transform: rotateY(-180deg);
   }
 }
 
@@ -278,6 +279,7 @@ img {
     height: 60px;
     padding: 12px 10px 12px 10px;
     gap: 10px;
+    cursor: pointer;
     text-transform: uppercase;
     font-family: "ClashRegular";
     font-size: 16px;
@@ -309,6 +311,7 @@ img {
     height: 60px;
     padding: 12px 10px 12px 10px;
     gap: 10px;
+    cursor: pointer;
     background: var(--purple);
     text-transform: uppercase;
     font-family: "ClashRegular";
@@ -331,7 +334,7 @@ img {
   grid-column: 1;
   margin: 9rem 8rem;
   > img {
-    width: 100%;
+    width: 80%;
     position: relative;
   }
 }
@@ -388,6 +391,7 @@ footer {
   background: url("../../assets/24938d50cc003a20c371eddc99ddf14f.png");
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 0.5fr 1fr 1fr;
+  background-size: cover;
 }
 .SecondRow__top {
   grid-column: 1 / 5;
@@ -405,6 +409,28 @@ footer {
   padding: 1rem;
   gap: 3.5rem;
 }
+#raid-weekend {
+  display: grid;
+  > h1 {
+    text-align: center;
+    margin: 3rem auto;
+    color: #fff;
+    grid-column: 2 / 4;
+  }
+}
+.raid-wrapper {
+  display: grid;
+  grid-row: 2;
+  grid-column: 1 / 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin: 1rem 3.5rem;
+  padding: 1rem;
+  gap: 3.5rem;
+  > p {
+    color: #fff;
+  }
+}
 .clanWrapper {
   border: 1px solid var(--white);
   grid-row: 1;
@@ -413,31 +439,33 @@ footer {
   flex-direction: column;
   grid-column: auto;
   grid-template-rows: 1fr repeat(2, 0.3fr) 0.6fr 0.2fr 0.4fr;
-  > img {
+  > img:first-of-type {
     width: 65%;
-    margin: -5rem auto;
+    margin: -4rem auto;
     top: 0rem;
     position: relative;
   }
   > p {
     text-align: center;
-    font-family: "Inter";
-    padding: 0rem 2rem;
+    padding: 0rem 1rem;
+    color: #fff;
   }
   > h3 {
     text-align: center;
     font-size: 32px;
     margin: 0;
+    color: #fff;
   }
   > span {
-    font-family: "Inter";
     text-align: center;
+    color: #fff;
   }
   > button {
-    width: 150px;
     height: 40px;
-    padding: 12px 10px 12px 10px;
     gap: 10px;
+    padding: 8px 16px;
+    width: max-content;
+    cursor: pointer;
     font-size: 16px;
     font-family: "ClashRegular";
     color: var(--text);
@@ -451,6 +479,15 @@ footer {
 }
 .SecondRow__bottom {
   grid-row: 3;
+  grid-column: 1 / 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: 4.5rem 3.5rem 0 3.5rem;
+  padding: 1rem;
+  gap: 3.5rem;
+}
+.SecondRow__under-bottom {
+  grid-row: 4;
   grid-column: 1 / 5;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -494,73 +531,101 @@ footer {
     width: 64px;
   }
 }
-
 .carousel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: none;
 }
-
-.carousel__header {
-  margin-bottom: 20px;
-}
-
-.carousel__content {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.carousel__button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  top: 0;
-  color: white;
+.clan-badge {
   margin: 0 auto;
+  width: 60px;
 }
-
-.carousel__item {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.clanWrapper {
-  text-align: center;
-  max-width: 300px;
-}
-
-.carousel__pagination {
-  margin-top: 10px;
-  display: flex;
-  gap: 8px;
-}
-
-.pagination__dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: gray;
+.wallpaper-btn {
+  width: 290px;
+  height: 60px;
+  padding: 12px 10px 12px 10px;
+  gap: 10px;
   cursor: pointer;
+  text-transform: uppercase;
+  font-family: "ClashRegular";
+  font-size: 16px;
+  margin: 0.5rem auto;
+  background: transparent;
+  color: var(--text);
+  border-radius: 6px;
+  border: 1px solid #ffffff;
 }
-
-.pagination__dot.active {
-  background-color: blue;
-}
-.paginatorWrapper {
-  display: flex;
+.wallpaper-wrapper {
   width: 100%;
-  justify-content: center;
-  margin: 1rem auto;
-  > button {
+  display: flex;
+  background-color: #6520b9;
+}
+@media (max-width: 736px) {
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carousel__header {
+    margin-bottom: 20px;
+  }
+
+  .carousel__content {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .carousel__button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    top: 0;
+    color: white;
     margin: 0 auto;
   }
-}
 
-@media (max-width: 736px) {
+  .carousel__item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .clanWrapper {
+    text-align: center;
+    max-width: 330px;
+    height: 440px;
+    grid-row: auto;
+  }
+
+  .carousel__pagination {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .pagination__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: gray;
+    cursor: pointer;
+  }
+
+  .pagination__dot.active {
+    background-color: blue;
+  }
+  .paginatorWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 1rem auto;
+    > button {
+      margin: 0 auto;
+    }
+  }
+
   .containerBody {
     margin-top: 0;
   }
@@ -592,6 +657,9 @@ footer {
       display: none;
     }
     > .SecondRow__bottom {
+      display: none;
+    }
+    > .SecondRow__under-bottom {
       display: none;
     }
   }
@@ -670,6 +738,7 @@ footer {
       }
       > button {
         width: 100%;
+        cursor: pointer;
       }
     }
   }
@@ -706,7 +775,7 @@ footer {
       grid-column: 1;
       margin: 2rem 2rem;
       > img {
-        width: 80%;
+        width: 50%;
         position: relative;
         margin: 0 auto;
 
@@ -717,5 +786,12 @@ footer {
   footer {
     display: flex;
     flex-direction: column;
+  }
+  #raid-weekend {
+  }
+  .raid-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, auto);
+    margin: 0 auto;
   }
 }

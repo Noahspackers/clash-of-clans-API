@@ -1,7 +1,7 @@
 # ignore all files in this directory
 node_modules
 .ds_store
-
+.studio-endzone
 .gitignore
 
 
